@@ -1,0 +1,142 @@
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+    align-items: center;
+}
+
+.half {
+    width: 50%;
+}
+
+.hide {
+    display: none;
+}
+
+#title-screen {
+    text-align: center;
+}
+
+#title-screen > img {
+    max-width: 90%;
+    display: block;
+    margin: 0 auto;
+}
+
+#title-screen h2 {
+    margin-top: 2em;
+}
+
+#title-screen > div {
+    width: 30%;
+    margin: 3em auto 0 auto;
+    justify-content: space-between;
+}
+
+button {
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 1em 2em;
+    background-color: white;
+}
+
+#pick-screen {
+    text-align: center;
+}
+
+#pick-screen h1 {
+    text-transform: uppercase;
+}
+
+.cat-pics {
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.cat-pics > img {
+    object-fit: contain;
+    height: 125px;
+    width: 125px;
+    border: 5px solid black;
+}
+
+.cat-info {
+    height: 300px;
+}
+
+.picked-cats {
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.pick-box {
+    object-fit: contain;
+    height: 100px;
+    width: 100px;
+    border: 5px solid black;
+    margin: 1em;
+}
+
+.moves {
+    height: 100px;
+    width: 400px;
+    border: 3px solid black;
+    flex-wrap: wrap;
+}
+
+p {
+    width: 50%;
+    height: 34%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 1em;
+}
+
+#player-1 {
+    align-items: flex-start;
+}
+
+#p1-big-cat {
+    object-fit: contain;
+    height: 450px;
+    width: 450px;
+    margin-bottom: 2em;
+}
+
+#player-1 span {
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+#player-2 {
+    align-items: flex-end;
+}
+
+#p2-big-cat {
+    object-fit: contain;
+    height: 450px;
+    width: 450px;
+    margin-bottom: 2em;
+}
+
+#player-2 span {
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+progress[value] {
+    height: 20px;
+    width: 500px;
+    appearance: none;
+    background-color: green
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}

@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Cat Fight!</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="author" href="humans.txt">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <section id="title-screen">
+        <img src="images/cat-fight.png" alt="">
+        <h2>Player 1</h2>
+        <span>would you like to...</span>
+        <div class="flex">
+            <button id="pick-last">pick last</button>
+            <button id="go-first">go first</button>
+        </div>
+    </section>
+    <section id="pick-screen" class="hide">
+        <div class="cat-pics flex">
+            <img src="images/black-cat.png" name="blackCat">
+            <img src="images/blue-cat.png" name="blueCat">
+            <img src="images/grey-cat.png" name="greyCat">
+            <img src="images/orange-cat.png" name="orangeCat">
+            <img src="images/white-cat.png" name="whiteCat">
+            <img src="images/grumpy-cat.jpg" name="grumpyCat">
+        </div>
+        <h1>pick your cats</h1>
+        <div class="cat-info">
+            <p class="name"></p>
+            <p class="type"></p>
+        </div>
+        <div class="picked-cats flex">
+            <div class="flex column">
+                <h2>Player 1</h2>
+                <div class="flex">
+                    <img id="p1-c1" class="pick-box" src="">
+                    <img id="p1-c2" class="pick-box" src="">
+                </div>
+            </div>
+            <div class="flex column">
+                <h2>Player 2</h2>
+                <div class="flex">
+                    <img id="p2-c1" class="pick-box" src="">
+                    <img id="p2-c2" class="pick-box" src="">
+                </div>
+            </div>
+        </div>
+        <button id="fight">fight</button>
+    </section>
+    <section id="fight-screen" class="flex hide">
+        <div id="player-1" class="flex column half">
+            <progress id="p1-hp" value="" max=""></progress>
+            <span>hit points</span>
+            <img id="p1-big-cat" src="" alt="">
+            <div>
+                <span>cat type:</span>
+                <span class="fight-type"></span>
+                <div class="moves flex column">
+                    <p class="atk"></p>
+                    <p class="spec"></p>
+                    <p class="buff">3. Heal</p>
+                    <p class="switch">4. Switch</p>
+                </div>
+            </div>
+            <div class="flex">
+                <img id="p1-fight-c1" class="pick-box" src="">
+                <img id="p1-fight-c2" class="pick-box" src="">
+            </div>
+        </div>
+        <div id="player-2" class="flex column half">
+            <progress id="p2-hp" value="" max=""></progress>
+            <span>hit points</span>
+            <img id="p2-big-cat" src="" alt="">
+            <div>
+                <span>cat type:</span>
+                <span class="fight-type"></span>
+                <div class="moves flex column">
+                    <p class="atk"></p>
+                    <p class="spec"></p>
+                    <p class="buff">3. Heal</p>
+                    <p class="switch">4. Switch</p>
+                </div>
+            </div>
+            <div class="flex">
+                <img id="p2-fight-c1" class="pick-box" src="">
+                <img id="p2-fight-c2" class="pick-box" src="">
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
