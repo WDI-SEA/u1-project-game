@@ -14,22 +14,25 @@
 </head>
 
 <body>
-    <main>
+    <header>
         <h1 id="top-message">Your Little Pet</h1>
+    </header>
+    <main>
         <section class="game-field">
             <img id="pet" src="images/lion.png" alt="your little pet">
             <div class="hunger hidden">
-                <meter id="hunger-meter" value="12" max="24"></meter>
-                <button id="feed-pet">Feed Pet</button>
+                <meter id="hunger-meter" value="24" max="24"></meter>
+                <button id="feed-pet">Feed</button>
             </div>
         </section>
         <form>
             <input id="name-pet" type="text" placeholder="What is your pet's name?">
             <input class="submit-name" type="submit">
         </form>
+        <button class="reset hidden">RESET GAME</button>
     </main>
     <footer>
-        <p>designed and coded by sara kevorkian ©2017</p>
+        <p>designed and coded by sara kevorkian 2017</p>
     </footer>
 </body>
 
