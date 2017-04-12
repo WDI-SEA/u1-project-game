@@ -1,92 +1,119 @@
-    /*color pallete: https://coolors.co/795c5f-fadf7f-f2e49f-c59b76-e9806e*/
-    
-    body {
-        background-color: #C59B78;
-        text-align: center;
-        font-size: 16px;
-    }
-    /*
+/*color pallete: https://coolors.co/795c5f-fadf7f-f2e49f-c59b76-e9806e*/
+
+body {
+    background-color: #C59B78;
+    text-align: center;
+    font-size: 16px;
+}
+
+main {
+    height: 95vh;
+}
+
+
+/*
 
 Items displayed in begining
 
 */
-    
-    h1 {
-        color: #795C5F;
-        font-family: 'Gloria Hallelujah', cursive;
-        font-size: 3em;
-        padding: 1em;
-    }
-    
-    input {
-        border: 1px solid #795C5F;
-        padding: 0.5em;
-        color: #795C5F;
-        margin-top: 2em;
-    }
-    
-    #name-pet {
-        background-color: #F2E49F;
-    }
-    
-    .submit-name {
-        background-color: #FADF7F;
-    }
-    /*
+
+h1 {
+    color: #795C5F;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 3em;
+    padding: 1em;
+}
+
+input {
+    border: 1px solid #795C5F;
+    padding: 0.5em;
+    color: #795C5F;
+    margin-top: 2em;
+}
+
+#name-pet {
+    background-color: #F2E49F;
+}
+
+.submit-name {
+    background-color: #FADF7F;
+}
+
+
+/*
 
 entire area that displays pet and related game items
 
 */
-    
-    .game-field {
-        background-color: #f2e49f;
-        width: 60%;
-        margin: 0 auto;
-        padding: 3em 0;
-        display: flex;
-        flex-flow: column wrap;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    img {
-        max-width: 75%;
-        /*display: relative;*/
-    }
-    
-    .hunger {
-        height: 2em;
-        margin-top: 1em;
-        width: 100%;
-    }
-    
-    .hunger meter {
-        height: 2em;
-        width: 15em;
-        vertical-align: bottom;
-    }
-    
-    meter::-webkit-meter-bar {
-        background: none;
-        background-color: #C59B78;
-        box-shadow: 0 5px 5px -5px #795C5F inset;
-    }
-    
-    .hunger button {
-        height: 2em;
-        top: 1px;
-    }
-    
-    meter::-webkit-meter-optimum-value {
-        background: #E9806E;
-        box-shadow: 0 5px 5px -5px #795C5F inset
-    }
-    /*
+
+.game-field {
+    background-color: #f2e49f;
+    width: 60%;
+    margin: 0 auto;
+    padding: 3em 0;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    max-width: 75%;
+    /*display: relative;*/
+}
+
+.hunger {
+    height: 2em;
+    margin-top: 1em;
+    width: 100%;
+}
+
+.hunger meter {
+    height: 2em;
+    width: 15em;
+    vertical-align: bottom;
+}
+
+meter::-webkit-meter-bar {
+    background: none;
+    background-color: #C59B78;
+    box-shadow: 0 5px 5px -5px #795C5F inset;
+}
+
+.hunger button {
+    height: 2em;
+    top: 1px;
+}
+
+meter::-webkit-meter-optimum-value {
+    background: #E9806E;
+    box-shadow: 0 5px 5px -5px #795C5F inset
+}
+
+
+/*
+
+    footer
+
+*/
+
+footer {
+    height: 5vh;
+    background-color: #795C5F;
+    color: #F2E49F;
+}
+
+footer p {
+    padding-top: .5em;
+}
+
+
+/*
 
 toggle-able classes
 
 */
-    
-    .hidden {
-        display: none;
-    }
+
+.hidden {
+    display: none;
+}
