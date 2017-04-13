@@ -61,8 +61,6 @@ input,
     color: #795C5F;
 }
 
-#name-pet:focus {}
-
 .submit-name,
 .reset {
     background-color: #FADF7F;
@@ -95,6 +93,36 @@ entire area that displays pet and related game items
     transition: all 1s ease;
     /*display: relative;*/
 }
+
+
+/*
+
+poop field
+
+*/
+
+.poop-field {
+    position: absolute;
+    height: 10%;
+    width: 30%;
+    bottom: 30%;
+    left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.poop-field img {
+    max-height: 100%;
+}
+
+
+/*
+
+HUNGER METER
+
+*/
 
 .hunger {
     min-height: 10%;
@@ -145,9 +173,17 @@ meter::-webkit-meter-optimum-value {
     border: 1px #C59B76 solid;
 }
 
+#pet-name:focus,
 .feed:focus {
     outline: none;
 }
+
+
+/*
+
+FOOD MENU
+
+*/
 
 .food-menu {
     height: 20%;

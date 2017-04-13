@@ -16,10 +16,10 @@ var maxHunger = 100;
 // can change this for demo purposes
 // passed along with hunger decreasefunction on a set interval
 var gameLoopFreq = 1000;
-var hungerDecreaseFreq = 2000;
-var timeUntilNextHunger = hungerDecreaseFreq;
+var hungerDecreaseFreq = 1000;
+var hungerTimer = hungerDecreaseFreq;
 var poopFreq = hungerDecreaseFreq * 10;
-var timeUntilNextPoop = poopFreq;
+var poopTimer = poopFreq;
 // allows us to clear the interval of the game loop, for example on death
 var intervalID;
 
@@ -70,13 +70,8 @@ function saveToLocalStorage() {
 // put hunger calculation here
 function retrievePetFromStorage() {
     pet = JSON.parse(localStorage.pet);
-    var hungerDecreaseWhileAway = (Date.now() - localStorage.timeStamp) / hungerDecreaseFreq;
-    var poopsWhileAway = (Date.now() - localStorage.timeStamp) / poopFreq;
-    pet.hunger -= Math.floor(hungerDecreaseWhileAway);
-    pet.poop += Math.floor(poopsWhileAway);
-    if (pet.hunger < 0) {
-        death();
-    }
+    var timeElapsed = Date.now() - localStorage.timeStamp;
+    gameUpdate(timeElapsed);
 }
 
 // generates foods from array - useful if i want to add more foods ever
@@ -89,26 +84,29 @@ function foodMenuGenerate() {
     }
 }
 
+function gameUpdate(timeElapsed) {
+    hungerTimer += timeElapsed;
+    var hungerLoss = Math.floor(hungerTimer / hungerDecreaseFreq);
+    pet.hunger -= hungerLoss;
+    hungerTimer -= hungerLoss * hungerDecreaseFreq;
+    if (pet.hunger < 0) {
+        death();
+    }
+
+    poopTimer += timeElapsed;
+    var poopGain = Math.floor(poopTimer / poopFreq);
+    pet.poop += poopGain;
+    poopTimer -= poopGain * poopFreq;
+}
+
 // this function will be called on a set interval after
 // the submit button has been clicked
 // a defined time to decrease hunger is passed to the set interval function
 function gameLoop() {
-    timeUntilNextHunger -= gameLoopFreq;
-    timeUntilNextPoop -= gameLoopFreq;
-    if (timeUntilNextHunger <= 0) {
-        pet.hunger -= 1;
-        timeUntilNextHunger = hungerDecreaseFreq;
-    }
-    if (pet.hunger < 0) {
-        death();
-    }
-    if (timeUntilNextPoop <= 0) {
-        pet.poop += 1;
-        timeUntilNextPoop = poopFreq;
-    }
+    gameUpdate(gameLoopFreq);
+    displayPoop();
     displayHunger();
     saveToLocalStorage();
-    console.log(timeUntilNextPoop, pet);
 }
 
 // resets pet hunger to max value,
@@ -116,8 +114,6 @@ function gameLoop() {
 function resetPet() {
     pet.hunger = maxHunger;
     pet.poop = 0;
-
-    // displayHunger();
 }
 
 // when click button, hunger goes up by one (i want to replace this with a food menu with different restoration values)
@@ -138,12 +134,29 @@ function feedPet() {
     }
     displayHunger();
     shortPurr();
-    console.log(pet.hunger);
 }
 
 // changes the hunger meter
 function displayHunger() {
     $("#hunger-meter").attr("value", pet.hunger);
+}
+
+// generates the poop
+function displayPoop() {
+    $(".poop-field").empty();
+    for (var i = 1; i <= pet.poop; i++) {
+
+        var poop = $("<img>").attr("src", "images/poop/poop.png");
+        $(".poop-field").append(poop);
+        poop.on("click", removePoop);
+    }
+}
+
+function removePoop() {
+    $("this").remove();
+    console.log(pet.poop);
+    pet.poop -= 1;
+    displayPoop();
 }
 
 // this is what happens when you kill your pet
@@ -163,15 +176,14 @@ function initializeGame(e) {
     e.preventDefault();
     pet.name = $("#name-pet").val();
     $("#hunger-meter").attr("max", `${maxHunger}`);
-    resetPet();
     startGame();
+    resetPet();
 }
 
 // start game is separate from initial start game,
 // as we wont want to reset everything after a user returns to the page
 function startGame() {
     displayGameStart(pet.name);
-    displayHunger();
     intervalID = setInterval(gameLoop, gameLoopFreq);
 }
 
@@ -180,8 +192,10 @@ function displayGameStart(name) {
     $("#top-message").text(`${name}, Your Little Pet`);
     $("form").hide();
     $(".hunger").removeClass("hidden");
+    $(".poop-field").removeClass("hidden");
     $(".food-menu").addClass("hidden");
     $("#pet").addClass("hoverable");
+    $(".poop-field").empty();
 }
 
 // restart after pet dies => new page screen
@@ -192,6 +206,7 @@ function resetGame() {
     $(".reset").fadeOut();
     $("form").fadeIn();
     $(".game-field").removeClass("death-bg");
+    $(".poop-field").addClass("hidden");
 }
 
 function foodMenuDisplay() {
