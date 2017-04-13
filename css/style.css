@@ -57,6 +57,12 @@ input,
     width: 35%;
 }
 
+#name-pet:placeholder {
+    color: #795C5F;
+}
+
+#name-pet:focus {}
+
 .submit-name,
 .reset {
     background-color: #FADF7F;
@@ -80,6 +86,7 @@ entire area that displays pet and related game items
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+    position: relative;
 }
 
 #pet {
@@ -128,6 +135,7 @@ meter::-webkit-meter-optimum-value {
     box-shadow: 0 5px 5px -5px #795C5F inset;
     font-size: 1em;
     transition: all 1s ease;
+    line-height: 5px;
 }
 
 .feed:hover {

@@ -15,7 +15,11 @@
 var maxHunger = 100;
 // can change this for demo purposes
 // passed along with hunger decreasefunction on a set interval
-var timeForHungerDecrease = 1000;
+var gameLoopFreq = 1000;
+var hungerDecreaseFreq = 2000;
+var timeUntilNextHunger = hungerDecreaseFreq;
+var poopFreq = hungerDecreaseFreq * 10;
+var timeUntilNextPoop = poopFreq;
 // allows us to clear the interval of the game loop, for example on death
 var intervalID;
 
@@ -26,6 +30,7 @@ class Pet {
     constructor() {
         this.hunger = maxHunger;
         this.name = "";
+        this.poop = 0;
     }
 }
 
@@ -65,8 +70,10 @@ function saveToLocalStorage() {
 // put hunger calculation here
 function retrievePetFromStorage() {
     pet = JSON.parse(localStorage.pet);
-    var hungerDecreaseWhileAway = (Date.now() - localStorage.timeStamp) / timeForHungerDecrease;
+    var hungerDecreaseWhileAway = (Date.now() - localStorage.timeStamp) / hungerDecreaseFreq;
+    var poopsWhileAway = (Date.now() - localStorage.timeStamp) / poopFreq;
     pet.hunger -= Math.floor(hungerDecreaseWhileAway);
+    pet.poop += Math.floor(poopsWhileAway);
     if (pet.hunger < 0) {
         death();
     }
@@ -86,22 +93,31 @@ function foodMenuGenerate() {
 // the submit button has been clicked
 // a defined time to decrease hunger is passed to the set interval function
 function gameLoop() {
-    // when i get to something that needs a different interval, contact Connor
-    displayHunger();
-    pet.hunger -= 1;
-    saveToLocalStorage();
+    timeUntilNextHunger -= gameLoopFreq;
+    timeUntilNextPoop -= gameLoopFreq;
+    if (timeUntilNextHunger <= 0) {
+        pet.hunger -= 1;
+        timeUntilNextHunger = hungerDecreaseFreq;
+    }
     if (pet.hunger < 0) {
         death();
     }
-
+    if (timeUntilNextPoop <= 0) {
+        pet.poop += 1;
+        timeUntilNextPoop = poopFreq;
+    }
+    displayHunger();
+    saveToLocalStorage();
+    console.log(timeUntilNextPoop, pet);
 }
 
 // resets pet hunger to max value,
 // sets max and value of hunger-meter so if I want to change the max hunger I don't have to change it in the HTML.
-function resetHunger() {
+function resetPet() {
     pet.hunger = maxHunger;
-    $("#hunger-meter").attr("max", `${maxHunger}`);
-    displayHunger();
+    pet.poop = 0;
+
+    // displayHunger();
 }
 
 // when click button, hunger goes up by one (i want to replace this with a food menu with different restoration values)
@@ -146,7 +162,8 @@ function death() {
 function initializeGame(e) {
     e.preventDefault();
     pet.name = $("#name-pet").val();
-    resetHunger();
+    $("#hunger-meter").attr("max", `${maxHunger}`);
+    resetPet();
     startGame();
 }
 
@@ -155,7 +172,7 @@ function initializeGame(e) {
 function startGame() {
     displayGameStart(pet.name);
     displayHunger();
-    intervalID = setInterval(gameLoop, timeForHungerDecrease);
+    intervalID = setInterval(gameLoop, gameLoopFreq);
 }
 
 // once game is started, this  arranges the display
