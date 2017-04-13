@@ -5,6 +5,7 @@ var p1Cats = [];
 var p2Cats = [];
 var p1Index = 0;
 var p2Index = 0;
+var critical;
 
 class cat {
     constructor(name, type, hp, currentHp, attack, special, damage, image) {
@@ -47,15 +48,45 @@ function updateFightScreen(id, array, index) {
     }
 }
 
-function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentArray, opponentIndex, move) {
+function damageRandomizer() {
+    var randomDamage = Math.floor(Math.random() * 11);
+    return randomDamage;
+}
+
+function critChance() {
+    var crit;
+    var chance = Math.ceil(Math.random() * 100);
+    if (chance >= 90) {
+        crit = 1.5;
+        critical = true;
+    } else {
+        crit = 1;
+        critical = false;
+    }
+    return crit;
+}
+
+function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentArray, opponentIndex, move, atkClass) {
+    var plusDamage = damageRandomizer();
+    var multiplyer = critChance();
     var playerCat = attackerArray[attackerIndex];
     var enemyCat = opponentArray[opponentIndex];
-    var atkValue = playerCat.Attack;
-    var specValue = playerCat.Damage;
+    var atkValue = playerCat.Attack + plusDamage;
+    var specValue = playerCat.Damage * multiplyer;
     switch (move) {
         case 1:
             enemyCat.CurrentHp = enemyCat.CurrentHp - atkValue;
-            $(opponent).find('.hp').attr('value', enemyCat.CurrentHp);
+            $(attacker).find('.big-cat').addClass(atkClass);
+            setTimeout(function() {
+                $(opponent).find('.big-cat').addClass('damage');
+                $(opponent).find('.hp').attr('value', enemyCat.CurrentHp);
+            }, 250);
+            setTimeout(function() {
+                $(attacker).find('.big-cat').removeClass(atkClass);
+            }, 300);
+            setTimeout(function() {
+                $(opponent).find('.big-cat').removeClass('damage');
+            }, 750);
             temp = currentPlayer;
             currentPlayer = nextPlayer;
             nextPlayer = temp;
@@ -152,7 +183,6 @@ function pickScreen() {
 }
 
 function fightScreen() {
-    console.log(currentPlayer);
     $('#p1-fight1').attr('src', p1Cats[0].Image);
     $('#p2-fight1').attr('src', p2Cats[0].Image);
     $('#p1-fight2').attr('src', p1Cats[1].Image);
@@ -164,9 +194,9 @@ function fightScreen() {
     $(document).on('keyup', function() {
         if (event.key === '1') {
             if (currentPlayer === 1) {
-                moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 1);
+                moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 1, 'p1attack');
             } else if (currentPlayer === 2) {
-                moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 1);
+                moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 1, 'p2attack');
             }
         } else if (event.key === '2') {
             if (currentPlayer === 1) {
