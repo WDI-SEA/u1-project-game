@@ -5,19 +5,25 @@ body {
     text-align: center;
     font-size: 16px;
     font-family: 'Gloria Hallelujah', cursive;
-}
-
-main {
-    height: 80vh;
+    overflow: hidden;
 }
 
 header {
     height: 15vh;
 }
 
-button,
-input {
-    font-family: 'Gloria Hallelujah', cursive;
+main {
+    height: 75vh;
+}
+
+footer {
+    height: 10vh;
+    background-color: #795C5F;
+    color: #F2E49F;
+}
+
+footer p {
+    padding-top: .5em;
 }
 
 
@@ -26,6 +32,11 @@ input {
 Items displayed in begining
 
 */
+
+button,
+input {
+    font-family: 'Gloria Hallelujah', cursive;
+}
 
 h1 {
     color: #795C5F;
@@ -61,13 +72,14 @@ entire area that displays pet and related game items
 .game-field {
     background-color: #f2e49f;
     width: 60%;
-    height: 70%;
-    margin: 0 auto;
+    height: 75%;
+    margin: 1em auto 0 auto;
     padding: 1em 0;
     display: flex;
     flex-flow: column wrap;
     align-items: center;
     justify-content: center;
+    vertical-align: middle;
 }
 
 #pet {
@@ -100,10 +112,10 @@ meter::-webkit-meter-bar {
 meter::-webkit-meter-optimum-value {
     background: #E9806E;
     box-shadow: 0 5px 5px -5px #795C5F inset;
-    transition: all 2s ease;
+    transition: all 0.25s ease;
 }
 
-.hunger button {
+.feed {
     height: 2em;
     width: 15%;
     vertical-align: middle;
@@ -115,6 +127,18 @@ meter::-webkit-meter-optimum-value {
     border: 1px #795C5F solid;
     box-shadow: 0 5px 5px -5px #795C5F inset;
     font-size: 1em;
+    transition: all 1s ease;
+}
+
+.feed:hover {
+    background-color: #795C5F;
+    color: #E9806E;
+    box-shadow: 0 5px 5px -5px #C59B76 inset;
+    border: 1px #C59B76 solid;
+}
+
+.feed:focus {
+    outline: none;
 }
 
 
@@ -131,23 +155,6 @@ Classes for Image display
 
 .death-bg {
     background-color: red;
-}
-
-
-/*
-
-    footer
-
-*/
-
-footer {
-    height: 5vh;
-    background-color: #795C5F;
-    color: #F2E49F;
-}
-
-footer p {
-    padding-top: .5em;
 }
 
 
