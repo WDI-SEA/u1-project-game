@@ -1,5 +1,6 @@
 .flex {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .column {
@@ -89,7 +90,7 @@ button {
     flex-wrap: wrap;
 }
 
-p {
+.move {
     width: 50%;
     height: 34%;
     margin: 0 auto;
@@ -130,6 +131,10 @@ p {
     background: radial-gradient(red, pink, white, white);
 }
 
+.heal {
+    background: radial-gradient(green, lightgreen, white, white);
+}
+
 #player2 span {
     text-transform: uppercase;
     margin-bottom: 1em;
@@ -149,9 +154,7 @@ progress[value]::-webkit-progress-bar {
 
 .special {
     animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
-    /*transform: translate3d(0, 0, 0);*/
-    /*backface-visibility: hidden;
-  perspective: 1000px;*/
+    background: radial-gradient(blue, lightblue, lightblue, white, white);
 }
 
 @keyframes shake {
@@ -172,4 +175,9 @@ progress[value]::-webkit-progress-bar {
     60% {
         transform: translate3d(4px, 0, 0);
     }
+}
+
+.fight-cats {
+    width: 100%;
+    justify-content: space-between;
 }
