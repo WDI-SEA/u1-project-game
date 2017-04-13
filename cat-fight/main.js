@@ -100,6 +100,9 @@ function catDied(array, index) {
             updateFightScreen('#player1', p1Cats, p1Index);
         }
     }
+    temp = currentPlayer;
+    currentPlayer = nextPlayer;
+    nextPlayer = temp;
 }
 
 function checkDead(array, index) {
@@ -133,9 +136,6 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
             setTimeout(function() {
                 $(opponent).find('.big-cat').removeClass('damage');
             }, 750);
-            temp = currentPlayer;
-            currentPlayer = nextPlayer;
-            nextPlayer = temp;
             if (!critical) {
                 $('.message').text(`${playerCat.Name} hit ${enemyCat.Name} for ${atkValue} damage!`);
             } else if (critical) {
@@ -161,9 +161,6 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
             } else if (critical) {
                 $('.message').text(`${playerCat.Special} crit ${enemyCat.Name} for ${atkValue} damage!`);
             }
-            temp = currentPlayer;
-            currentPlayer = nextPlayer;
-            nextPlayer = temp;
             break;
         case 3:
             if (healValue > 300) {
@@ -201,12 +198,12 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
     }
 }
 
-var blackCat = new cat('Black Cat', 'Witch', 1000, 1000, 50, 'Hex', 175, 0, 'images/black-cat.png', false);
-var blueCat = new cat('Baby Blue', 'Adorable', 1000, 1000, 50, 'Awwww', 175, 0, 'images/blue-cat.png', false);
-var greyCat = new cat('Grey Cat', 'Sleepy', 1000, 1000, 50, 'Purrrr', 175, 0, 'images/grey-cat.png', false);
-var orangeCat = new cat('Oliver', 'Tabby', 1000, 1000, 50, 'Maul Face', 175, 0, 'images/orange-cat.png', false);
-var whiteCat = new cat('Senior Chang', 'Siamese', 1000, 1000, 50, 'Death Stare', 175, 0, 'images/white-cat.png', false);
-var grumpyCat = new cat('Grumpy Cat', 'Disgruntled', 1000, 1000, 50, 'Loathe Everytghing', 175, 0, 'images/grumpy-cat.jpg', false);
+var blackCat = new cat('Black Cat', 'Witch', 1000, 250, 50, 'Hex', 175, 0, 'images/black-cat.png', false);
+var blueCat = new cat('Baby Blue', 'Adorable', 1000, 250, 50, 'Awwww', 175, 0, 'images/blue-cat.png', false);
+var greyCat = new cat('Grey Cat', 'Sleepy', 1000, 250, 50, 'Purrrr', 175, 0, 'images/grey-cat.png', false);
+var orangeCat = new cat('Oliver', 'Tabby', 1000, 250, 50, 'Maul Face', 175, 0, 'images/orange-cat.png', false);
+var whiteCat = new cat('Senior Chang', 'Siamese', 1000, 250, 50, 'Death Stare', 175, 0, 'images/white-cat.png', false);
+var grumpyCat = new cat('Grumpy Cat', 'Disgruntled', 1000, 250, 50, 'Loathe Everytghing', 175, 0, 'images/grumpy-cat.jpg', false);
 
 function onPageLoad() {
     $('#pick-last').on('click', function() {
