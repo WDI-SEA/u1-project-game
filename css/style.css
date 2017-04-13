@@ -1,41 +1,174 @@
-div {
-    font-family: monospace;
+#comp,
+#player,
+#map {
+    font-family: monospace !important;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: #29292D;
+    color: darkgrey;
+    margin: 0;
+}
+
+h1 {
+    color: darkcyan;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 5em;
+}
+
+.color-change {
+    font-family: 'Lobster', cursive;
+    -webkit-animation: colorchange .2s infinite;
+}
+
+.game-over {
+    position: absolute;
+    top: 114px;
+    background: darkcyan;
+    width: 100%;
+    text-align: center;
+    font-size: 4em;
+    display: none;
+}
+
+.game-over p {
+    margin: 0;
+}
+
+@keyframes colorchange {
+    0% {
+        color: red;
+    }
+    25% {
+        color: yellow;
+    }
+    50% {
+        color: blue;
+    }
+    75% {
+        color: green;
+    }
+    100% {
+        color: red;
+    }
+}
+
+.flyin {
+    -webkit-animation: flyin 1s linear;
+}
+
+.spin {
+    -webkit-animation: spin 1s linear;
+}
+
+@keyframes flyin {
+    0% {
+        transform: translateY(800px);
+        scale: 5;
+    }
+    100% {
+        transform: translateY(0px);
+        scale: 1;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(1440deg);
+    }
 }
 
 .flex-box {
-    display: flex
+    display: none;
+    justify-content: space-around;
 }
 
 .left,
 .right {
     width: 48%;
     margin: 0;
+    text-align: center;
+}
+
+.left {
+    display: none;
 }
 
 table {
-    /*margin: 40px auto;*/
+    background-image: url('../img/grass.jpg');
+    margin: 0 auto;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    border-radius: 8px;
+}
+
+.goat {
+    background-size: 100%;
+    background-position: center;
+    background-image: url('../img/baby_goat.png');
+    background-color: rgba(111, 111, 111, .8);
+}
+
+.comp-goat {
+    background-size: 100%;
+    background-position: center;
+    background-image: url('../img/comp_goat.png');
+    background-color: rgba(255, 33, 33, .8);
+}
+
+.nope {
+    background-color: rgba(32, 32, 194, .8);
+    background-image: url('../img/nope.gif');
+    background-size: 127px;
+    background-position: center;
 }
 
 td {
     border: 1px solid black;
-    background-color: blue;
+    border-radius: 8px;
     width: 65px;
     height: 65px;
-    font-size: 4em;
     font-size: 6em;
-    /*   transition: all .3s ease-in-out; */
+    transition: all .2s ease-in-out;
 }
 
-
-/*td[data-ship="A"] {
-    background-color: red;
+#restart,
+.right h2 {
+    display: none;
 }
 
-td[data-ship="B"] {
-    background-color: blue;
+.centerChild {
+    text-align: center;
 }
 
-td[data-ship="C"] {
-    background-color: green;
+p {
+    font-size: 1.2em;
 }
-*/
+
+button {
+    background-color: darkcyan;
+    border: 2px solid black;
+    padding: 15px 101px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 8px;
+    box-shadow: 0 7px #999;
+}
+
+button:hover {
+    background-color: rgba(0, 139, 139, .75);
+}
+
+button:active {
+    background-color: rgba(0, 139, 139, .75);
+    transform: translateY(3px);
+    box-shadow: 0 5px #666;
+}
