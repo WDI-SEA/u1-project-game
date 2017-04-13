@@ -22,6 +22,7 @@ h1 {
 
 .color-change {
     font-family: 'Lobster', cursive;
+    animation: colorchange .2s infinite;
     -webkit-animation: colorchange .2s infinite;
 }
 
@@ -58,10 +59,12 @@ h1 {
 }
 
 .flyin {
+    animation: flyin 1s linear;
     -webkit-animation: flyin 1s linear;
 }
 
 .spin {
+    animation: spin 1s linear;
     -webkit-animation: spin 1s linear;
 }
 
