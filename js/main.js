@@ -7,16 +7,25 @@ var computersBoard = [
     ["_", "_", "_", "_", "_", "_"]
 ];
 
+var computersMap = [
+    ["_", "_", "_", "_", "_", "_"],
+    ["_", "_", "_", "_", "_", "_"],
+    ["_", "_", "_", "_", "_", "_"],
+    ["_", "_", "_", "_", "_", "_"],
+    ["_", "_", "_", "_", "_", "_"],
+    ["_", "_", "_", "_", "_", "_"]
+];
+
 var playersBoard = [
     ["_", "_", "_", "_", "_", "_"],
     ["P", "_", "_", "_", "_", "_"],
-    ["P", "_", "P", "P", "P", "_"],
+    ["P", "_", "_", "P", "P", "P"],
     ["P", "_", "_", "_", "_", "_"],
     ["_", "_", "_", "_", "_", "_"],
     ["_", "_", "P", "P", "P", "_"]
 ];
 
-
+////////////Make the computer's ships//////////////
 function makeShip(letter) {
     var ranRow = Math.ceil(4 * Math.random());
     var ranCol = Math.ceil(4 * Math.random());
@@ -48,7 +57,7 @@ function makeShip(letter) {
             computersBoard[ranRow][ranCol + 1] = letter;
             computersBoard[ranRow][ranCol - 1] = letter;
         } else {
-            console.log("bad letter")
+            //console.log("bad letter");
             makeShip(letter);
         }
     }
@@ -57,28 +66,36 @@ makeShip('A');
 makeShip('B');
 makeShip('C');
 
-$(".0").text(computersBoard[0]);
-$(".1").text(computersBoard[1]);
-$(".2").text(computersBoard[2]);
-$(".3").text(computersBoard[3]);
-$(".4").text(computersBoard[4]);
-$(".5").text(computersBoard[5]);
 
-var playerShipsFound = 0;
-var compShipsFound = 0;
+function printComputerMap() {
+    $(".0").text(computersMap[0]);
+    $(".1").text(computersMap[1]);
+    $(".2").text(computersMap[2]);
+    $(".3").text(computersMap[3]);
+    $(".4").text(computersMap[4]);
+    $(".5").text(computersMap[5]);
+}
+///////////////////////////////////////////////////
+
+
+/////////////////Check who's winning////////////////
+var playerHits = 0;
+var compHits = 0;
 
 function checkWin() {
-    if (playerShipsFound === 9) {
+    if (playerHits === 9) {
         alert("you win");
         $('td').off();
-    } else if (compShipsFound === 8) {
+    } else if (compHits === 8) {
         alert("you lose");
         $('td').off();
     }
 }
+////////////////////////////////////////////////////
 
-var oneRight = false;
-var twoRight = false;
+
+
+/*var oneRight = false;
 var firstGuess = [];
 var secondGuess = [];
 var secondGuessOptions = [
@@ -87,8 +104,13 @@ var secondGuessOptions = [
     [0, 1],
     [0, -1]
 ];
+*/
+var nearHit = "1";
+var hit = "X";
+var miss = "0";
 
-function compSecondGuess() {
+
+/*function compSecondGuess() {
     var nextGuessDirection = Math.floor(4 * Math.random());
     console.log(firstGuess);
     var nextRow = firstGuess[0] + secondGuessOptions[nextGuessDirection][0];
@@ -119,21 +141,11 @@ function compSecondGuess() {
 
 
 }
-
-function thirdGuess() {
-    console.log('nice');
-    /*  if (firstGuess[0] = secondGuess[0]) {
-
-      }*/
-    twoRight = false;
-};
-
+*/
+/*
 function computerGuess() {
     var ranRow = Math.floor(6 * Math.random());
     var ranCol = Math.floor(6 * Math.random());
-    if (twoRight) {
-        thirdGuess();
-    }
     if (oneRight) {
         compSecondGuess();
     } else {
@@ -148,31 +160,99 @@ function computerGuess() {
             oneRight = true;
             firstGuess = [ranRow, ranCol];
         } else {
-            console.log("bad first guess")
+            console.log("bad first guess");
             computerGuess();
         }
     }
+}*/
+var nearHitOptions = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1]
+];
+
+
+function markNearHits(row, col) {
+    console.log("near hits around", row, col);
+
+    for (var i = 0; i < 4; i++) {
+        //TODO fix for lowest row
+        var cellVal = computersMap[row + nearHitOptions[i][0]][col + nearHitOptions[i][1]];
+        if (cellVal !== undefined && cellVal === "_") {
+            computersMap[row + nearHitOptions[i][0]][col + nearHitOptions[i][1]] = nearHit;
+            //$(`#comp-board tr:eq(${row + nearHitOptions[i][0]}) td:eq(${col + nearHitOptions[i][1]})`).css('background-color', 'green');
+        }
+    }
+    //printComputerMap();
 }
+
+function markMiss(row, col) {
+    $(`#comp-board tr:eq(${row}) td:eq(${col})`).css('background-color', 'darkblue');
+    computersMap[row][col] = miss;
+}
+
+function markHit(row, col) {
+    $(`#comp-board tr:eq(${row}) td:eq(${col})`).css('background-color', 'red');
+    computersMap[row][col] = hit;
+    compHits += 1;
+}
+
+
+function computerGuess() {
+    for (var i = 0; i < 6; i++) {
+        for (var j = 0; j < 6; j++) {
+            if (computersMap[i][j] === nearHit) {
+                console.log("nearHit found");
+                if (playersBoard[i][j] === "_") {
+                    markMiss(i, j);
+                    return;
+                } else if (playersBoard[i][j] === "P") {
+                    markHit(i, j);
+                    markNearHits(i, j);
+                    return;
+                }
+            }
+        }
+    }
+    var ranRow = Math.floor(6 * Math.random());
+    var ranCol = Math.floor(6 * Math.random());
+    console.log(`computer random guess: row ${ranRow}, col ${ranCol}`);
+    if (computersMap[ranRow][ranCol] === "_" && playersBoard[ranRow][ranCol] === "_") {
+        markMiss(ranRow, ranCol);
+    } else if (computersMap[ranRow][ranCol] === "_" && playersBoard[ranRow][ranCol] === "P") {
+        markHit(ranRow, ranCol);
+        markNearHits(ranRow, ranCol);
+    } else {
+        console.log("bad guess");
+        computerGuess();
+    }
+    //printComputerMap();
+}
+
+
 
 function revealSquare() {
     //console.log($(this).data('ship'));
     if ($(this).data('ship') === "A") {
         $(this).css("background-color", "darkgrey");
-        playerShipsFound += 1;
+        playerHits += 1;
     } else if ($(this).data('ship') === 'B') {
         $(this).css("background-color", "darkgrey");
-        playerShipsFound += 1;
+        playerHits += 1;
 
     } else if ($(this).data('ship') === 'C') {
         $(this).css("background-color", "darkgrey");
 
-        playerShipsFound += 1;
+        playerHits += 1;
     } else {
         $(this).css("background-color", "darkblue");
 
     }
     checkWin();
-    setTimeout(computerGuess, 1000);
+    computerGuess();
+    //setTimeout(computerGuess, 1000);
+    printComputerMap();
 }
 
 $(function() {
