@@ -184,7 +184,7 @@ function markNearHits(row, col) {
             //$(`#comp-board tr:eq(${row + nearHitOptions[i][0]}) td:eq(${col + nearHitOptions[i][1]})`).css('background-color', 'green');
         }
     }
-    printComputerMap();
+    //printComputerMap();
 }
 //////////////////////////////////////////////////////////
 
@@ -264,7 +264,9 @@ function revealSquare() {
 /////////////////////////////////////////////////////
 
 function toggleBetweenGames() {
-
+    playerUnits = 0;
+    playerHits = 0;
+    compHits = 0;
     $('.left').toggle("slide");
     $('#start').toggle();
     $('.right h2').slideToggle();
@@ -273,7 +275,7 @@ function toggleBetweenGames() {
 ///////////////////start game////////////////////
 function startGame() {
     if (playerUnits != 9) {
-        alert("place 9 units only");
+        alert("PLACE 9 GOATS");
     } else {
         $('#comp-board td').off();
         $('h1').toggleClass('color-change');
@@ -290,7 +292,6 @@ function restartGame() {
     makeShip('A');
     makeShip('B');
     makeShip('C');
-    playerUnits = 0;
     $('td').removeClass();
     $('td').attr('data-clicked', 'notclicked');
     $('#comp-board td').on('click', markP);
