@@ -19,16 +19,16 @@
     </header>
     <main>
         <section class="game-field">
-            <img id="pet" src="images/lion.png" alt="your little pet">
+            <img id="pet" class="hoverable" src="images/lion.png" alt="your little pet">
             <div class="hunger hidden">
-                <meter id="hunger-meter" value="24" max="24"></meter>
+                <meter id="hunger-meter" value="100" max="100"></meter>
                 <button id="feed-pet" class="feed">Feed</button>
             </div>
-            <ul id="food-menu" class="hidden">
+            <ul class="food-menu hidden">
             </ul>
         </section>
         <form>
-            <input id="name-pet" type="text" placeholder="What is your pet's name?">
+            <input id="name-pet" type="text" placeholder="What is your pet 's name?">
             <input class="submit-name" type="submit">
         </form>
         <button class="reset hidden">RESET GAME</button>
