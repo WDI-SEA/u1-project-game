@@ -1,90 +1,118 @@
-var blackCat = {
-    Name: 'Black Cat',
-    Type: 'Witch',
-    Hp: 1000,
-    CurrentHp: 500,
-    Attack: 50,
-    Special: 'Hex',
-    Damage: 175,
-    Image: 'images/black-cat.png'
-};
-
-var blueCat = {
-    Name: 'Baby Blue',
-    Type: 'Adorable',
-    Hp: 1000,
-    CurrentHp: 500,
-    Attack: 50,
-    Special: 'Awwwww',
-    Damage: 175,
-    Image: 'images/blue-cat.png'
-};
-
-var greyCat = {
-    Name: 'Grey Cat',
-    Type: 'Sleepy',
-    Hp: 1000,
-    CurrentHp: 500,
-    Attack: 50,
-    Special: 'Purrr',
-    Damage: 175,
-    Image: 'images/grey-cat.png'
-};
-
-var orangeCat = {
-    Name: 'Oliver',
-    Type: 'Tabby',
-    Hp: 1000,
-    CurrentHp: 500,
-    Attack: 50,
-    Special: 'Maul Face',
-    Damage: 175,
-    Image: 'images/orange-cat.png'
-};
-
-var whiteCat = {
-    Name: 'Senior Chang',
-    Type: 'Siamese',
-    Hp: 1000,
-    CurrentHp: 500,
-    Attack: 50,
-    Special: 'Tounge Lick',
-    Damage: 175,
-    Image: 'images/white-cat.png'
-};
-
-var grumpyCat = {
-    Name: 'Grumpy Cat',
-    Type: 'Disgruntled',
-    Hp: 1500,
-    CurrentHp: 500,
-    Attack: 75,
-    Special: 'Loathe Everything',
-    Damage: 75,
-    Image: 'images/grumpy-cat.jpg'
-};
-
-var catArray = [blackCat, blueCat, greyCat, orangeCat, whiteCat, grumpyCat];
 var currentPlayer;
 var nextPlayer;
+var temp;
 var p1Cats = [];
 var p2Cats = [];
-var p1CurrentCat;
-var p2CurrentCat;
+var p1Index = 0;
+var p2Index = 0;
+
+class cat {
+    constructor(name, type, hp, currentHp, attack, special, damage, image) {
+        this.Name = name;
+        this.Type = type;
+        this.Hp = hp;
+        this.CurrentHp = currentHp;
+        this.Attack = attack;
+        this.Special = special;
+        this.Damage = damage;
+        this.Image = image;
+    }
+}
+
+function updatePickScreen(catName, box1, box2, index) {
+    if (currentPlayer === 1) {
+        p1Cats.push(catName);
+        $(box1).attr('src', p1Cats[index].Image);
+        currentPlayer = 2;
+        nextPlayer = 1;
+    } else if (currentPlayer === 2) {
+        p2Cats.push(catName);
+        currentPlayer = 1;
+        nextPlayer = 2;
+        $(box2).attr('src', p2Cats[index].Image);
+    }
+}
+
+function updateFightScreen(id, array, index) {
+    $(id).find('.big-cat').attr('src', array[index].Image);
+    $(id).find('.hp').attr('value', array[index].CurrentHp).attr('max', array[index].Hp);
+    $(id).find('.fight-type').text(array[index].Type);
+    $(id).find('.atk').text(`1. Scratch: ${array[index].Attack}`);
+    $(id).find('.spec').text(`2. Special: ${array[index].Damage}`);
+    if (id === '#player1') {
+        p1Index = index;
+    }
+    if (id === '#player2') {
+        p2Index = index;
+    }
+}
+
+function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentArray, opponentIndex, move) {
+    var playerCat = attackerArray[attackerIndex];
+    var enemyCat = opponentArray[opponentIndex];
+    var atkValue = playerCat.Attack;
+    var specValue = playerCat.Damage;
+    switch (move) {
+        case 1:
+            enemyCat.CurrentHp = enemyCat.CurrentHp - atkValue;
+            $(opponent).find('.hp').attr('value', enemyCat.CurrentHp);
+            temp = currentPlayer;
+            currentPlayer = nextPlayer;
+            nextPlayer = temp;
+            break;
+        case 2:
+            enemyCat.CurrentHp = enemyCat.CurrentHp - specValue;
+            $(opponent).find('.hp').attr('value', enemyCat.CurrentHp);
+            temp = currentPlayer;
+            currentPlayer = nextPlayer;
+            nextPlayer = temp;
+            break;
+        case 3:
+            playerCat.CurrentHp = playerCat.CurrentHp + 300;
+            $(attacker).find('.hp').attr('value', playerCat.CurrentHp);
+            temp = currentPlayer;
+            currentPlayer = nextPlayer;
+            nextPlayer = temp;
+            break;
+        case 4:
+            if (attackerIndex === 0) {
+                attackerIndex = 1;
+                updateFightScreen(attacker, attackerArray, attackerIndex);
+                temp = currentPlayer;
+                currentPlayer = nextPlayer;
+                nextPlayer = temp;
+                break;
+            } else if (attackerIndex === 1) {
+                attackerIndex = 0;
+                updateFightScreen(attacker, attackerArray, attackerIndex);
+                temp = currentPlayer;
+                currentPlayer = nextPlayer;
+                nextPlayer = temp;
+                break;
+            }
+    }
+}
+
+var blackCat = new cat('Black Cat', 'Witch', 1000, 500, 50, 'Hex', 175, 'images/black-cat.png');
+var blueCat = new cat('Baby Blue', 'Adorable', 1000, 500, 50, 'Awwww', 175, 'images/blue-cat.png');
+var greyCat = new cat('Grey Cat', 'Sleepy', 1000, 500, 50, 'Purrrr', 175, 'images/grey-cat.png');
+var orangeCat = new cat('Oliver', 'Tabby', 1000, 500, 50, 'Maul Face', 175, 'images/orange-cat.png');
+var whiteCat = new cat('Senior Chang', 'Siamese', 1000, 500, 50, 'Death Stare', 175, 'images/white-cat.png');
+var grumpyCat = new cat('Grumpy Cat', 'Disgruntled', 1000, 500, 50, 'Loathe Everytghing', 175, 'images/grumpy-cat.jpg');
 
 function onPageLoad() {
     $('#pick-last').on('click', function() {
         $('#title-screen').addClass('hide');
         $('#pick-screen').removeClass('hide');
-        currentPlayer = 2;
-        nextPlayer = 1;
+        currentPlayer = 1;
+        nextPlayer = 2;
         pickScreen();
     });
     $('#go-first').on('click', function() {
         $('#title-screen').addClass('hide');
         $('#pick-screen').removeClass('hide');
-        currentPlayer = 1;
-        nextPlayer = 2;
+        currentPlayer = 2;
+        nextPlayer = 1;
         pickScreen();
     });
 }
@@ -104,27 +132,14 @@ function pickScreen() {
         $(this).on('click', function() {
             var catName = eval(this.name);
             if (p1Cats.length < 1 || p2Cats.length < 1) {
-                if (currentPlayer === 1) {
-                    p1Cats.push(catName);
-                    $('#p1-c1').attr('src', p1Cats[0].Image);
-                    currentPlayer = 2;
-                } else if (currentPlayer === 2) {
-                    p2Cats.push(catName);
-                    currentPlayer = 1;
-                    $('#p2-c1').attr('src', p2Cats[0].Image);
-                }
+                updatePickScreen(catName, '#p1-c1', '#p2-c1', 0);
+            } else if (p1Cats.length < 2 && p2Cats.length < 2) {
+                temp = currentPlayer;
+                currentPlayer = nextPlayer;
+                nextPlayer = temp;
+                updatePickScreen(catName, '#p1-c2', '#p2-c2', 1);
             } else if (p1Cats.length < 2 || p2Cats.length < 2) {
-                if (currentPlayer === 1) {
-                    p1Cats.push(catName);
-                    $('#p1-c2').attr('src', p1Cats[1].Image);
-                    currentPlayer = 2;
-                    nextPlayer = 1;
-                } else if (currentPlayer === 2) {
-                    p2Cats.push(catName);
-                    currentPlayer = 1;
-                    nextPlayer = 2;
-                    $('#p2-c2').attr('src', p2Cats[1].Image);
-                }
+                updatePickScreen(catName, '#p1-c2', '#p2-c2', 1);
             }
         });
     });
@@ -137,49 +152,43 @@ function pickScreen() {
 }
 
 function fightScreen() {
-    p1CurrentCat = p1Cats[0];
-    p2CurrentCat = p2Cats[0];
-    $('#p1-fight-c1').attr('src', p1Cats[0].Image);
-    $('#p2-fight-c1').attr('src', p2Cats[0].Image);
-    $('#p1-fight-c2').attr('src', p1Cats[1].Image);
-    $('#p2-fight-c2').attr('src', p2Cats[1].Image);
-    $('#p1-big-cat').attr('src', p1CurrentCat.Image);
-    $('#p2-big-cat').attr('src', p2CurrentCat.Image);
-    $('#p1-hp').attr('value', p1CurrentCat.CurrentHp).attr('max', p1CurrentCat.Hp);
-    $('#p2-hp').attr('value', p2CurrentCat.CurrentHp).attr('max', p2CurrentCat.Hp);
-    $('#player-1').find('.fight-type').text(p1CurrentCat.Type);
-    $('#player-2').find('.fight-type').text(p2CurrentCat.Type);
-    $('#player-1').find('.atk').text(`1. Scratch: ${p1CurrentCat.Attack}`);
-    $('#player-2').find('.atk').text(`1. Scratch: ${p2CurrentCat.Attack}`);
-    $('#player-1').find('.spec').text(`2. Special: ${p1CurrentCat.Damage}`);
-    $('#player-2').find('.spec').text(`2. Special: ${p2CurrentCat.Damage}`);
+    console.log(currentPlayer);
+    $('#p1-fight1').attr('src', p1Cats[0].Image);
+    $('#p2-fight1').attr('src', p2Cats[0].Image);
+    $('#p1-fight2').attr('src', p1Cats[1].Image);
+    $('#p2-fight2').attr('src', p2Cats[1].Image);
+
+    updateFightScreen('#player1', p1Cats, p1Index);
+    updateFightScreen('#player2', p2Cats, p2Index);
 
     $(document).on('keyup', function() {
-        var currentCat = eval(`p${currentPlayer}CurrentCat`);
-        var opponentCat = eval(`p${nextPlayer}CurrentCat`);
-        var currentArray = eval(`p${currentPlayer}Cats`);
-        var opponentHp = `#p${nextPlayer}-hp`;
-        var currentHp = `#p${currentPlayer}-hp`;
-        if (event.key === "1") {
-            var atkValue = currentCat.Attack;
-            opponentCat.CurrentHp = opponentCat.CurrentHp - atkValue;
-            $(opponentHp).attr('value', opponentCat.CurrentHp);
-        } else if (event.key === "2") {
-            var specValue = currentCat.Special;
-            opponentCat.CurrentHp = opponentCat.CurrentHp - specValue;
-            $(opponentHp).attr('value', opponentCat.CurrentHp);
-        } else if (event.key === "3") {
-            currentCat.CurrentHp = currentCat.CurrentHp + 300;
-            $(currentHp).attr('value', currentCat.CurrentHp);
-        } else if (event.key === "4") {
-            if (currentArray[i] === 0) {
-                currentCat = currentArray[1];
-            } else {
-                currentCat = currentArray[0];
+        if (event.key === '1') {
+            if (currentPlayer === 1) {
+                moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 1);
+            } else if (currentPlayer === 2) {
+                moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 1);
             }
-            console.log(currentCat);
+        } else if (event.key === '2') {
+            if (currentPlayer === 1) {
+                moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 2);
+            } else if (currentPlayer === 2) {
+                moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 2);
+            }
+        } else if (event.key === '3') {
+            if (currentPlayer === 1) {
+                moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 3);
+            } else if (currentPlayer === 2) {
+                moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 3);
+            }
+        } else if (event.key === '4') {
+            if (currentPlayer === 1) {
+                moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 4);
+            } else if (currentPlayer === 2) {
+                moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 4);
+            }
         }
     });
+
 }
 
 $(onPageLoad);
