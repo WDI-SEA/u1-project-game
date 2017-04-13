@@ -1,0 +1,78 @@
+html {
+    background: url("http://uploads.neatorama.com/wp-content/uploads/2011/11/Tombstone.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+#wrapper {
+    width: 800px;
+    height: 800px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    text-align: center;
+}
+
+#playground {
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+
+#start,
+#startgame {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 13px;
+    position: absolute;
+    top: 800px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+#bunny {
+    height: 200px;
+    width: 200px;
+    position: relative;
+}
+
+#win1 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+}
+
+#win2 {
+    height: 20px;
+    width: 20px;
+    position: relative;
+}
+
+#end-screen {
+    width: 404px;
+    height: 404px;
+    position: absolute;
+    top: 19px;
+    text-align: center;
+    padding-top: 100px;
+    box-sizing: border-box;
+    font-color: white;
+}
+
+.white-bold {
+    font-size: 80px;
+    color: red;
+    text-decoration: bold;
+}
+
+p {
+    font-size: 80px;
+    color: red;
+    text-align: bold;
+}
