@@ -185,24 +185,18 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
                 $(attacker).find('.big-cat').removeClass('heal');
                 $(attacker).find('.hp').attr('value', playerCat.CurrentHp);
             }, 500);
-            temp = currentPlayer;
-            currentPlayer = nextPlayer;
-            nextPlayer = temp;
+            switchPlayers();
             break;
         case 4:
             if (attackerIndex === 0) {
                 attackerIndex = 1;
                 updateFightScreen(attacker, attackerArray, attackerIndex);
-                temp = currentPlayer;
-                currentPlayer = nextPlayer;
-                nextPlayer = temp;
+                switchPlayers();
                 break;
             } else if (attackerIndex === 1) {
                 attackerIndex = 0;
                 updateFightScreen(attacker, attackerArray, attackerIndex);
-                temp = currentPlayer;
-                currentPlayer = nextPlayer;
-                nextPlayer = temp;
+                switchPlayers();
                 break;
             }
     }
@@ -282,8 +276,8 @@ function fightScreen() {
     $('#p1-fight2').attr('src', p1Array[1].Image);
     $('#p2-fight2').attr('src', p2Array[1].Image);
 
-    updateFightScreen(play1.Id, play1.Array, play1.Index);
-    updateFightScreen(play2.Id, play2.Array, play2.Index);
+    updateFightScreen(play1.Id, p1Array, play1.Index);
+    updateFightScreen(play2.Id, p2Array, play2.Index);
 
     $(document).on('keyup', function() {
         var attkId = currentPlayer.Id;
