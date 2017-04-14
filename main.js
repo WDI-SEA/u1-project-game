@@ -110,8 +110,8 @@ function gameUpdate(timeElapsed) {
     var poopGain = Math.floor(poopTimer / poopFreq);
     if (pet.poop < maxPoop) {
         pet.poop += poopGain;
-        poopTimer -= poopGain * poopFreq;
     }
+    poopTimer -= poopGain * poopFreq;
 }
 
 // feed pet when food item clicked on
@@ -244,7 +244,8 @@ function displayGameStart(name) {
 
 // restart after pet dies => brings back to new page screen
 function resetGame() {
-    pet = new Pet();
+    // pet = new Pet();
+    resetPet();
     changeCondition("happy");
     $("#pet").removeClass("death");
     $("h1").text("Your Little Pet");

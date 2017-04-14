@@ -108,11 +108,12 @@ poop field
 .poop-field {
     position: absolute;
     height: 10%;
-    width: 30%;
+    width: 40%;
     bottom: 30%;
-    left: 5%;
+    right: 5%;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
+    flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: flex-end;
 }
@@ -177,7 +178,7 @@ meter::-webkit-meter-optimum-value {
     border: 1px #C59B76 solid;
 }
 
-#pet-name:focus,
+input:focus,
 .feed:focus {
     outline: none;
 }
@@ -267,5 +268,34 @@ toggle-able classes
     }
     100% {
         transform: translateX(0px);
+    }
+}
+
+@media (max-width: 770px) {
+    .poop-field {
+        height: 5%;
+        bottom: 35%;
+        width: 30%;
+    }
+    .hunger {
+        margin-top: 1em;
+    }
+    .game-field {
+        width: 90%;
+    }
+    #name-pet {
+        width: 60%;
+    }
+}
+
+@media (max-width: 560px) {
+    body {
+        font-size: 12px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    .food-menu img {
+        max-width: 50%;
     }
 }
