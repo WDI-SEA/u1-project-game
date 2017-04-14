@@ -88,44 +88,23 @@ function specialReady(counter, player) {
     if (counter > 0) {
         array[index].Counter = array[index].Counter - 1;
     }
-
-    // if (counter > 0 && currentPlayer === 1) {
-    //     p1Cats[p1Index].Counter = p1Cats[p1Index].Counter - 1;
-    // } else if (counter > 0 && currentPlayer === 2) {
-    //     p2Cats[p2Index].Counter = p2Cats[p2Index].Counter - 1;
-    // }
 }
 
 function catDied(array, index) {
-    if (array[index].CurrentHp <= 0 && currentPlayer === 1) {
+    if (array[index].CurrentHp <= 0) {
         array[index].Dead = true;
         checkWin(array);
         if (!win) {
             if (index === 0) {
-                p2Index = 1;
-                updateFightScreen('#player2', p2Cats, p2Index);
+                nextPlayer.Index = 1;
+                updateFightScreen(nextPlayer.Id, array, nextPlayer.Index);
             } else {
-                p2Index = 0;
-                updateFightScreen('#player2', p2Cats, p2Index);
-            }
-        }
-    } else if (array[index].CurrentHp <= 0 && currentPlayer === 2) {
-        array[index].Dead = true;
-        checkWin(array);
-        if (!win) {
-            if (index === 0) {
-                p1Index = 1;
-                updateFightScreen('#player1', p1Cats, p1Index);
-            } else {
-                p1Index = 0;
-                updateFightScreen('#player1', p1Cats, p1Index);
+                nextPlayer.Index = 0;
+                updateFightScreen(nextPlayer.Id, array, nextPlayer.Index);
             }
         }
     }
-    temp = currentPlayer;
-    currentPlayer = nextPlayer;
-    nextPlayer = temp;
-
+    switchPlayers();
 }
 
 function checkDead(array, index) {
@@ -139,11 +118,7 @@ function checkDead(array, index) {
 function checkWin(array) {
     if (array[0].Dead && array[1].Dead) {
         win = true;
-        if (currentPlayer === 1) {
-            $('.message').text(`Player 2's cats are dead!  Player 1 wins!!`);
-        } else if (currentPlayer === 2) {
-            $('.message').text(`Player 1's cats are dead!  Player 2 wins!!`);
-        }
+        $('.message').text(`${nextPlayer.Name}'s cats are dead!  ${currentPlayer.Name} wins!!`);
     }
 }
 
