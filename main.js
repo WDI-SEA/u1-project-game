@@ -56,10 +56,10 @@ function updateFightScreen(id, array, index) {
     $(id).find('.atk').text(`1. Scratch: ${array[index].Attack}`);
     $(id).find('.spec').text(`2. Special: ${array[index].Damage}`);
     if (id === '#player1') {
-        p1Index = index;
+        play1.Index = index;
     }
     if (id === '#player2') {
-        p2Index = index;
+        play2.Index = index;
     }
 }
 
@@ -307,8 +307,8 @@ function fightScreen() {
     $('#p1-fight2').attr('src', p1Array[1].Image);
     $('#p2-fight2').attr('src', p2Array[1].Image);
 
-    updateFightScreen('#player1', p1Cats, p1Index);
-    updateFightScreen('#player2', p2Cats, p2Index);
+    updateFightScreen(play1.Id, play1.Array, play1.Index);
+    updateFightScreen(play2.Id, play2.Array, play2.Index);
 
     $(document).on('keyup', function() {
         var attkId = currentPlayer.Id;
@@ -318,93 +318,36 @@ function fightScreen() {
         var attkIndex = currentPlayer.Index;
         var oppIndex = nextPlayer.Index;
         var attkClass = currentPlayer.Class;
+        var currentCounter = attkArray[attkIndex].Counter;
 
 
         if (event.key === '1' && !win) {
-            specialReady(currentPlayer.Counter, currentPlayer);
+            specialReady(currentCounter, currentPlayer);
             moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 1, attkClass);
-
-            // if (currentPlayer === 1) {
-            //     specialReady(currentPlayer.Counter, currentPlayer);
-            //     moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 1, 'p1attack');
-            // } else if (currentPlayer === 2) {
-            //     specialReady(p2Cats[p2Index].Counter);
-            //     moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 1, 'p2attack');
-            // }
         } else if (event.key === '2' && !win) {
-            if (currentPlayer.Counter === 0) {
-                currentPlayer.Counter = 2;
+            if (currentCounter === 0) {
+                attkArray[attkIndex].Counter = 2;
                 moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 2);
             } else {
-                $('.message').text(`Your special isn't ready yet!  ${currentPlayer.Counter} more turns!`);
+                $('.message').text(`Your special isn't ready yet!  ${currentCounter} more turns!`);
             }
-
-
-            // if (currentPlayer === 1) {
-            //     if (p1Cats[p1Index].Counter === 0) {
-            //         p1Cats[p1Index].Counter = 2;
-            //         moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 2);
-            //     } else {
-
-            //     }
-            // } else if (currentPlayer === 2) {
-            //     if (p2Cats[p2Index].Counter === 0) {
-            //         p2Cats[p2Index].Counter = 2;
-            //         moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 2);
-            //     } else {
-            //         $('.message').text(`Your special isn't ready yet!  ${p2Cats[p2Index].Counter} more turns!`);
-            //     }
-            // }
         } else if (event.key === '3' && !win) {
             if (currentPlayer.Heal === 1 && (attkArray[attkIndex].Hp - attkArray[attkIndex].CurrentHp) !== 0) {
-                specialReady(currentPlayer.Counter, currentPlayer);
-                moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 3);
+                specialReady(currentCounter, currentPlayer);
                 currentPlayer.Heal = 0;
+                moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 3);
             } else if ((attkArray[attkIndex].Hp - attkArray[attkIndex].CurrentHp) === 0) {
                 $('.message').text(`You're at max health!`);
             } else {
                 $('.message').text(`You've already use your heal!`);
             }
-
-            // if (currentPlayer === 1) {
-            //     if (p1Heal === 1 && (p1Cats[p1Index].Hp - p1Cats[p1Index].CurrentHp) !== 0) {
-            //         specialReady(p1Cats[p1Index].Counter);
-            //         moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 3);
-            //         p1Heal = 0;
-            //     } else if ((p1Cats[p1Index].Hp - p1Cats[p1Index].CurrentHp) === 0) {
-            //         $('.message').text(`You're at max health!`);
-            //     } else {
-            //         $('.message').text(`You've already use your heal!`);
-            //     }
-            // } else if (currentPlayer === 2) {
-            //     if (p2Heal === 1 && (p2Cats[p2Index].Hp - p2Cats[p2Index].CurrentHp) !== 0) {
-            //         specialReady(p2Cats[p2Index].Counter);
-            //         moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 3);
-            //         p1Heal = 0;
-            //     } else if ((p2Cats[p2Index].Hp - p2Cats[p2Index].CurrentHp) === 0) {
-            //         $('.message').text(`You're at max health!`);
-            //     } else {
-            //         $('.message').text(`You've already use your heal!`);
-            //     }
-            // }
         } else if (event.key === '4' && !win) {
             if (!checkDead(attkArray, attkIndex)) {
-                specialReady(currentPlayer.Counter, currentPlayer);
+                specialReady(currentCounter, currentPlayer);
                 moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 4);
             } else if (checkDead(attkArray, attkIndex)) {
                 $('.message').text(`Can't switch!  Your other cat is dead!`);
             }
-            // if (currentPlayer === 1 && !checkDead(p1Cats, p1Index)) {
-            //     specialReady(p1Cats[p1Index].Counter);
-            //     moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 4);
-            // } else if (currentPlayer === 1 && checkDead(p1Cats, p1Index)) {
-            //     $('.message').text(`Can't switch!  Your other cat is dead!`);
-            // } else if (currentPlayer === 2 && !checkDead(p2Cats, p2Index)) {
-            //     specialReady(p2Cats[p2Index].Counter);
-            //     moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 4);
-            // } else if (currentPlayer === 2 && checkDead(p2Cats, p2Index)) {
-            //     $('.message').text(`Can't switch!  Your other cat is dead!`);
-            // }
         }
     });
 }
