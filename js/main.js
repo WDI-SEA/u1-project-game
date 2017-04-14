@@ -1,41 +1,41 @@
-var computersBoard;
-var computersMap;
-var playersBoard;
+//TODO, boardsize, unit counter
+var boardSize = prompt("Enter Board Size >6");
 
-function initBoards() {
-    computersBoard = [
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"]
-    ];
+////////////Make JS Boards/////////////
+var computersBoard = [];
+var computersMap = [];
+var playersBoard = [];
+var madeBoard = [];
 
-    computersMap = [
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"]
-    ];
-
-    playersBoard = [
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"],
-        ["_", "_", "_", "_", "_", "_"]
-    ];
+function makeJSBoard(board, size) {
+    for (var i = 0; i < size; i++) {
+        var row = [];
+        for (var j = 0; j < size; j++) {
+            row.push("_");
+        }
+        board.push(row);
+    }
 }
-////////////Make the computer's ships//////////////
-initBoards();
 
+function initBoards(size) {
+    makeJSBoard(computersBoard, size);
+    makeJSBoard(computersMap, size);
+    makeJSBoard(playersBoard, size);
+
+}
+initBoards(boardSize);
+////////////////////////////////////////////////////
+
+/////////////////Make HTML boards///////////////////
+
+
+
+/////////////////////////////////////////////////////
+
+////////////Make the computer's ships//////////////
 function makeShip(letter) {
-    var ranRow = Math.ceil(4 * Math.random());
-    var ranCol = Math.ceil(4 * Math.random());
+    var ranRow = Math.ceil((boardSize - 2) * Math.random());
+    var ranCol = Math.ceil((boardSize - 2) * Math.random());
     //console.log(letter + " " + ranCol + " " + ranRow);
     var rowOrCol = Math.floor(2 * Math.random());
     if (rowOrCol === 1) {
@@ -73,57 +73,55 @@ makeShip('A');
 makeShip('B');
 makeShip('C');
 
-
-function printComputerMap() {
-    $("#map.0").text(computersMap[0]);
-    $("#map.1").text(computersMap[1]);
-    $("#map.2").text(computersMap[2]);
-    $("#map.3").text(computersMap[3]);
-    $("#map.4").text(computersMap[4]);
-    $("#map.5").text(computersMap[5]);
+function printBoard(htmlBoard, jsBoard) {
+    for (var i = 0; i < boardSize; i++) {
+        $(`#${htmlBoard}`).append($("<div>").text(jsBoard[i]));
+    }
 }
+printBoard("comp", computersBoard);
+printBoard("map", computersMap);
 
-function printComputerBoard() {
-    $("#comp.0").text(computersBoard[0]);
-    $("#comp.1").text(computersBoard[1]);
-    $("#comp.2").text(computersBoard[2]);
-    $("#comp.3").text(computersBoard[3]);
-    $("#comp.4").text(computersBoard[4]);
-    $("#comp.5").text(computersBoard[5]);
-}
+
+
 ///////////////////////////////////////////////////
 
 ////////////////Make Player Board//////////////////
 var playerUnits = 0;
 
-function printPlayersBoard() {
-    $("#player.0").text(playersBoard[0]);
-    $("#player.1").text(playersBoard[1]);
-    $("#player.2").text(playersBoard[2]);
-    $("#player.3").text(playersBoard[3]);
-    $("#player.4").text(playersBoard[4]);
-    $("#player.5").text(playersBoard[5]);
+function moreGoats() {
+    if (playerUnits == 0 || playerUnits === 9) {
+        $('.right h3').css("display", "none");
+    } else {
+        $('.right h3').css("display", "block");
+        $('#player-count').text(" " + 9 - playerUnits + " ");
+
+    }
+
 }
 
 function markP() {
     var row = $(this).parent().data('row');
     var col = $(this).data('num');
     if (this.getAttribute("data-clicked") === "clicked") {
-
         $(this).removeClass('goat');
         this.setAttribute("data-clicked", "notClicked");
         playersBoard[row][col] = "_";
+        console.log("fjdk" + playersBoard[row][col]);
         playerUnits -= 1;
     } else {
         $(this).addClass('goat');
+        var babySound = new Audio('./img/baby.mp3');
+        babySound.play();
         this.setAttribute('data-clicked', "clicked");
         playersBoard[row][col] = "P";
+        console.log("fjdk", playersBoard[row][col]);
         playerUnits += 1;
     }
-    //printPlayersBoard();
+    moreGoats();
+
+    printBoard("player", playersBoard);
 }
 ///////////////////////////////////////////////////
-
 
 ///////////////display game over//////////////////
 function gameOver(text, image) {
@@ -150,7 +148,6 @@ function checkWin() {
     }
 }
 ////////////////////////////////////////////////////
-
 
 ////////////////Near Hits////////////////////////////
 var nearHit = "1";
@@ -184,12 +181,9 @@ function markNearHits(row, col) {
             //$(`#comp-board tr:eq(${row + nearHitOptions[i][0]}) td:eq(${col + nearHitOptions[i][1]})`).css('background-color', 'green');
         }
     }
-    //printComputerMap();
+    printComputerMap();
 }
 //////////////////////////////////////////////////////////
-
-
-
 
 ////////////// Mark computer map hit or miss////////////////////
 function markMiss(row, col) {
@@ -199,17 +193,17 @@ function markMiss(row, col) {
 
 function markHit(row, col) {
     $(`#comp-board tr:eq(${row}) td:eq(${col})`).css('background-color', 'rgba(255, 33, 33, .8)');
+    var hitSound = new Audio("./img/hit.mp3");
+    hitSound.play();
     computersMap[row][col] = hit;
     compHits += 1;
 }
 ///////////////////////////////////////////////////////////////
 
-
-
 ///////////////////////Computer's Guess/////////////////////////
 function computerGuess() {
-    for (var i = 0; i < 6; i++) {
-        for (var j = 0; j < 6; j++) {
+    for (var i = 0; i < boardSize; i++) {
+        for (var j = 0; j < boardSize; j++) {
             if (computersMap[i][j] === nearHit) {
                 console.log("nearHit found");
                 if (playersBoard[i][j] === "_") {
@@ -223,8 +217,8 @@ function computerGuess() {
             }
         }
     }
-    var ranRow = Math.floor(6 * Math.random());
-    var ranCol = Math.floor(6 * Math.random());
+    var ranRow = Math.floor(boardSize * Math.random());
+    var ranCol = Math.floor(boardSize * Math.random());
     console.log(`computer random guess: row ${ranRow}, col ${ranCol}`);
     if (computersMap[ranRow][ranCol] === "_" && playersBoard[ranRow][ranCol] === "_") {
         markMiss(ranRow, ranCol);
@@ -238,20 +232,13 @@ function computerGuess() {
     //printComputerMap();
 }
 
-
 ///////////////////////////Players Guess/////////////////////////////
 function revealSquare() {
     if (!$(this).hasClass('comp-goat') && !$(this).hasClass('nope')) {
-        if ($(this).data('ship') === "A") {
+        if ($(this).data('ship') === "A" || $(this).data('ship') === "B" || $(this).data('ship') === "C") {
             $(this).addClass('comp-goat');
-            playerHits += 1;
-        } else if ($(this).data('ship') === 'B') {
-            $(this).addClass('comp-goat');
-            playerHits += 1;
-
-        } else if ($(this).data('ship') === 'C') {
-            $(this).addClass('comp-goat');
-
+            var hitSound = new Audio("./img/hit.mp3");
+            hitSound.play();
             playerHits += 1;
         } else {
             $(this).addClass('nope');
@@ -262,7 +249,6 @@ function revealSquare() {
     }
 }
 /////////////////////////////////////////////////////
-
 function toggleBetweenGames() {
     playerUnits = 0;
     playerHits = 0;
@@ -273,7 +259,6 @@ function toggleBetweenGames() {
     $('p.instructions').toggle();
     $('h1').toggleClass('color-change');
 }
-
 ///////////////////start game////////////////////
 function startGame() {
     if (playerUnits != 9) {
@@ -295,11 +280,9 @@ function restartGame() {
     $('td').removeClass();
     $('td').attr('data-clicked', 'notclicked');
     $('#comp-board td').on('click', markP);
-
     $('#player-board td').on('click', revealSquare);
     $("#comp-board td").css('background-color', '');
     //printComputerBoard();
-
     $('#restart').toggle();
     $('.game-over').css("display", 'none');
     toggleBetweenGames();

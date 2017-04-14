@@ -81,19 +81,15 @@
         <div class="right">
             <h2>Computer</h2>
             <table id="comp-board">
-                <thead>
+                <tbody>
                     <tr data-row="0">
-                        <td data-num="0">
-                            <div id="goat"></div>
-                        </td>
+                        <td data-num="0"></td>
                         <td data-num="1"></td>
                         <td data-num="2"></td>
                         <td data-num="3"></td>
                         <td data-num="4"></td>
                         <td data-num="5"></td>
                     </tr>
-                </thead>
-                <tbody>
                     <tr data-row="1">
                         <td data-num="0"></td>
                         <td data-num="1"></td>
@@ -126,8 +122,6 @@
                         <td data-num="4"></td>
                         <td data-num="5"></td>
                     </tr>
-                </tbody>
-                <tfoot>
                     <tr data-row="5">
                         <td data-num="0"></td>
                         <td data-num="1"></td>
@@ -136,8 +130,9 @@
                         <td data-num="4"></td>
                         <td data-num="5"></td>
                     </tr>
-                </tfoot>
+                </tbody>
             </table>
+            <h3>Place <span id="player-count"></span>more goats</h2>
             <p class="instructions">Baby goats like to be in vertical or horizontal herds of three. Please place three herds on your board then click "Start Game".</p>
             <button id="start">Start Game</button>
         </div>
@@ -149,26 +144,11 @@
         <p class="color-change"></p>
         <img class="winImg" src="" alt="">
     </div>
-    <div id="player" class="0"></div>
-    <div id="player" class="1"></div>
-    <div id="player" class="2"></div>
-    <div id="player" class="3"></div>
-    <div id="player" class="4"></div>
-    <div id="player" class="5"></div>
+    <div id="player"></div>
     <br>
-    <div id="comp" class="0"></div>
-    <div id="comp" class="1"></div>
-    <div id="comp" class="2"></div>
-    <div id="comp" class="3"></div>
-    <div id="comp" class="4"></div>
-    <div id="comp" class="5"></div>
+    <div id="comp"></div>
     <br>
-    <div id="map" class="0"></div>
-    <div id="map" class="1"></div>
-    <div id="map" class="2"></div>
-    <div id="map" class="3"></div>
-    <div id="map" class="4"></div>
-    <div id="map" class="5"></div>
+    <div id="map"></div>
     <script src="js/main.js"></script>
 </body>
 
