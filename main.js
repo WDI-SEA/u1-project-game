@@ -1,13 +1,8 @@
 var currentPlayer;
 var nextPlayer;
 var temp;
-var p1Cats = [];
-var p2Cats = [];
-var p1Index = 0;
-var p2Index = 0;
-var p1Heal = 1;
-var p2Heal = 1;
 var critical;
+var win = false;
 
 class cat {
     constructor(name, type, hp, currentHp, attack, special, damage, counter, image, dead) {
@@ -24,18 +19,34 @@ class cat {
     }
 }
 
-function updatePickScreen(catName, box1, box2, index) {
-    if (currentPlayer === 1) {
-        p1Cats.push(catName);
-        $(box1).attr('src', p1Cats[index].Image);
-        currentPlayer = 2;
-        nextPlayer = 1;
-    } else if (currentPlayer === 2) {
-        p2Cats.push(catName);
-        currentPlayer = 1;
-        nextPlayer = 2;
-        $(box2).attr('src', p2Cats[index].Image);
+class player {
+    constructor(name, array, index, heal, id, playerClass, pickBox1, pickBox2, fightBox1, fightBox2) {
+        this.Name = name;
+        this.Array = array;
+        this.Index = index;
+        this.Heal = heal;
+        this.Id = id;
+        this.Class = playerClass;
+        this.PickBox1 = pickBox1;
+        this.PickBox2 = pickBox2;
+        this.FightBox1 = fightBox1;
+        this.FightBox2 = fightBox2;
     }
+}
+
+function switchPlayers() {
+    temp = currentPlayer;
+    currentPlayer = nextPlayer;
+    nextPlayer = temp;
+}
+
+function updatePickScreen(catName, player, box) {
+    var array = player.Array;
+    var image = catName.Image;
+
+    array.push(catName);
+    $(box).attr('src', image);
+    switchPlayers();
 }
 
 function updateFightScreen(id, array, index) {
@@ -70,39 +81,51 @@ function critChance() {
     return crit;
 }
 
-function specialReady(counter) {
-    if (counter > 0 && currentPlayer === 1) {
-        p1Cats[p1Index].Counter = p1Cats[p1Index].Counter - 1;
-    } else if (counter > 0 && currentPlayer === 2) {
-        p2Cats[p2Index].Counter = p2Cats[p2Index].Counter - 1;
+function specialReady(counter, player) {
+    var array = player.Array;
+    var index = player.Index;
+
+    if (counter > 0) {
+        array[index].Counter = array[index].Counter - 1;
     }
+
+    // if (counter > 0 && currentPlayer === 1) {
+    //     p1Cats[p1Index].Counter = p1Cats[p1Index].Counter - 1;
+    // } else if (counter > 0 && currentPlayer === 2) {
+    //     p2Cats[p2Index].Counter = p2Cats[p2Index].Counter - 1;
+    // }
 }
 
 function catDied(array, index) {
-    if (array[index].CurrentHp < 0 && currentPlayer === 1) {
-        if (index === 0) {
-            // $('.message').text(`${array[index].Name} has died!`);
-            p2Index = 1;
-            updateFightScreen('#player2', p2Cats, p2Index);
-        } else {
-            // $('.message').text(`${array[index].Name} has died!`);
-            p2Index = 0;
-            updateFightScreen('#player2', p2Cats, p2Index);
+    if (array[index].CurrentHp <= 0 && currentPlayer === 1) {
+        array[index].Dead = true;
+        checkWin(array);
+        if (!win) {
+            if (index === 0) {
+                p2Index = 1;
+                updateFightScreen('#player2', p2Cats, p2Index);
+            } else {
+                p2Index = 0;
+                updateFightScreen('#player2', p2Cats, p2Index);
+            }
         }
-    } else if (array[index].CurrentHp < 0 && currentPlayer === 2) {
-        if (index === 0) {
-            // $('.message').text(`${array[index].Name} has died!`);
-            p1Index = 1;
-            updateFightScreen('#player1', p1Cats, p1Index);
-        } else {
-            // $('.message').text(`${array[index].Name} has died!`);
-            p1Index = 0;
-            updateFightScreen('#player1', p1Cats, p1Index);
+    } else if (array[index].CurrentHp <= 0 && currentPlayer === 2) {
+        array[index].Dead = true;
+        checkWin(array);
+        if (!win) {
+            if (index === 0) {
+                p1Index = 1;
+                updateFightScreen('#player1', p1Cats, p1Index);
+            } else {
+                p1Index = 0;
+                updateFightScreen('#player1', p1Cats, p1Index);
+            }
         }
     }
     temp = currentPlayer;
     currentPlayer = nextPlayer;
     nextPlayer = temp;
+
 }
 
 function checkDead(array, index) {
@@ -110,6 +133,17 @@ function checkDead(array, index) {
         return array[1].Dead;
     } else {
         return array[0].Dead;
+    }
+}
+
+function checkWin(array) {
+    if (array[0].Dead && array[1].Dead) {
+        win = true;
+        if (currentPlayer === 1) {
+            $('.message').text(`Player 2's cats are dead!  Player 1 wins!!`);
+        } else if (currentPlayer === 2) {
+            $('.message').text(`Player 1's cats are dead!  Player 2 wins!!`);
+        }
     }
 }
 
@@ -121,6 +155,7 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
     var atkValue = Math.floor((playerCat.Attack + plusDamage) * multiplyer);
     var specValue = Math.floor(playerCat.Damage * multiplyer);
     var healValue = playerCat.Hp - playerCat.CurrentHp;
+
     switch (move) {
         case 1:
             enemyCat.CurrentHp = enemyCat.CurrentHp - atkValue;
@@ -157,9 +192,9 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
                 $(opponent).find('.big-cat').removeClass('damage');
             }, 1000);
             if (!critical) {
-                $('.message').text(`${playerCat.Special} hit ${enemyCat.Name} for ${atkValue} damage!`);
+                $('.message').text(`${playerCat.Special} hit ${enemyCat.Name} for ${specValue} damage!`);
             } else if (critical) {
-                $('.message').text(`${playerCat.Special} crit ${enemyCat.Name} for ${atkValue} damage!`);
+                $('.message').text(`${playerCat.Special} crit ${enemyCat.Name} for ${specValue} damage!`);
             }
             break;
         case 3:
@@ -205,19 +240,22 @@ var orangeCat = new cat('Oliver', 'Tabby', 1000, 250, 50, 'Maul Face', 175, 0, '
 var whiteCat = new cat('Senior Chang', 'Siamese', 1000, 250, 50, 'Death Stare', 175, 0, 'images/white-cat.png', false);
 var grumpyCat = new cat('Grumpy Cat', 'Disgruntled', 1000, 250, 50, 'Loathe Everytghing', 175, 0, 'images/grumpy-cat.jpg', false);
 
+var play1 = new player('Player 1', [], 0, 1, '#player1', 'p1attack', '#p1-c1', '#p1-c2', '#p1-fight1', '#p1-fight2');
+var play2 = new player('Player 2', [], 0, 1, '#player2', 'p2attack', '#p2-c1', '#p2-c2', '#p2-fight1', '#p2-fight2');
+
 function onPageLoad() {
     $('#pick-last').on('click', function() {
         $('#title-screen').addClass('hide');
         $('#pick-screen').removeClass('hide');
-        currentPlayer = 1;
-        nextPlayer = 2;
+        currentPlayer = play1;
+        nextPlayer = play2;
         pickScreen();
     });
     $('#go-first').on('click', function() {
         $('#title-screen').addClass('hide');
         $('#pick-screen').removeClass('hide');
-        currentPlayer = 2;
-        nextPlayer = 1;
+        currentPlayer = play2;
+        nextPlayer = play1;
         pickScreen();
     });
 }
@@ -236,15 +274,19 @@ function pickScreen() {
     $.each(catPicsArray, function() {
         $(this).on('click', function() {
             var catName = eval(this.name);
-            if (p1Cats.length < 1 || p2Cats.length < 1) {
-                updatePickScreen(catName, '#p1-c1', '#p2-c1', 0);
-            } else if (p1Cats.length < 2 && p2Cats.length < 2) {
-                temp = currentPlayer;
-                currentPlayer = nextPlayer;
-                nextPlayer = temp;
-                updatePickScreen(catName, '#p1-c2', '#p2-c2', 1);
-            } else if (p1Cats.length < 2 || p2Cats.length < 2) {
-                updatePickScreen(catName, '#p1-c2', '#p2-c2', 1);
+            var array1 = currentPlayer.Array;
+            var array2 = nextPlayer.Array;
+            var box1 = currentPlayer.PickBox1;
+            var box2 = currentPlayer.PickBox2;
+
+            if (array1.length < 1 || array2.length < 1) {
+                updatePickScreen(catName, currentPlayer, box1);
+            } else if (array1.length < 2 && array2.length < 2) {
+                switchPlayers();
+                box2 = currentPlayer.PickBox2;
+                updatePickScreen(catName, currentPlayer, box2);
+            } else if (array1.length < 2 || array2.length < 2) {
+                updatePickScreen(catName, currentPlayer, box2);
             }
         });
     });
@@ -257,76 +299,114 @@ function pickScreen() {
 }
 
 function fightScreen() {
-    $('#p1-fight1').attr('src', p1Cats[0].Image);
-    $('#p2-fight1').attr('src', p2Cats[0].Image);
-    $('#p1-fight2').attr('src', p1Cats[1].Image);
-    $('#p2-fight2').attr('src', p2Cats[1].Image);
+    var p1Array = play1.Array;
+    var p2Array = play2.Array;
+
+    $('#p1-fight1').attr('src', p1Array[0].Image);
+    $('#p2-fight1').attr('src', p2Array[0].Image);
+    $('#p1-fight2').attr('src', p1Array[1].Image);
+    $('#p2-fight2').attr('src', p2Array[1].Image);
 
     updateFightScreen('#player1', p1Cats, p1Index);
     updateFightScreen('#player2', p2Cats, p2Index);
 
     $(document).on('keyup', function() {
-        if (event.key === '1') {
-            if (currentPlayer === 1) {
-                specialReady(p1Cats[p1Index].Counter);
-                moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 1, 'p1attack');
-            } else if (currentPlayer === 2) {
-                specialReady(p2Cats[p2Index].Counter);
-                moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 1, 'p2attack');
+        var attkId = currentPlayer.Id;
+        var oppId = nextPlayer.Id;
+        var attkArray = currentPlayer.Array;
+        var oppArray = nextPlayer.Array;
+        var attkIndex = currentPlayer.Index;
+        var oppIndex = nextPlayer.Index;
+        var attkClass = currentPlayer.Class;
+
+
+        if (event.key === '1' && !win) {
+            specialReady(currentPlayer.Counter, currentPlayer);
+            moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 1, attkClass);
+
+            // if (currentPlayer === 1) {
+            //     specialReady(currentPlayer.Counter, currentPlayer);
+            //     moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 1, 'p1attack');
+            // } else if (currentPlayer === 2) {
+            //     specialReady(p2Cats[p2Index].Counter);
+            //     moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 1, 'p2attack');
+            // }
+        } else if (event.key === '2' && !win) {
+            if (currentPlayer.Counter === 0) {
+                currentPlayer.Counter = 2;
+                moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 2);
+            } else {
+                $('.message').text(`Your special isn't ready yet!  ${currentPlayer.Counter} more turns!`);
             }
-        } else if (event.key === '2') {
-            if (currentPlayer === 1) {
-                if (p1Cats[p1Index].Counter === 0) {
-                    p1Cats[p1Index].Counter = 2;
-                    moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 2);
-                } else {
-                    $('.message').text(`Your special isn't ready yet!  ${p1Cats[p1Index].Counter} more turns!`);
-                }
-            } else if (currentPlayer === 2) {
-                if (p2Cats[p2Index].Counter === 0) {
-                    p2Cats[p2Index].Counter = 2;
-                    moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 2);
-                } else {
-                    $('.message').text(`Your special isn't ready yet!  ${p2Cats[p2Index].Counter} more turns!`);
-                }
+
+
+            // if (currentPlayer === 1) {
+            //     if (p1Cats[p1Index].Counter === 0) {
+            //         p1Cats[p1Index].Counter = 2;
+            //         moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 2);
+            //     } else {
+
+            //     }
+            // } else if (currentPlayer === 2) {
+            //     if (p2Cats[p2Index].Counter === 0) {
+            //         p2Cats[p2Index].Counter = 2;
+            //         moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 2);
+            //     } else {
+            //         $('.message').text(`Your special isn't ready yet!  ${p2Cats[p2Index].Counter} more turns!`);
+            //     }
+            // }
+        } else if (event.key === '3' && !win) {
+            if (currentPlayer.Heal === 1 && (attkArray[attkIndex].Hp - attkArray[attkIndex].CurrentHp) !== 0) {
+                specialReady(currentPlayer.Counter, currentPlayer);
+                moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 3);
+                currentPlayer.Heal = 0;
+            } else if ((attkArray[attkIndex].Hp - attkArray[attkIndex].CurrentHp) === 0) {
+                $('.message').text(`You're at max health!`);
+            } else {
+                $('.message').text(`You've already use your heal!`);
             }
-        } else if (event.key === '3') {
-            if (currentPlayer === 1) {
-                if (p1Heal === 1 && (p1Cats[p1Index].Hp - p1Cats[p1Index].CurrentHp) !== 0) {
-                    specialReady(p1Cats[p1Index].Counter);
-                    moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 3);
-                    p1Heal = 0;
-                } else if ((p1Cats[p1Index].Hp - p1Cats[p1Index].CurrentHp) === 0) {
-                    $('.message').text(`You're at max health!`);
-                } else {
-                    $('.message').text(`You've already use your heal!`);
-                }
-            } else if (currentPlayer === 2) {
-                if (p2Heal === 1 && (p2Cats[p2Index].Hp - p2Cats[p2Index].CurrentHp) !== 0) {
-                    specialReady(p2Cats[p2Index].Counter);
-                    moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 3);
-                    p1Heal = 0;
-                } else if ((p2Cats[p2Index].Hp - p2Cats[p2Index].CurrentHp) === 0) {
-                    $('.message').text(`You're at max health!`);
-                } else {
-                    $('.message').text(`You've already use your heal!`);
-                }
-            }
-        } else if (event.key === '4') {
-            if (currentPlayer === 1 && !checkDead(p1Cats, p1Index)) {
-                specialReady(p1Cats[p1Index].Counter);
-                moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 4);
-            } else if (currentPlayer === 1 && checkDead(p1Cats, p1Index)) {
+
+            // if (currentPlayer === 1) {
+            //     if (p1Heal === 1 && (p1Cats[p1Index].Hp - p1Cats[p1Index].CurrentHp) !== 0) {
+            //         specialReady(p1Cats[p1Index].Counter);
+            //         moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 3);
+            //         p1Heal = 0;
+            //     } else if ((p1Cats[p1Index].Hp - p1Cats[p1Index].CurrentHp) === 0) {
+            //         $('.message').text(`You're at max health!`);
+            //     } else {
+            //         $('.message').text(`You've already use your heal!`);
+            //     }
+            // } else if (currentPlayer === 2) {
+            //     if (p2Heal === 1 && (p2Cats[p2Index].Hp - p2Cats[p2Index].CurrentHp) !== 0) {
+            //         specialReady(p2Cats[p2Index].Counter);
+            //         moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 3);
+            //         p1Heal = 0;
+            //     } else if ((p2Cats[p2Index].Hp - p2Cats[p2Index].CurrentHp) === 0) {
+            //         $('.message').text(`You're at max health!`);
+            //     } else {
+            //         $('.message').text(`You've already use your heal!`);
+            //     }
+            // }
+        } else if (event.key === '4' && !win) {
+            if (!checkDead(attkArray, attkIndex)) {
+                specialReady(currentPlayer.Counter, currentPlayer);
+                moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 4);
+            } else if (checkDead(attkArray, attkIndex)) {
                 $('.message').text(`Can't switch!  Your other cat is dead!`);
-            } else if (currentPlayer === 2 && !checkDead(p2Cats, p2Index)) {
-                specialReady(p2Cats[p2Index].Counter);
-                moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 4);
-            } else if (currentPlayer === 2 && checkDead(p2Cats, p2Index)) {
-                $('.message').text(`Can't switch!  Your other cat is dead!`);
             }
+            // if (currentPlayer === 1 && !checkDead(p1Cats, p1Index)) {
+            //     specialReady(p1Cats[p1Index].Counter);
+            //     moveChoice('#player1', '#player2', p1Cats, p1Index, p2Cats, p2Index, 4);
+            // } else if (currentPlayer === 1 && checkDead(p1Cats, p1Index)) {
+            //     $('.message').text(`Can't switch!  Your other cat is dead!`);
+            // } else if (currentPlayer === 2 && !checkDead(p2Cats, p2Index)) {
+            //     specialReady(p2Cats[p2Index].Counter);
+            //     moveChoice('#player2', '#player1', p2Cats, p2Index, p1Cats, p1Index, 4);
+            // } else if (currentPlayer === 2 && checkDead(p2Cats, p2Index)) {
+            //     $('.message').text(`Can't switch!  Your other cat is dead!`);
+            // }
         }
     });
-
 }
 
 $(onPageLoad);
