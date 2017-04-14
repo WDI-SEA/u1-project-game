@@ -217,3 +217,8 @@ progress[value]::-webkit-progress-bar {
         transform: scale(1);
     }
 }
+
+.dead {
+    background-color: rgba(250, 50, 50, 0.55);
+    z-index: 1000;
+}

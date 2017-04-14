@@ -65,12 +65,14 @@ function updateFightScreen(id, array, index) {
 
 function damageRandomizer() {
     var randomDamage = Math.floor(Math.random() * 11);
+
     return randomDamage;
 }
 
 function critChance() {
     var crit;
     var chance = Math.ceil(Math.random() * 100);
+
     if (chance >= 90) {
         crit = 1.5;
         critical = true;
@@ -94,16 +96,20 @@ function catDied(array, index) {
     if (array[index].CurrentHp <= 0) {
         array[index].Dead = true;
         checkWin(array);
+
         if (!win) {
             if (index === 0) {
+                $(nextPlayer.FightBox1).addClass('dead');
                 nextPlayer.Index = 1;
                 updateFightScreen(nextPlayer.Id, array, nextPlayer.Index);
-            } else {
+            } else if (index === 1) {
+                $(nextPlayer.FightBox2).addClass('dead');
                 nextPlayer.Index = 0;
                 updateFightScreen(nextPlayer.Id, array, nextPlayer.Index);
             }
         }
     }
+
     switchPlayers();
 }
 
@@ -232,6 +238,8 @@ function onPageLoad() {
 
 function pickScreen() {
     var catPicsArray = $('.cat-pics > img');
+    $(currentPlayer.PickBox1).addClass('red');
+
     $.each(catPicsArray, function() {
         $(this).on('mouseover', function() {
             var catName = eval(this.name);
@@ -248,13 +256,22 @@ function pickScreen() {
             var box1 = currentPlayer.PickBox1;
             var box2 = currentPlayer.PickBox2;
 
-            if (array1.length < 1 || array2.length < 1) {
+            if (array1.length < 1 && array2.length === 0) {
+                $(currentPlayer.PickBox1).removeClass('red');
+                updatePickScreen(catName, currentPlayer, box1);
+                $(currentPlayer.PickBox1).addClass('red');
+            } else if (array1.length < 1 && array2.length === 1) {
+                $(currentPlayer.PickBox1).removeClass('red');
+                $(currentPlayer.PickBox2).addClass('red');
                 updatePickScreen(catName, currentPlayer, box1);
             } else if (array1.length < 2 && array2.length < 2) {
                 switchPlayers();
                 box2 = currentPlayer.PickBox2;
+                $(currentPlayer.PickBox2).removeClass('red');
                 updatePickScreen(catName, currentPlayer, box2);
+                $(currentPlayer.PickBox2).addClass('red');
             } else if (array1.length < 2 || array2.length < 2) {
+                $(currentPlayer.PickBox2).removeClass('red');
                 updatePickScreen(catName, currentPlayer, box2);
             }
         });
