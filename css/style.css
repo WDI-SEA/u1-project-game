@@ -26,6 +26,11 @@ footer p {
     padding-top: .5em;
 }
 
+footer a {
+    color: #E9806E;
+    text-decoration: none;
+}
+
 
 /*
 
@@ -108,7 +113,7 @@ poop field
     left: 5%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: flex-end;
 }
 

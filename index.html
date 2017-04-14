@@ -20,23 +20,24 @@
     <main>
         <section class="game-field">
             <img id="pet" class="hoverable" src="images/pets/lionhappy.png" alt="your little pet">
-            <div class="poop-field">
+            <div class="poop-field hidden">
             </div>
-            <div class="hunger hidden">
+            <div class="hunger hidden gameplay">
                 <meter id="hunger-meter" value="100" max="100"></meter>
                 <button id="feed-pet" class="feed">Feed</button>
             </div>
             <ul class="food-menu hidden">
             </ul>
         </section>
-        <form>
+        <form class="newgame">
             <input id="name-pet" type="text" placeholder="What is your pet 's name?">
             <input class="submit-name" type="submit">
         </form>
-        <button class="reset hidden">RESET GAME</button>
+        <button class="endgame reset hidden">RESET GAME</button>
     </main>
     <footer>
-        <p>designed and coded by sara kevorkian 2017</p>
+        <!-- replace link with portfolio once i make one -->
+        <p>designed and coded by <a href="https://www.linkedin.com/in/sarakevorkian/" target="_blank">sara kevorkian</a> 2017</p>
     </footer>
 </body>
 
