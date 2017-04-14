@@ -13,7 +13,7 @@
 
 // max set to 24 so it will be easy to decrease every hour?
 var maxHunger = 100;
-var sadHunger = maxHunger / 10;
+var sadHunger = maxHunger * 0.25;
 // can change this for demo purposes
 // passed along with hunger decreasefunction on a set interval
 var gameLoopFreq = 1000;
@@ -93,7 +93,11 @@ function gameUpdate(timeElapsed) {
     hungerTimer -= hungerLoss * hungerDecreaseFreq;
     if (pet.hunger < 0) {
         death();
+    } else if (pet.hunger < sadHunger) {
+        changeCondition("sad");
     }
+
+
 
     poopTimer += timeElapsed;
     var poopGain = Math.floor(poopTimer / poopFreq);
@@ -131,10 +135,14 @@ function feedPet() {
     var clickedFood = foods[posOfFoodClicked];
     if (pet.hunger < maxHunger) {
         pet.hunger += clickedFood.hungerIncrease;
+        if (pet.hunger > sadHunger) {
+            changeCondition("happy");
+        }
         if (pet.hunger > maxHunger) {
             pet.hunger = maxHunger;
         }
     }
+
     displayHunger();
     shortPurr();
 }
