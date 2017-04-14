@@ -270,6 +270,8 @@ function toggleBetweenGames() {
     $('.left').toggle("slide");
     $('#start').toggle();
     $('.right h2').slideToggle();
+    $('p.instructions').toggle();
+    $('h1').toggleClass('color-change');
 }
 
 ///////////////////start game////////////////////
@@ -278,8 +280,6 @@ function startGame() {
         alert("PLACE 9 GOATS");
     } else {
         $('#comp-board td').off();
-        $('h1').toggleClass('color-change');
-        $('p.instructions').toggle();
         toggleBetweenGames();
     }
 }
