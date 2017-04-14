@@ -13,6 +13,7 @@
 
 // max set to 24 so it will be easy to decrease every hour?
 var maxHunger = 100;
+var sadHunger = maxHunger / 10;
 // can change this for demo purposes
 // passed along with hunger decreasefunction on a set interval
 var gameLoopFreq = 1000;
@@ -31,6 +32,7 @@ class Pet {
         this.hunger = maxHunger;
         this.name = "";
         this.poop = 0;
+        this.condition = "happy";
     }
 }
 
@@ -114,6 +116,7 @@ function gameLoop() {
 function resetPet() {
     pet.hunger = maxHunger;
     pet.poop = 0;
+
 }
 
 // when click button, hunger goes up by one (i want to replace this with a food menu with different restoration values)
@@ -154,9 +157,13 @@ function displayPoop() {
 
 function removePoop() {
     $("this").remove();
-    console.log(pet.poop);
     pet.poop -= 1;
     displayPoop();
+}
+
+function changeCondition(condition) {
+    pet.condition = condition;
+    $("#pet").attr("src", `images/pets/lion${pet.condition}.png`);
 }
 
 // this is what happens when you kill your pet
@@ -169,6 +176,7 @@ function death() {
     setTimeout(function() { $("#top-message").text("You have failed your pet...").fadeIn(); }, 500);
     $(".reset").fadeIn();
     clearInterval(intervalID);
+    changeCondition("dead");
 }
 
 // function for start game button
@@ -201,6 +209,7 @@ function displayGameStart(name) {
 // restart after pet dies => new page screen
 function resetGame() {
     pet = new Pet();
+    changeCondition("happy");
     $("#pet").removeClass("death");
     $("h1").text("Your Little Pet");
     $(".reset").fadeOut();
