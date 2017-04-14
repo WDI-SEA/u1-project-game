@@ -62,7 +62,7 @@ html {
     text-align: center;
     padding-top: 100px;
     box-sizing: border-box;
-    font-color: white;
+    color: white;
 }
 
 .white-bold {
@@ -76,3 +76,5 @@ p {
     color: red;
     text-align: bold;
 }
+
+.first-hide {}
