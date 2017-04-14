@@ -40,6 +40,15 @@ html {
     height: 200px;
     width: 200px;
     position: relative;
+    z-index: 1000;
+    margin: 0 auto;
+}
+
+#tweety-bird {
+    height: 200px;
+    width: 200px;
+    position: relative;
+    margin: 0 auto;
 }
 
 #win1 {
@@ -78,3 +87,5 @@ p {
 }
 
 .first-hide {}
+
+#gun-sound {}
