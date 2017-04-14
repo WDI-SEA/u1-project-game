@@ -8,13 +8,40 @@ body {
     overflow: hidden;
 }
 
+
+/*
+
+    HEADER
+
+*/
+
 header {
     height: 15vh;
 }
 
+h1 {
+    color: #795C5F;
+    font-size: 3em;
+    padding: 0.5em;
+}
+
+
+/*
+
+    MAIN
+
+*/
+
 main {
     height: 75vh;
 }
+
+
+/*
+
+    FOOTER
+
+*/
 
 footer {
     height: 10vh;
@@ -34,26 +61,23 @@ footer a {
 
 /*
 
-Items displayed in begining
+            SUBGAMEFIELD
 
 */
+
+.sub-game-field {
+    margin-top: 1em;
+}
 
 button,
 input {
     font-family: 'Gloria Hallelujah', cursive;
 }
 
-h1 {
-    color: #795C5F;
-    font-size: 3em;
-    padding: 0.5em;
-}
-
 input,
 .reset {
     border: 1px solid #795C5F;
     padding: 0.5em;
-    margin-top: 2em;
     color: #795C5F;
 }
 
@@ -62,19 +86,20 @@ input,
     width: 35%;
 }
 
-#name-pet:placeholder {
-    color: #795C5F;
-}
-
 .submit-name,
 .reset {
     background-color: #FADF7F;
 }
 
+p.gameplay {
+    color: #795C5F;
+    font-size: 1.5em;
+}
+
 
 /*
 
-entire area that displays pet and related game items
+        GAME FIELD
 
 */
 
@@ -270,6 +295,13 @@ toggle-able classes
         transform: translateX(0px);
     }
 }
+
+
+/*
+
+        RESPONSIVE
+
+*/
 
 @media (max-width: 770px) {
     .poop-field {
