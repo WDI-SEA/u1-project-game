@@ -1,8 +1,6 @@
-// as you feed animal its experience goes up and you can unlock better foods
 // also exp up as pet "hover" it
-// display exp
-// (it would be nice if you could hover over meter and it would be specific about time to run out)
-// eventually can choose animal
+// add wearables that are unlocked with user experience?
+// eventually can choose animal (unlock with user experience?)
 // choose background
 
 
@@ -13,17 +11,17 @@
 */
 
 // max can be changed for display purposes
-var maxHunger = 100;
+var maxHunger = 600; // (2400)should be equal to 8 hours until death
 var sadHunger = maxHunger * 0.25;
 // can change this for demo purposes
 // passed along with hunger decreasefunction on a set interval
 var gameLoopFreq = 1000;
 // change  freq to longer for real game
-var hungerDecreaseFreq = 5000;
+var hungerDecreaseFreq = 10000; // (10000) 10 seconds for hunger decrease
 var hungerTimer = hungerDecreaseFreq;
 var poopFreq = hungerDecreaseFreq * 10;
 var poopTimer = poopFreq;
-var maxPoop = maxHunger / 10;
+var maxPoop = 60; // most poops that still fit in game field
 // allows us to clear the interval of the game loop, for example on death
 var intervalID;
 
@@ -115,6 +113,8 @@ function gameUpdate(timeElapsed) {
     var poopGain = Math.floor(poopTimer / poopFreq);
     if (pet.poop < maxPoop) {
         pet.poop += poopGain;
+    } else {
+        pet.poop = maxPoop;
     }
     poopTimer -= poopGain * poopFreq;
 }
@@ -126,21 +126,21 @@ function feedPet() {
     if (pet.hunger < maxHunger) {
         pet.hunger += clickedFood.hungerIncrease;
         pet.experience += clickedFood.expGained;
+        shortPurr();
         if (pet.hunger > sadHunger) {
             changeCondition("happy");
         }
         if (pet.hunger > maxHunger) {
             pet.hunger = maxHunger;
         }
-    }
-    if (pet.poop > 0) {
-        // the foods that increase the hunger meter the most cause the most poop
-        pet.poop += clickedFood.poopChange;
+        if (pet.poop < maxPoop) {
+            // the foods that increase the hunger meter the most cause the most poop
+            pet.poop += clickedFood.poopChange;
+        }
     }
     displayUnlockedFood();
     displayHunger();
     displayPoop();
-    shortPurr();
 }
 
 // clean up poop when clicked on
@@ -246,7 +246,7 @@ function initializeGame(e) {
         $("#top-message").text("Please name your pet");
     } else {
         pet.name = $("#name-pet").val();
-        $("#hunger-meter").attr("max", `${maxHunger}`);
+
         startGame();
         $(".poop-field").empty();
     }
@@ -257,6 +257,7 @@ function initializeGame(e) {
 function startGame() {
     displayGameStart(pet.name);
     intervalID = setInterval(gameLoop, gameLoopFreq);
+    $("#hunger-meter").attr("max", `${maxHunger}`);
 }
 
 // once game is started by any method, this  arranges the display
@@ -267,7 +268,12 @@ function displayGameStart(name) {
     $(".poop-field").removeClass("hidden");
     $(".food-menu").addClass("hidden");
     $("#pet").addClass("hoverable");
+    changePetSize("70%");
 
+}
+
+function changePetSize(percent) {
+    $("#pet").css("max-height", percent);
 }
 
 // restart after pet dies => brings back to new page screen
@@ -280,6 +286,7 @@ function resetGame() {
     $(".newgame").fadeIn();
     $(".game-field").removeClass("death-bg");
     $(".poop-field").addClass("hidden");
+    changePetSize("100%");
 }
 
 
