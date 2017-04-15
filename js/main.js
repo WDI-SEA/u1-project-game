@@ -27,20 +27,25 @@ initBoards(boardSize);
 ////////////////////////////////////////////////////
 
 /////////////////Make HTML boards///////////////////
-
-
-
+function htmlBoards(board) {
+    for (var i = 0; i < boardSize; i++) {
+        var $row = $("<tr>").attr('data-row', i);
+        for (var j = 0; j < boardSize; j++) {
+            $row.append($("<td>").attr('data-num', j));
+        }
+        $(`#${board} tbody`).append($row);
+    }
+}
+htmlBoards("comp-board");
+htmlBoards("player-board");
 /////////////////////////////////////////////////////
 
 ////////////Make the computer's ships//////////////
 function makeShip(letter) {
     var ranRow = Math.ceil((boardSize - 2) * Math.random());
     var ranCol = Math.ceil((boardSize - 2) * Math.random());
-    //console.log(letter + " " + ranCol + " " + ranRow);
     var rowOrCol = Math.floor(2 * Math.random());
     if (rowOrCol === 1) {
-        //console.log(letter, rowOrCol, "col");
-        // console.log(computersBoard[ranRow + 1][ranCol], computersBoard[ranRow][ranCol], computersBoard[ranRow - 1][ranCol]);
         if (computersBoard[ranRow + 1][ranCol] === "_" && computersBoard[ranRow][ranCol] === "_" && computersBoard[ranRow - 1][ranCol] === "_") {
             $(`tr:eq(${ranRow}) td:eq(${ranCol})`).attr('data-ship', letter);
             $(`tr:eq(${ranRow+1}) td:eq(${ranCol})`).attr('data-ship', letter);
@@ -54,8 +59,6 @@ function makeShip(letter) {
             makeShip(letter);
         }
     } else if (rowOrCol === 0) {
-        // console.log(letter, "row");
-        // console.log(computersBoard[ranRow][ranCol - 1], computersBoard[ranRow][ranCol], computersBoard[ranRow][ranCol + 1]);
         if (computersBoard[ranRow][ranCol - 1] === "_" && computersBoard[ranRow][ranCol] === "_" && computersBoard[ranRow][ranCol + 1] === "_") {
             $(`tr:eq(${ranRow}) td:eq(${ranCol})`).attr('data-ship', letter);
             $(`tr:eq(${ranRow}) td:eq(${ranCol+1})`).attr('data-ship', letter);
@@ -118,8 +121,6 @@ function markP() {
         playerUnits += 1;
     }
     moreGoats();
-
-    printBoard("player", playersBoard);
 }
 ///////////////////////////////////////////////////
 
@@ -181,7 +182,7 @@ function markNearHits(row, col) {
             //$(`#comp-board tr:eq(${row + nearHitOptions[i][0]}) td:eq(${col + nearHitOptions[i][1]})`).css('background-color', 'green');
         }
     }
-    printComputerMap();
+
 }
 //////////////////////////////////////////////////////////
 
