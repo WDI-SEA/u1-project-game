@@ -11,7 +11,7 @@
 */
 
 // max can be changed for display purposes
-var maxHunger = 600; // (2400)should be equal to 8 hours until death
+var maxHunger = 600; //
 var sadHunger = maxHunger * 0.25;
 // can change this for demo purposes
 // passed along with hunger decreasefunction on a set interval
@@ -51,7 +51,7 @@ class Food {
     }
 }
 
-var apple = new Food("apple", 2, -0, 100, 0);
+var apple = new Food("apple", 2, 0, 100, 0);
 var fish = new Food("fish", 5, 0, 150, 5000);
 var hotdog = new Food("hotdog", 10, 1, 300, 10000);
 var burger = new Food("burger", 15, 2, 500, 25000);
@@ -242,13 +242,13 @@ function foodMenuGenerate() {
 // function for start game button (IF NEW USER OR ON RESET)
 function initializeGame(e) {
     e.preventDefault();
-    if (!$("#name-pet").val()) {
+    pet.name = $("#name-pet").val();
+    if (pet.name === "") {
         $("#top-message").text("Please name your pet");
     } else {
-        pet.name = $("#name-pet").val();
 
         startGame();
-        $(".poop-field").empty();
+
     }
 }
 
@@ -265,6 +265,7 @@ function displayGameStart(name) {
     $("#top-message").text(`${name}, Your Little Pet`);
     $(".newgame").hide();
     $(".gameplay").fadeIn();
+    $(".poop-field").empty();
     $(".poop-field").removeClass("hidden");
     $(".food-menu").addClass("hidden");
     $("#pet").addClass("hoverable");

@@ -208,22 +208,36 @@ input:focus,
 
 /*
 
+    MENUS DIV
+
+*/
+
+.menus {
+    height: 15%;
+    margin: 0.5em 0;
+}
+
+
+/*
+
 FOOD MENU
 
 */
 
 .food-menu {
-    height: 15%;
+    height: 100%;
 }
 
 .food-menu li {
     display: inline-block;
+    height: 100%;
 }
 
 .food-menu img {
     transition: background-color 1s ease;
     border-radius: 10%;
     max-height: 100%;
+    margin: 0 0.5em;
 }
 
 .food-menu img:hover {
