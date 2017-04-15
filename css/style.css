@@ -33,7 +33,7 @@ h1 {
 */
 
 main {
-    height: 75vh;
+    height: 80vh;
 }
 
 
@@ -44,7 +44,7 @@ main {
 */
 
 footer {
-    height: 10vh;
+    height: 5vh;
     background-color: #795C5F;
     color: #F2E49F;
 }
@@ -66,7 +66,12 @@ footer a {
 */
 
 .sub-game-field {
-    margin-top: 1em;
+    margin: 1em auto;
+    width: 60%;
+}
+
+form {
+    margin-top: 0.5em;
 }
 
 button,
@@ -91,9 +96,16 @@ input,
     background-color: #FADF7F;
 }
 
-p.gameplay {
+.sub-game-field p {
     color: #795C5F;
+}
+
+p.gameplay {
     font-size: 1.5em;
+}
+
+p.newgame {
+    font-size: 1em;
 }
 
 
@@ -117,6 +129,7 @@ p.gameplay {
 #pet {
     max-width: 75%;
     max-height: 100%;
+    -webkit-transition: all 1s ease;
     transition: all 1s ease;
 }
 
@@ -130,13 +143,23 @@ poop field
 .poop-field {
     position: absolute;
     height: 10%;
-    width: 40%;
+    width: 100%;
+    left: 3%;
     bottom: 30%;
-    right: 5%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap-reverse;
     flex-wrap: wrap-reverse;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
     align-items: flex-end;
 }
 
@@ -174,6 +197,7 @@ meter::-webkit-meter-bar {
 meter::-webkit-meter-optimum-value {
     background: #E9806E;
     box-shadow: 0 5px 5px -5px #795C5F inset;
+    -webkit-transition: all 0.25s ease;
     transition: all 0.25s ease;
 }
 
@@ -189,6 +213,7 @@ meter::-webkit-meter-optimum-value {
     border: 1px #795C5F solid;
     box-shadow: 0 5px 5px -5px #795C5F inset;
     font-size: 1em;
+    -webkit-transition: all 1s ease;
     transition: all 1s ease;
     line-height: 5px;
 }
@@ -212,11 +237,6 @@ input:focus,
 
 */
 
-.menus {
-    height: 15%;
-    margin: 0.5em 0;
-}
-
 
 /*
 
@@ -226,6 +246,7 @@ FOOD MENU
 
 .food-menu {
     height: 100%;
+    margin-top: 0.5em;
 }
 
 .food-menu li {
@@ -234,6 +255,7 @@ FOOD MENU
 }
 
 .food-menu img {
+    -webkit-transition: background-color 1s ease;
     transition: background-color 1s ease;
     border-radius: 10%;
     max-height: 100%;
@@ -252,7 +274,9 @@ toggle-able classes
 */
 
 .death {
+    -webkit-transform: rotate(180deg);
     transform: rotate(180deg);
+    -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
 }
 
@@ -264,46 +288,109 @@ toggle-able classes
     display: none;
 }
 
-.purr,
-.hoverable:hover {
+.purr {
+    -webkit-animation: purring 0.4s infinite;
     animation: purring 0.4s infinite;
+}
+
+@-webkit-keyframes purring {
+    0% {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    10% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+    }
+    20% {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    30% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+    }
+    40% {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    50% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+    }
+    60% {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    70% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+    }
+    80% {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    90% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+    }
+    95% {
+        -webkit-transform: translateX(2px);
+        transform: translateX(2px);
+    }
+    100% {
+        -webkit-transform: translateX(0px);
+        transform: translateX(0px);
+    }
 }
 
 @keyframes purring {
     0% {
+        -webkit-transform: translateX(2px);
         transform: translateX(2px);
     }
     10% {
+        -webkit-transform: translateX(0px);
         transform: translateX(0px);
     }
     20% {
+        -webkit-transform: translateX(2px);
         transform: translateX(2px);
     }
     30% {
+        -webkit-transform: translateX(0px);
         transform: translateX(0px);
     }
     40% {
+        -webkit-transform: translateX(2px);
         transform: translateX(2px);
     }
     50% {
+        -webkit-transform: translateX(0px);
         transform: translateX(0px);
     }
     60% {
+        -webkit-transform: translateX(2px);
         transform: translateX(2px);
     }
     70% {
+        -webkit-transform: translateX(0px);
         transform: translateX(0px);
     }
     80% {
+        -webkit-transform: translateX(2px);
         transform: translateX(2px);
     }
     90% {
+        -webkit-transform: translateX(0px);
         transform: translateX(0px);
     }
     95% {
+        -webkit-transform: translateX(2px);
         transform: translateX(2px);
     }
     100% {
+        -webkit-transform: translateX(0px);
         transform: translateX(0px);
     }
 }
@@ -319,13 +406,16 @@ toggle-able classes
     .poop-field {
         height: 5%;
         bottom: 35%;
-        width: 30%;
     }
     .hunger {
         margin-top: 1em;
     }
-    .game-field {
+    .game-field,
+    .sub-game-field {
         width: 90%;
+    }
+    .game-field {
+        height: 60%;
     }
     #name-pet {
         width: 60%;

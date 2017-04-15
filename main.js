@@ -11,7 +11,7 @@
 */
 
 // max can be changed for display purposes
-var maxHunger = 600; //
+var maxHunger = 1000; //
 var sadHunger = maxHunger * 0.25;
 // can change this for demo purposes
 // passed along with hunger decreasefunction on a set interval
@@ -21,7 +21,7 @@ var hungerDecreaseFreq = 10000; // (10000) 10 seconds for hunger decrease
 var hungerTimer = hungerDecreaseFreq;
 var poopFreq = hungerDecreaseFreq * 10;
 var poopTimer = poopFreq;
-var maxPoop = 60; // most poops that still fit in game field
+var maxPoop = 77; // most poops that still fit in game field
 // allows us to clear the interval of the game loop, for example on death
 var intervalID;
 
@@ -52,11 +52,11 @@ class Food {
 }
 
 var apple = new Food("apple", 2, 0, 100, 0);
-var fish = new Food("fish", 5, 0, 150, 5000);
-var hotdog = new Food("hotdog", 10, 1, 300, 10000);
-var burger = new Food("burger", 15, 2, 500, 25000);
-var pizza = new Food("pizza", 20, 2, 600, 50000);
-var iceCream = new Food("icecream", 25, 3, 750, 100000);
+var fish = new Food("fish", 25, 0, 150, 5000);
+var hotdog = new Food("hotdog", 50, 1, 300, 10000);
+var burger = new Food("burger", 100, 2, 500, 25000);
+var pizza = new Food("pizza", 150, 2, 600, 50000);
+var iceCream = new Food("icecream", 200, 3, 750, 100000);
 
 var foods = [apple, fish, hotdog, burger, pizza, iceCream];
 
@@ -109,6 +109,7 @@ function gameUpdate(timeElapsed) {
         changeCondition("sad");
     }
 
+    /// add in some conditions for sad pet (1 row of poop) and angry pet (multiple rows of poop)
     poopTimer += timeElapsed;
     var poopGain = Math.floor(poopTimer / poopFreq);
     if (pet.poop < maxPoop) {
@@ -165,7 +166,8 @@ function changeCondition(condition) {
 */
 
 function petStatusText() {
-    $("#bottom-message").text(`Hunger: ${pet.hunger}, Exp: ${pet.experience}, Condition: ${pet.condition}`);
+    var fullness = Math.round(pet.hunger / 100);
+    $("#bottom-message").text(`Fullness: ${fullness}/10, Exp: ${pet.experience}, Condition: ${pet.condition}`);
 }
 
 // changes the hunger meter
@@ -211,7 +213,7 @@ function death() {
     $(".gameplay").addClass("hidden");
     $(".gameplay").fadeOut();
     $(".food-menu").addClass("hidden");
-    $("#pet").addClass("death").removeClass("hoverable");
+    $("#pet").addClass("death");
     $(".game-field").addClass("death-bg");
     $("#top-message").fadeOut();
     setTimeout(function() { $("#top-message").text("You have failed your pet...").fadeIn(); }, 500);
@@ -246,9 +248,7 @@ function initializeGame(e) {
     if (pet.name === "") {
         $("#top-message").text("Please name your pet");
     } else {
-
         startGame();
-
     }
 }
 
@@ -268,9 +268,8 @@ function displayGameStart(name) {
     $(".poop-field").empty();
     $(".poop-field").removeClass("hidden");
     $(".food-menu").addClass("hidden");
-    $("#pet").addClass("hoverable");
     changePetSize("70%");
-
+    petStatusText();
 }
 
 function changePetSize(percent) {
@@ -295,7 +294,8 @@ function resetGame() {
 $(function() {
     // check if viewer has seen page before
     var numViews = 0;
-    if (localStorage.viewCount) {
+    // also checks if a pet has been saved, other wise it will try to retrive undefined and cause a crash!!!
+    if (localStorage.viewCount && localStorage.pet) {
         retrievePetFromStorage();
         numViews = parseInt(localStorage.viewCount);
         startGame();
