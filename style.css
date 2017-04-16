@@ -263,6 +263,26 @@ progress[value]::-webkit-progress-bar {
     padding-top: 1.5em;
 }
 
+#fight-screen {
+    position: relative;
+    width: 100%
+}
+
+#winners-screen {
+    height: 500px;
+    width: 900px;
+    border: 5px solid black;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    margin-left: -455px;
+    border-radius: 75px;
+    background-color: white;
+    text-align: center;
+}
+
+
+}
 .red {
     border: 5px solid red;
     animation-name: pulse_animation;
@@ -271,34 +291,39 @@ progress[value]::-webkit-progress-bar {
     animation-iteration-count: infinite;
     animation-timing-function: linear;
 }
-
 @keyframes pulse_animation {
     0% {
         transform: scale(1);
     }
+    
     30% {
         transform: scale(1);
     }
+    
     40% {
         transform: scale(1.08);
     }
+    
     50% {
         transform: scale(1);
     }
+    
     60% {
         transform: scale(1);
     }
+    
     70% {
         transform: scale(1.05);
     }
+    
     80% {
         transform: scale(1);
     }
+    
     100% {
         transform: scale(1);
     }
 }
-
 .dead {
     background-color: rgba(250, 50, 50, 0.55);
     z-index: 1000;

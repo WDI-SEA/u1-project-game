@@ -187,7 +187,8 @@ function checkDead(array, index) {
 function checkWin(array) {
     if (array[0].Dead && array[1].Dead) {
         win = true;
-        $('.message').text(`${nextPlayer.Name}'s cats are dead!  ${currentPlayer.Name} wins!!`);
+        $('#winners-screen > h1').html(`${currentPlayer.Name} is victorious!`)
+        $('#winners-screen').removeClass('hide');
     }
 }
 
