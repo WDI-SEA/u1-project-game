@@ -1,6 +1,8 @@
+// ideas
 // also exp up as pet "hover" it
-// add wearables that are unlocked with user experience?
+// add wearables that are unlocked with pet experience?
 // eventually can choose animal (unlock with user experience?)
+// diff animals have diff fav foods with ultra happy status
 // choose background
 
 
@@ -22,6 +24,8 @@ var hungerTimer = hungerDecreaseFreq;
 var poopFreq = hungerDecreaseFreq * 10;
 var poopTimer = poopFreq;
 var maxPoop = 77; // most poops that still fit in game field
+var sadPoop = 5; //
+var angryPoop = 15; // around 1 row of poop depending on screen size
 // allows us to clear the interval of the game loop, for example on death
 var intervalID;
 
@@ -114,6 +118,11 @@ function gameUpdate(timeElapsed) {
     var poopGain = Math.floor(poopTimer / poopFreq);
     if (pet.poop < maxPoop) {
         pet.poop += poopGain;
+        if (pet.poop > angryPoop) {
+            changeCondition("angry");
+        } else if (pet.poop > sadPoop) {
+            changeCondition("sad");
+        }
     } else {
         pet.poop = maxPoop;
     }
@@ -128,7 +137,7 @@ function feedPet() {
         pet.hunger += clickedFood.hungerIncrease;
         pet.experience += clickedFood.expGained;
         shortPurr();
-        if (pet.hunger > sadHunger) {
+        if (pet.hunger > sadHunger && pet.poop < sadPoop) {
             changeCondition("happy");
         }
         if (pet.hunger > maxHunger) {
@@ -150,6 +159,9 @@ function removePoop() {
     pet.poop -= 1;
     pet.experience += 20;
     displayPoop();
+    if (pet.poop < sadPoop) {
+        changeCondition("happy");
+    }
 }
 
 
