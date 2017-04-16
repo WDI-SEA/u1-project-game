@@ -5,17 +5,22 @@ var critical;
 var win = false;
 
 class cat {
-    constructor(name, type, hp, currentHp, attack, special, damage, counter, image, dead) {
+    constructor(bio, name, type, hp, currentHp, attack, range, special, description, damage, counter, image, dead, strong, weak) {
+        this.Bio = bio;
         this.Name = name;
         this.Type = type;
         this.Hp = hp;
         this.CurrentHp = currentHp;
         this.Attack = attack;
+        this.Range = range;
         this.Special = special;
+        this.Description = description;
         this.Damage = damage;
         this.Counter = counter;
         this.Image = image;
         this.Dead = dead;
+        this.Strong = strong;
+        this.Weak = weak;
     }
 }
 
@@ -35,9 +40,11 @@ class player {
 }
 
 function switchPlayers() {
+    $(currentPlayer.Id).find('.moves').removeClass('red');
     temp = currentPlayer;
     currentPlayer = nextPlayer;
     nextPlayer = temp;
+    $(currentPlayer.Id).find('.moves').addClass('red');
 }
 
 function updatePickScreen(catName, player, box) {
@@ -92,6 +99,62 @@ function specialReady(counter, player) {
     }
 }
 
+function weakOrStrong(attkCat, oppCat) {
+    var special = attkCat.Special;
+    var type = oppCat.Type;
+    var damageModifier = 1;
+
+    switch (special) {
+        case 'Hex':
+            if (type === 'Adorable') {
+                damageModifier = 2;
+            } else if (type === 'Sleepy') {
+                damageModifier = 0.5;
+            } else if (type === 'Siamese') {
+                damageModifier = 0.5;
+            }
+            return damageModifier;
+        case 'Ooze Cuteness':
+            if (type === 'Sleepy') {
+                damageModifier = 2;
+            } else if (type === 'Tabby') {
+                damageModifier = 0.5;
+            } else if (type === 'Siamese') {
+                damageModifier = 0.5;
+            }
+            return damageModifier;
+        case 'Fury Swipes':
+            if (type === 'Goth') {
+                damageModifier = 2;
+            } else if (type === 'Adorable') {
+                damageModifier = 0.5;
+            } else if (type === 'Tabby') {
+                damageModifier = 0.5;
+            }
+            return damageModifier;
+        case 'Maul Face':
+            if (type === 'Siamese') {
+                damageModifier = 2;
+            } else if (type === 'Sleepy') {
+                damageModifier = 0.5;
+            } else if (type === 'Goth') {
+                damageModifier = 0.5;
+            }
+            return damageModifier;
+        case 'Death Stare':
+            if (type === 'Tabby') {
+                damageModifier = 2;
+            } else if (type === 'Adorable') {
+                damageModifier = 0.5;
+            } else if (type === 'Goth') {
+                damageModifier = 0.5;
+            }
+            return damageModifier;
+        case 'Loathe Everything':
+            return damageModifier;
+    }
+}
+
 function catDied(array, index) {
     if (array[index].CurrentHp <= 0) {
         array[index].Dead = true;
@@ -133,9 +196,18 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
     var multiplyer = critChance();
     var playerCat = attackerArray[attackerIndex];
     var enemyCat = opponentArray[opponentIndex];
+    var modifier = weakOrStrong(playerCat, enemyCat);
     var atkValue = Math.floor((playerCat.Attack + plusDamage) * multiplyer);
-    var specValue = Math.floor(playerCat.Damage * multiplyer);
+    var specValue = Math.floor(playerCat.Damage * multiplyer * modifier);
     var healValue = playerCat.Hp - playerCat.CurrentHp;
+    var strong = false;
+    var weak = false;
+
+    if (modifier === 2) {
+        strong = true;
+    } else if (modifier === 0.5) {
+        weak = true;
+    }
 
     switch (move) {
         case 1:
@@ -177,6 +249,11 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
             } else if (critical) {
                 $('.message').text(`${playerCat.Special} crit ${enemyCat.Name} for ${specValue} damage!`);
             }
+            if (strong) {
+                $('.message').append($('<p>').text("It's very effective!"));
+            } else if (weak) {
+                $('.message').append($('<p>').text("It's not very effective..."));
+            }
             break;
         case 3:
             if (healValue > 300) {
@@ -208,20 +285,112 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
     }
 }
 
-var blackCat = new cat('Black Cat', 'Witch', 1000, 250, 50, 'Hex', 175, 0, 'images/black-cat.png', false);
-var blueCat = new cat('Baby Blue', 'Adorable', 1000, 250, 50, 'Awwww', 175, 0, 'images/blue-cat.png', false);
-var greyCat = new cat('Grey Cat', 'Sleepy', 1000, 250, 50, 'Purrrr', 175, 0, 'images/grey-cat.png', false);
-var orangeCat = new cat('Oliver', 'Tabby', 1000, 250, 50, 'Maul Face', 175, 0, 'images/orange-cat.png', false);
-var whiteCat = new cat('Senior Chang', 'Siamese', 1000, 250, 50, 'Death Stare', 175, 0, 'images/white-cat.png', false);
-var grumpyCat = new cat('Grumpy Cat', 'Disgruntled', 1000, 250, 50, 'Loathe Everytghing', 175, 0, 'images/grumpy-cat.jpg', false);
+var blackCat = new cat(
+    "A favorite of witches and warlocks.  Black Cats often inherit some of their master's abilities.",
+    'Binx',
+    'Goth',
+    800,
+    800,
+    70,
+    '70 - 80',
+    'Hex',
+    'Blasts and opponent in the face with black magic.',
+    200,
+    0,
+    'images/black-cat.png',
+    false,
+    'Adorable',
+    'Sleepy & Siamese');
+var blueCat = new cat(
+    'Genetically engineered by scientists to be as cute as possible.',
+    'Baby Blue',
+    'Adorable',
+    1200,
+    1200,
+    89,
+    '89 - 99',
+    'Ooze Cuteness',
+    "Literally melts the hearts of it's opponents with cuteness.",
+    150,
+    0,
+    'images/blue-cat.png',
+    false,
+    'Sleepy',
+    'Tabby & Siamese');
+var greyCat = new cat(
+    'Most of their life is spent sleeping.  Wake them up, however, and you experience their wrath',
+    'Patches',
+    'Sleepy',
+    900,
+    900,
+    100,
+    '100 - 110',
+    'Fury Swipes',
+    'Unleashes a fury of attacks and hisses until left alone.',
+    130,
+    0,
+    'images/grey-cat.png',
+    false,
+    'Goth',
+    'Adorable & Tabby');
+var orangeCat = new cat(
+    'Small, orange, and cute.  Only their lifeless eyes hint at the ire that festers inside.',
+    'Oliver',
+    'Tabby',
+    1000,
+    1000,
+    105,
+    '105 - 115',
+    'Maul Face',
+    "Latches onto their enemy's face and doesn't relent until their dead.",
+    125,
+    0,
+    'images/orange-cat.png',
+    false,
+    'Siamese',
+    'Goth & Sleepy');
+var whiteCat = new cat(
+    "Prefers the prefix 'Senor', despite not actually being of Latino decent.  It is unknown why.",
+    'Senor Chang',
+    'Siamese',
+    750,
+    750,
+    80,
+    '80 - 90',
+    'Death Stare',
+    "Lasers shoot out of it's eyes causing severe burn damage to it's victims.",
+    175,
+    0,
+    'images/white-cat.png',
+    false,
+    'Tabby',
+    'Goth & Adorable');
+var grumpyCat = new cat(
+    'Hates everything and everyone.',
+    'Grumpy Cat',
+    'Disgruntled',
+    925,
+    925,
+    50,
+    '87 - 97',
+    'Loathe Everything',
+    "Hate flows out of it's body in waves of intense energy.",
+    100,
+    0,
+    'images/grumpy-cat.jpg',
+    false,
+    'Hates everything equally.',
+    'Is indifferent to all types of attacks.');
 
-var play1 = new player('Player 1', [], 0, 1, '#player1', 'p1attack', '#p1-c1', '#p1-c2', '#p1-fight1', '#p1-fight2');
-var play2 = new player('Player 2', [], 0, 1, '#player2', 'p2attack', '#p2-c1', '#p2-c2', '#p2-fight1', '#p2-fight2');
+var play1 = new player('', [], 0, 1, '#player1', 'p1attack', '#p1-c1', '#p1-c2', '#p1-fight1', '#p1-fight2');
+var play2 = new player('', [], 0, 1, '#player2', 'p2attack', '#p2-c1', '#p2-c2', '#p2-fight1', '#p2-fight2');
 
 function onPageLoad() {
     $('#pick-last').on('click', function() {
         $('#title-screen').addClass('hide');
         $('#pick-screen').removeClass('hide');
+        play1.Name = $('#play1-name').val();
+        play2.Name = $('#play2-name').val();
         currentPlayer = play1;
         nextPlayer = play2;
         pickScreen();
@@ -229,6 +398,8 @@ function onPageLoad() {
     $('#go-first').on('click', function() {
         $('#title-screen').addClass('hide');
         $('#pick-screen').removeClass('hide');
+        play1.Name = $('#play1-name').val();
+        play2.Name = $('#play2-name').val();
         currentPlayer = play2;
         nextPlayer = play1;
         pickScreen();
@@ -237,14 +408,22 @@ function onPageLoad() {
 
 
 function pickScreen() {
-    var catPicsArray = $('.cat-pics > img');
+    console.log(play1.Name, play2.Name);
+    var catPicsArray = $('.cat-pics > div > img');
     $(currentPlayer.PickBox1).addClass('red');
 
     $.each(catPicsArray, function() {
         $(this).on('mouseover', function() {
             var catName = eval(this.name);
-            $('.name').text('Name: ' + catName.Name);
-            $('.type').text('Type: ' + catName.Type);
+            $('.name').html('<b>Name: </b>' + catName.Name);
+            $('.type').html('<b>Type: </b>' + catName.Type);
+            $('.bio').html('<i>"' + catName.Bio + '",</i>');
+            $('.attack').html('<b>Base Attack: </b>' + catName.Range);
+            $('.specialName').html('<b>Special: </b>' + catName.Special);
+            $('.description').html('<i>"' + catName.Description + '"</i>');
+            $('.damageAmt').html('<b>Special Damage: </b>' + catName.Damage);
+            $('.strong').html('<b>Strong against: </b>' + catName.Strong);
+            $('.weak').html('<b>Weak against: </b>' + catName.Weak);
         });
     });
 
@@ -277,10 +456,14 @@ function pickScreen() {
         });
     });
 
-    $('#fight').on('click', function() {
-        $('#pick-screen').addClass('hide');
-        $('#fight-screen').removeClass('hide');
-        fightScreen();
+    $('#fight').on('click', function(event) {
+        if (play1.Array.length < 2 || play2.Array.length < 2) {
+            event.preventDefault();
+        } else {
+            $('#pick-screen').addClass('hide');
+            $('#fight-screen').removeClass('hide');
+            fightScreen();
+        }
     });
 }
 
@@ -295,6 +478,7 @@ function fightScreen() {
 
     updateFightScreen(play1.Id, p1Array, play1.Index);
     updateFightScreen(play2.Id, p2Array, play2.Index);
+    $(currentPlayer.Id).find('.moves').addClass('red');
 
     $(document).on('keyup', function() {
         var attkId = currentPlayer.Id;

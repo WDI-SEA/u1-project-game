@@ -12,6 +12,17 @@
 <body>
     <section id="title-screen">
         <img src="images/cat-fight.png" alt="">
+        <h1>the game of pussies galore!</h1>
+        <div class="flex column">
+            <div>
+                <label for="play1-name">Player 1: </label>
+                <input type="text" id="play1-name" placeholder="Enter your name">
+            </div>
+            <div>
+                <label for="play2-name">Player 2: </label>
+                <input type="text" id="play2-name" placeholder="Enter your name">
+            </div>
+        </div>
         <h2>Player 1</h2>
         <span>would you like to...</span>
         <div class="flex">
@@ -21,17 +32,42 @@
     </section>
     <section id="pick-screen" class="hide">
         <div class="cat-pics flex">
-            <img src="images/black-cat.png" name="blackCat">
-            <img src="images/blue-cat.png" name="blueCat">
-            <img src="images/grey-cat.png" name="greyCat">
-            <img src="images/orange-cat.png" name="orangeCat">
-            <img src="images/white-cat.png" name="whiteCat">
-            <img src="images/grumpy-cat.jpg" name="grumpyCat">
+            <div class="flex column">
+                <img src="images/black-cat.png" name="blackCat">
+                <span>Goth</span>
+            </div>
+            <div class="flex column">
+                <img src="images/blue-cat.png" name="blueCat">
+                <span>Adorable</span>
+            </div>
+            <div class="flex column">
+                <img src="images/grey-cat.png" name="greyCat">
+                <span>Sleepy</span>
+            </div>
+            <div class="flex column">
+                <img src="images/orange-cat.png" name="orangeCat">
+                <span>Tabby</span>
+            </div>
+            <div class="flex column">
+                <img src="images/white-cat.png" name="whiteCat">
+                <span>Siamese</span>
+            </div>
+            <div class="flex column">
+                <img src="images/grumpy-cat.jpg" name="grumpyCat">
+                <span>Disgruntled</span>
+            </div>
         </div>
         <h1>pick your cats</h1>
         <div class="cat-info">
             <p class="name"></p>
             <p class="type"></p>
+            <p class="bio"></p>
+            <p class="attack"></p>
+            <p class="specialName"></p>
+            <p class="description"></p>
+            <p class="damageAmt"></p>
+            <p class="strong"></p>
+            <p class="weak"></p>
         </div>
         <div class="picked-cats flex">
             <div class="flex column">

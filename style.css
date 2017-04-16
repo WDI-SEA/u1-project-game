@@ -26,14 +26,31 @@
     margin: 0 auto;
 }
 
+#title-screen h1 {
+    text-transform: uppercase;
+    ;
+}
+
 #title-screen h2 {
     margin-top: 2em;
 }
 
 #title-screen > div {
-    width: 30%;
+    width: 40%;
     margin: 3em auto 0 auto;
     justify-content: space-between;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+input {
+    margin-top: 1em;
+    border: 2px solid black;
+    font-size: 1em;
+    padding: .25em;
 }
 
 button {
@@ -58,7 +75,7 @@ button {
     margin: 0 auto;
 }
 
-.cat-pics > img {
+.cat-pics > div > img {
     object-fit: contain;
     height: 125px;
     width: 125px;
@@ -67,6 +84,14 @@ button {
 
 .cat-info {
     height: 300px;
+    width: 40%;
+    margin: 0 auto;
+}
+
+.cat-info p {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: .5em;
 }
 
 .picked-cats {
