@@ -60,7 +60,7 @@ function updateFightScreen(id, array, index) {
     $(id).find('.big-cat').attr('src', array[index].Image);
     $(id).find('.hp').attr('value', array[index].CurrentHp).attr('max', array[index].Hp);
     $(id).find('.fight-type').text(array[index].Type);
-    $(id).find('.atk').text(`1. Scratch: ${array[index].Attack}`);
+    $(id).find('.atk').text(`1. Scratch: ${array[index].Range}`);
     $(id).find('.spec').text(`2. Special: ${array[index].Damage}`);
     if (id === '#player1') {
         play1.Index = index;
@@ -225,9 +225,9 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
                 $(opponent).find('.big-cat').removeClass('damage');
             }, 750);
             if (!critical) {
-                $('.message').text(`${playerCat.Name} hit ${enemyCat.Name} for ${atkValue} damage!`);
+                $('.message').html(`${playerCat.Name} hit ${enemyCat.Name} for ${atkValue} damage!`);
             } else if (critical) {
-                $('.message').text(`${playerCat.Name} crit ${enemyCat.Name} for ${atkValue} damage!`);
+                $('.message').html(`${playerCat.Name} crit ${enemyCat.Name} for ${atkValue} damage!`);
             }
             break;
         case 2:
@@ -245,9 +245,9 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
                 $(opponent).find('.big-cat').removeClass('damage');
             }, 1000);
             if (!critical) {
-                $('.message').text(`${playerCat.Special} hit ${enemyCat.Name} for ${specValue} damage!`);
+                $('.message').html(`${playerCat.Special} hit ${enemyCat.Name} for ${specValue} damage!`);
             } else if (critical) {
-                $('.message').text(`${playerCat.Special} crit ${enemyCat.Name} for ${specValue} damage!`);
+                $('.message').html(`${playerCat.Special} crit ${enemyCat.Name} for ${specValue} damage!`);
             }
             if (strong) {
                 $('.message').append($('<p>').text("It's very effective!"));
@@ -258,10 +258,10 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
         case 3:
             if (healValue > 300) {
                 playerCat.CurrentHp = playerCat.CurrentHp + 300;
-                $('.message').text(`${playerCat.Name} healed for 300 HP!`);
+                $('.message').html(`${playerCat.Name} healed for 300 HP!`);
             } else {
                 playerCat.CurrentHp = playerCat.CurrentHp + healValue;
-                $('.message').text(`${playerCat.Name} healed for ${healValue}`);
+                $('.message').html(`${playerCat.Name} healed for ${healValue}`);
             }
             $(attacker).find('.big-cat').addClass('heal');
             setTimeout(function() {
@@ -286,7 +286,7 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
 }
 
 var blackCat = new cat(
-    "A favorite of witches and warlocks.  Black Cats often inherit some of their master's abilities.",
+    "A favorite of witches and warlocks.  Goth cats often inherit some of their master's magical abilities.",
     'Binx',
     'Goth',
     800,
@@ -294,7 +294,7 @@ var blackCat = new cat(
     70,
     '70 - 80',
     'Hex',
-    'Blasts and opponent in the face with black magic.',
+    'Blasts an opponent in the face with black magic.',
     200,
     0,
     'images/black-cat.png',
@@ -342,7 +342,7 @@ var orangeCat = new cat(
     105,
     '105 - 115',
     'Maul Face',
-    "Latches onto their enemy's face and doesn't relent until their dead.",
+    "Latches onto their enemy's face and doesn't relent until they're dead.",
     125,
     0,
     'images/orange-cat.png',
@@ -350,8 +350,8 @@ var orangeCat = new cat(
     'Siamese',
     'Goth & Sleepy');
 var whiteCat = new cat(
-    "Prefers the prefix 'Senor', despite not actually being of Latino decent.  It is unknown why.",
-    'Senor Chang',
+    "Prefers the title Se&ntilde;or, despite not actually being of Latino decent.  It is unknown why.",
+    'Se&ntilde;or Chang',
     'Siamese',
     750,
     750,
@@ -377,9 +377,9 @@ var grumpyCat = new cat(
     "Hate flows out of it's body in waves of intense energy.",
     100,
     0,
-    'images/grumpy-cat.jpg',
+    'images/grumpy-cat.png',
     false,
-    'Hates everything equally.',
+    'Despises everything equally.',
     'Is indifferent to all types of attacks.');
 
 var play1 = new player('', [], 0, 1, '#player1', 'p1attack', '#p1-c1', '#p1-c2', '#p1-fight1', '#p1-fight2');
@@ -415,15 +415,15 @@ function pickScreen() {
     $.each(catPicsArray, function() {
         $(this).on('mouseover', function() {
             var catName = eval(this.name);
-            $('.name').html('<b>Name: </b>' + catName.Name);
-            $('.type').html('<b>Type: </b>' + catName.Type);
-            $('.bio').html('<i>"' + catName.Bio + '",</i>');
-            $('.attack').html('<b>Base Attack: </b>' + catName.Range);
-            $('.specialName').html('<b>Special: </b>' + catName.Special);
-            $('.description').html('<i>"' + catName.Description + '"</i>');
-            $('.damageAmt').html('<b>Special Damage: </b>' + catName.Damage);
-            $('.strong').html('<b>Strong against: </b>' + catName.Strong);
-            $('.weak').html('<b>Weak against: </b>' + catName.Weak);
+            $('.name').html(catName.Name);
+            $('.type').text(catName.Type);
+            $('.bio').html(`<i>"${catName.Bio}"</i>`);
+            $('.attack').text(catName.Range);
+            $('.specialName').text(catName.Special);
+            $('.description').html(`<i>"${catName.Description}"</i>`);
+            $('.damageAmt').text(catName.Damage);
+            $('.strong').text(catName.Strong);
+            $('.weak').text(catName.Weak);
         });
     });
 

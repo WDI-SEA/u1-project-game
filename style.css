@@ -1,5 +1,17 @@
+/*==========
+  GENERIC
+==========*/
+
+* {
+    font-family: 'PT Serif', serif;
+}
+
 .flex {
     display: flex;
+    /*flex-wrap: wrap;*/
+}
+
+.wrap {
     flex-wrap: wrap;
 }
 
@@ -16,28 +28,50 @@
     display: none;
 }
 
+.uppercase-bold {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+
+/*==========
+TITLE SCREEN
+==========*/
+
 #title-screen {
     text-align: center;
 }
 
 #title-screen > img {
-    max-width: 90%;
+    max-height: 300px;
     display: block;
     margin: 0 auto;
 }
 
-#title-screen h1 {
-    text-transform: uppercase;
-    ;
+#title-screen > p {
+    font-size: 1.15em;
+    width: 785px;
+    margin: 0 auto;
+}
+
+.player-names {
+    width: 645px;
+    margin: 3em auto 0 auto;
+    justify-content: space-between;
 }
 
 #title-screen h2 {
-    margin-top: 2em;
+    margin-top: 3em;
+    margin-bottom: .2em;
 }
 
-#title-screen > div {
-    width: 40%;
-    margin: 3em auto 0 auto;
+.buttons {
+    width: 456px;
+    margin: 1.5em auto 0 auto;
     justify-content: space-between;
 }
 
@@ -47,18 +81,20 @@ label {
 }
 
 input {
-    margin-top: 1em;
     border: 2px solid black;
     font-size: 1em;
     padding: .25em;
 }
 
 button {
+    height: 57px;
     text-transform: uppercase;
     font-size: 1em;
     font-weight: bold;
     padding: 1em 2em;
     background-color: white;
+    font-family: 'Playfair Display SC', serif;
+    letter-spacing: .15em;
 }
 
 #pick-screen {
@@ -66,13 +102,13 @@ button {
 }
 
 #pick-screen h1 {
-    text-transform: uppercase;
+    margin-top: .3em;
 }
 
 .cat-pics {
     justify-content: space-between;
     width: 90%;
-    margin: 0 auto;
+    margin: 0 auto 1em auto;
 }
 
 .cat-pics > div > img {
@@ -80,12 +116,23 @@ button {
     height: 125px;
     width: 125px;
     border: 5px solid black;
+    margin: .5em 0;
 }
 
 .cat-info {
     height: 300px;
-    width: 40%;
+    width: 625px;
     margin: 0 auto;
+}
+
+.cat-info > .flex > .uppercase-bold {
+    width: 140px;
+    text-align: right;
+}
+
+.info {
+    padding-left: 1em;
+    width: 460px;
 }
 
 .cat-info p {
@@ -98,6 +145,7 @@ button {
     justify-content: space-between;
     width: 70%;
     margin: 0 auto;
+    align-items: flex-end;
 }
 
 .pick-box {
@@ -112,7 +160,7 @@ button {
     height: 100px;
     width: 400px;
     border: 3px solid black;
-    flex-wrap: wrap;
+    margin-top: .5em;
 }
 
 .move {
@@ -128,7 +176,7 @@ button {
 }
 
 #player1 span {
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     margin-bottom: 1em;
 }
 
@@ -161,7 +209,7 @@ button {
 }
 
 #player2 span {
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     margin-bottom: 1em;
 }
 
@@ -205,6 +253,14 @@ progress[value]::-webkit-progress-bar {
 .fight-cats {
     width: 100%;
     justify-content: space-between;
+}
+
+.message {
+    border: 3px solid black;
+    border-radius: 25px;
+    text-align: center;
+    width: 500px;
+    padding-top: 1.5em;
 }
 
 .red {
