@@ -145,6 +145,7 @@ td {
 }
 
 #restart,
+#board-change,
 .right h2,
 .right h3 {
     display: none;

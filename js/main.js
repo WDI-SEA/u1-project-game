@@ -1,11 +1,17 @@
-//TODO, boardsize, unit counter
-var boardSize = prompt("Enter Board Size >6");
+var boardSize;
 
+function boardAlert() {
+    boardSize = prompt("Enter Board Size >5");
+    if (boardSize < 6 || isNaN(boardSize)) {
+        boardAlert();
+    }
+    console.log(isNaN(boardSize));
+}
+boardAlert();
 ////////////Make JS Boards/////////////
 var computersBoard = [];
 var computersMap = [];
 var playersBoard = [];
-var madeBoard = [];
 
 function makeJSBoard(board, size) {
     for (var i = 0; i < size; i++) {
@@ -81,8 +87,6 @@ function printBoard(htmlBoard, jsBoard) {
         $(`#${htmlBoard}`).append($("<div>").text(jsBoard[i]));
     }
 }
-printBoard("comp", computersBoard);
-printBoard("map", computersMap);
 
 
 
@@ -140,11 +144,13 @@ function checkWin() {
         console.log("PLAYER WINS");
         $('td').off();
         $("#restart").toggle();
+        $("#board-change").toggle();
         gameOver("YOU WON!", './img/good_job.gif');
     } else if (compHits === 8) {
         console.log("COMP WINS");
         $('td').off();
         $("#restart").toggle();
+        $("#board-change").toggle();
         gameOver("You lost to a poorly programmed computer. How's that feel?", './img/lose.gif');
     }
 }
@@ -283,11 +289,16 @@ function restartGame() {
     $('#comp-board td').on('click', markP);
     $('#player-board td').on('click', revealSquare);
     $("#comp-board td").css('background-color', '');
-    //printComputerBoard();
     $('#restart').toggle();
+    $('#board-change').toggle();
     $('.game-over').css("display", 'none');
     toggleBetweenGames();
 }
+
+function reload() {
+    location.reload();
+}
+
 //////////////////////////////////////////////////////////
 
 function pageLoadStuff() {
@@ -302,4 +313,5 @@ $(function() {
     $('#comp-board td').on('click', markP);
     $('#start').on('click', startGame);
     $('#restart').on('click', restartGame);
+    $('#board-change').on('click', reload);
 });
