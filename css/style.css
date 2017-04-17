@@ -2,6 +2,7 @@
 
 body {
     background-color: #C59B78;
+    color: #795C5F;
     text-align: center;
     font-size: 16px;
     font-family: 'Gloria Hallelujah', cursive;
@@ -20,7 +21,6 @@ header {
 }
 
 h1 {
-    color: #795C5F;
     font-size: 3em;
     padding: 0.5em;
 }
@@ -47,15 +47,27 @@ footer {
     height: 5vh;
     background-color: #795C5F;
     color: #F2E49F;
+    position: relative;
 }
 
 footer p {
+    font-size: 0.6em;
     padding-top: .5em;
 }
 
 footer a {
     color: #E9806E;
     text-decoration: none;
+}
+
+.instant-kill {
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: #E9806E;
+    background-color: #F2E49F;
+    padding: 1em 0.5em;
+    height: 100%;
 }
 
 
@@ -83,7 +95,7 @@ input,
 .reset {
     border: 1px solid #795C5F;
     padding: 0.5em;
-    color: #795C5F;
+    /*color: #795C5F;*/
 }
 
 #name-pet {
@@ -94,10 +106,6 @@ input,
 .submit-name,
 .reset {
     background-color: #FADF7F;
-}
-
-.sub-game-field p {
-    color: #795C5F;
 }
 
 p.gameplay {
@@ -131,6 +139,62 @@ p.newgame {
     max-height: 100%;
     -webkit-transition: all 1s ease;
     transition: all 1s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto
+}
+
+
+/*
+
+    WEARABLES
+
+*/
+
+.wearable {
+    position: absolute;
+    z-index: 2;
+}
+
+.glasses {
+    top: 28%;
+    left: 0;
+    right: 11%;
+    margin: auto;
+    -webkit-transform: scale(1.7);
+    transform: scale(1.7);
+}
+
+.hairbow {
+    top: 11%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+}
+
+.hat {
+    top: 4%;
+    left: 0;
+    right: 8%;
+    margin: auto;
+}
+
+.mustache {
+    top: 36%;
+    left: 0;
+    right: 11%;
+    margin: auto;
+}
+
+.tie {
+    top: 44%;
+    left: 0;
+    right: 8%;
+    margin: auto;
 }
 
 
@@ -178,7 +242,8 @@ HUNGER METER
     min-height: 10%;
     margin-top: 0.5em;
     width: 100%;
-    position: relative;
+    position: absolute;
+    bottom: 20%;
 }
 
 .hunger meter {
@@ -201,13 +266,26 @@ meter::-webkit-meter-optimum-value {
     transition: all 0.25s ease;
 }
 
-.feed {
-    height: 100%;
+
+/*
+
+    MENUS DIV
+
+*/
+
+.menus {
+    width: 80%;
+    height: 20%;
+    position: absolute;
+    bottom: 0;
+    margin-top: 0.5em;
+}
+
+.feed,
+.wear {
     width: 15%;
     vertical-align: middle;
     position: absolute;
-    bottom: 1px;
-    right: 5%;
     background-color: #C59B76;
     color: #795C5F;
     border: 1px #795C5F solid;
@@ -218,7 +296,23 @@ meter::-webkit-meter-optimum-value {
     line-height: 5px;
 }
 
-.feed:hover {
+.feed {
+    bottom: 1px;
+    right: 5%;
+    height: 100%;
+}
+
+.wear {
+    position: absolute;
+    right: 5%;
+    bottom: 10%;
+    height: 10%;
+    margin-top: 0.5em;
+    font-size: 0.75em;
+}
+
+.feed:hover,
+.wear:hover {
     background-color: #795C5F;
     color: #E9806E;
     box-shadow: 0 5px 5px -5px #C59B76 inset;
@@ -226,16 +320,27 @@ meter::-webkit-meter-optimum-value {
 }
 
 input:focus,
-.feed:focus {
+.feed:focus,
+.wear:focus {
     outline: none;
 }
 
 
 /*
 
-    MENUS DIV
+WEARABLES MENU
 
 */
+
+.wearables-menu li {
+    display: inline-block;
+    padding: 0.75em;
+    /*color: #795C5F;*/
+}
+
+.wearables-menu li:hover {
+    border: 3px dashed #795C5F;
+}
 
 
 /*
@@ -245,8 +350,7 @@ FOOD MENU
 */
 
 .food-menu {
-    height: 100%;
-    margin-top: 0.5em;
+    height: 50%;
 }
 
 .food-menu li {
@@ -260,6 +364,7 @@ FOOD MENU
     border-radius: 10%;
     max-height: 100%;
     margin: 0 0.5em;
+    max-width: 75%
 }
 
 .food-menu img:hover {
@@ -420,6 +525,25 @@ toggle-able classes
     #name-pet {
         width: 60%;
     }
+    .food-menu img {
+        max-width: 50%;
+    }
+    .wearables-menu li {
+        margin-top: 0em;
+        padding: 0.5em;
+    }
+    .glasses {
+        right: 15%;
+    }
+    .hat {
+        right: 12%;
+    }
+    .mustache {
+        right: 17%;
+    }
+    .tie {
+        right: 12%;
+    }
 }
 
 @media (max-width: 560px) {
@@ -432,7 +556,36 @@ toggle-able classes
     h1 {
         font-size: 2em;
     }
+    .food-menu li {
+        max-width: 12.5%;
+    }
     .food-menu img {
-        max-width: 50%;
+        max-width: 100%;
+    }
+    .wear {
+        font-size: 0.5em;
+        padding: 0;
+    }
+    .glasses {
+        top: 25%;
+        right: 19%;
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
+    }
+    .hat {
+        top: 0;
+        right: 15%;
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8);
+    }
+    .tie {
+        top: 38%;
+        right: 15%;
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+    }
+    .mustache {
+        top: 34%;
+        right: 20%;
     }
 }

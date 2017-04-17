@@ -1,6 +1,4 @@
 // ideas
-// also exp up as pet "hover" it
-// add wearables that are unlocked with pet experience?
 // eventually can choose animal (unlock with user experience?)
 // diff animals have diff fav foods with ultra happy status
 // choose background
@@ -22,7 +20,7 @@ var gameLoopFreq = 1000;
 var hungerDecreaseFreq = 10000; // (10000) 10 seconds for hunger decrease
 var hungerTimer = hungerDecreaseFreq;
 var poopFreq = hungerDecreaseFreq * 10;
-var poopTimer = poopFreq;
+var poopTimer = 0; //testing
 var maxPoop = 50; // most poops that still fit in game field
 var sadPoop = 5; //
 var angryPoop = 10; // around 1 row of poop depending on screen size
@@ -39,6 +37,7 @@ class Pet {
         this.poop = 0;
         this.experience = 0;
         this.condition = "happy";
+        this.wornItems = [];
     }
 }
 
@@ -65,6 +64,23 @@ var iceCream = new Food("icecream", 200, 3, 750, 100000);
 
 var foods = [apple, fish, hotdog, burger, pizza, iceCream];
 
+// class for wearables
+
+class Wearable {
+    constructor(type, expToUnlock) {
+        this.type = type;
+        this.expToUnlock = expToUnlock;
+    }
+}
+
+var glasses = new Wearable("glasses", 7500);
+var hairbow = new Wearable("hairbow", 15000);
+var hat = new Wearable("hat", 30000);
+var tie = new Wearable("tie", 75000);
+var mustache = new Wearable("mustache", 150000);
+
+var wearables = [glasses, hairbow, hat, tie, mustache];
+
 /*
 
       GAME STORAGE
@@ -81,6 +97,8 @@ function saveToLocalStorage() {
 
 function retrievePetFromStorage() {
     pet = JSON.parse(localStorage.pet);
+    // PROBLEM!!!! when retrives wornItems all the items are of type object instead of class Wearable! then the toggleing doesnt work, so I just reset all the clothes choices
+    pet.wornItems = [];
     var timeElapsed = Date.now() - localStorage.timeStamp;
     gameUpdate(timeElapsed);
 }
@@ -149,7 +167,7 @@ function feedPet() {
             pet.poop += clickedFood.poopChange;
         }
     }
-    displayUnlockedFood();
+    displayUnlocked(foods);
     displayHunger();
     displayPoop();
 }
@@ -172,6 +190,19 @@ function changeCondition(condition) {
     $("#pet").attr("src", `images/pets/lion${pet.condition}.png`);
 }
 
+function addAndRemoveWearables() {
+    var posOfWearableClicked = $(this).data("array-pos");
+    var wearableClicked = wearables[posOfWearableClicked];
+    // pet.wornItems.push(wearableClicked);
+    var indexOfWearableOnPet = pet.wornItems.indexOf(wearableClicked);
+    if (indexOfWearableOnPet < 0) {
+        pet.wornItems.push(wearableClicked);
+    } else {
+        pet.wornItems.splice(indexOfWearableOnPet, 1);
+    }
+    wearAccessories();
+}
+
 /*
 
       GAME PLAY DISPLAY
@@ -191,16 +222,34 @@ function displayHunger() {
 
 
 // toggles food menu when click on feed button
+// could probably combine this and below, but not sure how to pass through the display unlocked parameters on a cllick handler
 function foodMenuDisplay() {
+    $(".food-menu").siblings().addClass("hidden");
     $(".food-menu").toggleClass("hidden");
-    displayUnlockedFood();
+    displayUnlocked(foods, ".food-menu");
 }
 
-// checked for which foods to unlock
-function displayUnlockedFood() {
-    for (var i = 0; i < foods.length; i++) {
-        if (pet.experience >= foods[i].expToUnlock)
-            $(`[data-array-pos="${i}"`).removeClass("hidden");
+// display wearables menu
+function wearablesMenuDisplay() {
+    var siblings = $(".wearables-menu").siblings();
+    siblings.addClass("hidden");
+    $(".wearables-menu").toggleClass("hidden");
+    displayUnlocked(wearables, ".wearables-menu");
+}
+
+// checked for which items to unlock,
+function displayUnlocked(array, menu) {
+
+    var anyUnlocked = false;
+    for (var i = 0; i < array.length; i++) {
+        if (pet.experience >= array[i].expToUnlock) {
+            $(`${menu} [data-array-pos="${i}"`).removeClass("hidden");
+            anyUnlocked = true;
+        }
+    }
+
+    if (!anyUnlocked) {
+        $("#nothing-unlocked").removeClass("hidden");
     }
 }
 
@@ -221,11 +270,19 @@ function shortPurr() {
     setTimeout(function() { $("#pet").removeClass("purr"); }, 500);
 }
 
+function wearAccessories() {
+    $(".wearable").addClass("hidden");
+    for (var i = 0; i < pet.wornItems.length; i++) {
+        $(`.${pet.wornItems[i].type}`).removeClass("hidden");
+    }
+}
+
 // this is what happens when you kill your pet
 function death() {
     $(".gameplay").addClass("hidden");
-    $(".gameplay").fadeOut();
-    $(".food-menu").addClass("hidden");
+    $(".gameplay").hide();
+    $(".menus").addClass("hidden");
+    $("wearable").addClass("hidden");
     $("#pet").addClass("death");
     $(".game-field").addClass("death-bg");
     $("#top-message").fadeOut();
@@ -253,6 +310,17 @@ function foodMenuGenerate() {
     }
 }
 
+// icons from created by Winkimages - Freepik.com http://www.freepik.com/free-photos-vectors/icon
+function wearablesMenuGenerate() {
+    for (var i = 0; i < wearables.length; i++) {
+
+        var newWearable = $("<span>").text(`${wearables[i].type}`);
+        newWearable.addClass("hidden");
+        newWearable.attr("data-array-pos", i);
+        var newLi = $("<li>").html(newWearable);
+        $(".wearables-menu").append(newLi);
+    }
+}
 
 // function for start game button (IF NEW USER OR ON RESET)
 function initializeGame(e) {
@@ -278,6 +346,7 @@ function displayGameStart(name) {
     $("#top-message").text(`${name}, Your Little Pet`);
     $(".newgame").hide();
     $(".gameplay").fadeIn();
+    $(".menus").removeClass("hidden");
     $(".poop-field").empty();
     $(".poop-field").removeClass("hidden");
     $(".food-menu").addClass("hidden");
@@ -289,13 +358,14 @@ function changePetSize(percent) {
     $("#pet").css("max-height", percent);
 }
 
+
 // restart after pet dies => brings back to new page screen
 function resetGame() {
     pet = new Pet();
     changeCondition("happy");
     $("#pet").removeClass("death");
     $("h1").text("Your Little Pet");
-    $(".endgame").fadeOut();
+    $(".endgame").hide();
     $(".newgame").fadeIn();
     $(".game-field").removeClass("death-bg");
     $(".poop-field").addClass("hidden");
@@ -317,10 +387,14 @@ $(function() {
     localStorage.viewCount = numViews;
 
     foodMenuGenerate();
+    wearablesMenuGenerate();
 
     // start game after get pet name
     $("form").on("submit", initializeGame);
     $("#feed-pet").on("click", foodMenuDisplay);
+    $("#wear-things").on("click", wearablesMenuDisplay);
     $(".reset").on("click", resetGame);
     $(".food-menu img").on("click", feedPet);
+    $(".wearables-menu span").on("click", addAndRemoveWearables);
+    $(".instant-kill").on("click", death);
 });

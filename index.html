@@ -20,19 +20,30 @@
     <main>
         <section class="game-field">
             <img id="pet" src="images/pets/lionhappy.png" alt="your little pet">
+            <div class="gameplay">
+                <img class="wearable glasses hidden" src="images/wearables/glasses.png" alt="hipster glasses">
+                <img class="wearable hairbow hidden" src="images/wearables/hairbow.png" alt="hairbow">
+                <img class="wearable hat hidden" src="images/wearables/hat.png" alt="hat">
+                <img class="wearable mustache hidden" src="images/wearables/mustache.png" alt="mustache">
+                <img class="wearable tie hidden" src="images/wearables/tie.png" alt="business tie">
+            </div>
             <div class="poop-field hidden">
             </div>
             <div class="hunger hidden gameplay">
                 <meter id="hunger-meter" value="100" max="100"></meter>
                 <button id="feed-pet" class="feed">Feed</button>
             </div>
+            <button id="wear-things" class="wear gameplay">Accessorize</button>
             <div class="menus">
                 <ul class="food-menu hidden">
                 </ul>
+                <ul class="wearables-menu hidden">
+                </ul>
+                <p id="nothing-unlocked" class="hidden">You haven't unlocked any of these items! Try to get your experience up!</p>
             </div>
         </section>
         <section class="sub-game-field">
-            <p id="instructions" class="newgame">Keep your pet alive by feeding it various foods. More foods are unlocked as your pet's experience goes up. Don't forget to pick up the poop! Return to the page to check in with your pet.</p>
+            <p id="instructions" class="newgame">Keep your pet alive by feeding it various foods. More fun is unlocked as your pet's experience goes up. Don't forget to pick up the poop! Return to the page to check in with your pet.</p>
             <p id="bottom-message" class="gameplay"></p>
             <form class="newgame">
                 <input id="name-pet" type="text" placeholder="What is your pet 's name?">
@@ -44,8 +55,9 @@
     <footer>
         <!-- replace link with portfolio once i make one -->
         <p>designed and coded by <a href="https://www.linkedin.com/in/sarakevorkian/" target="_blank">sara kevorkian</a> 2017</p>
+        <p><a href="http://www.freepik.com/free-photos-vectors/icon">wearables icon vector created by Winkimages - Freepik.com</a></p>
+        <p class="instant-kill">instant kill 😞</p>
     </footer>
 </body>
 
 </html>
-<!-- considering using icons by this guy, will add credit whe n i do <a href="http://www.freepik.com/free-photos-vectors/icon">Icon vector created by Winkimages - Freepik.com</a> -->
