@@ -148,6 +148,10 @@ button {
     align-items: flex-end;
 }
 
+.picked-cats > div > h2 {
+    margin: 0;
+}
+
 .pick-box {
     object-fit: contain;
     height: 100px;
@@ -186,8 +190,8 @@ button {
 
 .big-cat {
     object-fit: contain;
-    height: 450px;
-    width: 450px;
+    height: 400px;
+    width: 400px;
     margin-bottom: 2em;
     transition: all .25s ease-out;
 }

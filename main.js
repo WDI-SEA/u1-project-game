@@ -172,8 +172,9 @@ function catDied(array, index) {
             }
         }
     }
-
-    switchPlayers();
+    if (!win) {
+        switchPlayers();
+    }
 }
 
 function checkDead(array, index) {
@@ -187,7 +188,8 @@ function checkDead(array, index) {
 function checkWin(array) {
     if (array[0].Dead && array[1].Dead) {
         win = true;
-        $('#winners-screen > h1').html(`${currentPlayer.Name} is victorious!`)
+        $(currentPlayer.Id).find('.moves').removeClass('red');
+        $('#winners-screen > h1').html(`${currentPlayer.Name} is victorious!`);
         $('#winners-screen').removeClass('hide');
     }
 }
@@ -409,7 +411,6 @@ function onPageLoad() {
 
 
 function pickScreen() {
-    console.log(play1.Name, play2.Name);
     var catPicsArray = $('.cat-pics > div > img');
     $(currentPlayer.PickBox1).addClass('red');
 
