@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Frogger</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <script type="text/javascript" src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
+</head>
+
+<body>
+    <!-- start menu-->
+    <div id="start-menu">
+        <div class="logo">Frogger</div>
+        <button id="game-start" class="start-button"> Start!
+        </button>
+    </div>
+    <!-- game screen -->
+    <div id="game" class="hidden">
+        <!-- grid system -->
+        <div class="row-wrapper end-zone">
+            <div class="grid-box" data-x="0" data-y="6"></div>
+            <div class="grid-box" data-x="1" data-y="6"></div>
+            <div class="grid-box" data-x="2" data-y="6"></div>
+            <div class="grid-box" data-x="3" data-y="6"></div>
+            <div class="grid-box" data-x="4" data-y="6"></div>
+            <div class="grid-box" data-x="5" data-y="6"></div>
+            <div class="grid-box" data-x="6" data-y="6"></div>
+        </div>
+        <div class="row-wrapper water">
+            <div class="grid-box log-left" data-x="0" data-y="5"></div>
+            <div class="grid-box log-stack" data-x="1" data-y="5"></div>
+            <div class="grid-box" data-x="2" data-y="5"></div>
+            <div class="grid-box" data-x="3" data-y="5"></div>
+            <div class="grid-box" data-x="4" data-y="5"></div>
+            <div class="grid-box log-left-d" data-x="5" data-y="5"></div>
+            <div class="grid-box log-stack-d" data-x="6" data-y="5"></div>
+        </div>
+        <div class="row-wrapper water">
+            <div class="grid-box log" data-x="0" data-y="4"></div>
+            <div class="grid-box" data-x="1" data-y="4"></div>
+            <div class="grid-box" data-x="2" data-y="4"></div>
+            <div class="grid-box log-dbl" data-x="3" data-y="4"></div>
+            <div class="grid-box" data-x="4" data-y="4"></div>
+            <div class="grid-box" data-x="5" data-y="4"></div>
+            <div class="grid-box log-tpl" data-x="6" data-y="4"></div>
+        </div>
+        <div class="row-wrapper grass">
+            <div class="grid-box" data-x="0" data-y="3"></div>
+            <div class="grid-box" data-x="1" data-y="3"></div>
+            <div class="grid-box" data-x="2" data-y="3"></div>
+            <div class="grid-box" data-x="3" data-y="3"></div>
+            <div class="grid-box" data-x="4" data-y="3"></div>
+            <div class="grid-box" data-x="5" data-y="3"></div>
+            <div class="grid-box" data-x="6" data-y="3"></div>
+        </div>
+        <div class="row-wrapper road">
+            <div class="grid-box car-stack-d" data-x="0" data-y="2"></div>
+            <div class="grid-box car-left-d" data-x="1" data-y="2"></div>
+            <div class="grid-box" data-x="2" data-y="2"></div>
+            <div class="grid-box" data-x="3" data-y="2"></div>
+            <div class="grid-box" data-x="4" data-y="2"></div>
+            <div class="grid-box stacked-car" data-x="5" data-y="2"></div>
+            <div class="grid-box car-left" data-x="6" data-y="2"></div>
+        </div>
+        <div class="row-wrapper road">
+            <div class="grid-box car" data-x="0" data-y="1"></div>
+            <div class="grid-box" data-x="1" data-y="1"></div>
+            <div class="grid-box" data-x="2" data-y="1"></div>
+            <div class="grid-box car-dbl" data-x="3" data-y="1"></div>
+            <div class="grid-box" data-x="4" data-y="1"></div>
+            <div class="grid-box" data-x="5" data-y="1"></div>
+            <div class="grid-box car-tpl" data-x="6" data-y="1"></div>
+        </div>
+        <div class="row-wrapper start-zone">
+            <div class="grid-box" data-x="0" data-y="0"></div>
+            <div class="grid-box" data-x="1" data-y="0"></div>
+            <div class="grid-box" data-x="2" data-y="0"></div>
+            <div class="grid-box frog" data-x="3" data-y="0"></div>
+            <div class="grid-box" data-x="4" data-y="0"></div>
+            <div class="grid-box" data-x="5" data-y="0"></div>
+            <div class="grid-box" data-x="6" data-y="0"></div>
+        </div>
+    </div>
+    <!-- end screen -->
+    <div id="end-wrapper" class="hidden">
+        <div id="end-screen">
+            <div class="game-over">Game Over</div>
+            <button id="game-restart" class="start-button">Play Again?</button>
+        </div>
+    </div>
+</body>
+
+</html>
