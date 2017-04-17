@@ -1,5 +1,6 @@
 body {
-    background: url('bgimage.jpg') no-repeat center center fixed;
+    background: url('bgimage.jpg');
+    background-size: cover;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -9,9 +10,12 @@ body {
     position: relative;
     height: 400px;
     width: 100%;
-    background: url('bgimage.jpg') no-repeat center center fixed;
+    background: url('bgimage.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: fixed;
     overflow: hidden;
+    border-bottom: 2px solid red;
 }
 
 #bird {
