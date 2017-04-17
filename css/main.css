@@ -86,6 +86,20 @@ p {
     text-align: bold;
 }
 
+.start-screen {}
+
+.opening-text {
+    font-size: 52px;
+}
+
+#ready-button {
+    background-color: black;
+    color: white;
+    height: 50px;
+    width: 75px;
+    border-radius: 25%;
+}
+
 .first-hide {}
 
 #gun-sound {}

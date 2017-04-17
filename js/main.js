@@ -70,7 +70,7 @@ $('#start').on("click", function() {
 $('#bunny').on("click", function() {
     counter = counter + 1;
     $('#counter span').html(counter);
-    if (counter >= 20) {
+    if (seconds >= 20) {
         $('#endScreen').show();
         $('#endCount').html(counter);
         $('#endSeconds').html(seconds);
@@ -83,14 +83,19 @@ $('#bunny').on("click", function() {
         } else {
             player2Score = counter;
         }
+
     } else {
         $(this).hide();
         $('#tweety-bird').hide();
         $('#start').show();
         $('#gun-sound')[0].currentTime = 0;
         $('#gun-sound')[0].play();
-
     }
+});
+
+$('#ready-button').on('click', function() {
+    $('#start-screen').hide('fast');
+
 });
 
 
