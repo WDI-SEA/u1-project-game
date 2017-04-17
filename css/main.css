@@ -77,13 +77,12 @@ html {
 .white-bold {
     font-size: 80px;
     color: red;
-    text-decoration: bold;
 }
 
 p {
     font-size: 80px;
     color: red;
-    text-align: bold;
+    text-align: center;
 }
 
 .start-screen {}
