@@ -5,15 +5,17 @@ function boardAlert() {
     if (boardSize < 6 || isNaN(boardSize)) {
         boardAlert();
     }
-    console.log(isNaN(boardSize));
 }
 boardAlert();
+
 ////////////Make JS Boards/////////////
 var computersBoard = [];
 var computersMap = [];
 var playersBoard = [];
 
+
 function makeJSBoard(board, size) {
+
     for (var i = 0; i < size; i++) {
         var row = [];
         for (var j = 0; j < size; j++) {
@@ -24,6 +26,9 @@ function makeJSBoard(board, size) {
 }
 
 function initBoards(size) {
+    computersBoard = [];
+    computersMap = [];
+    playersBoard = [];
     makeJSBoard(computersBoard, size);
     makeJSBoard(computersMap, size);
     makeJSBoard(playersBoard, size);
@@ -73,7 +78,6 @@ function makeShip(letter) {
             computersBoard[ranRow][ranCol + 1] = letter;
             computersBoard[ranRow][ranCol - 1] = letter;
         } else {
-            //console.log("bad letter");
             makeShip(letter);
         }
     }
@@ -87,12 +91,12 @@ function printBoard(htmlBoard, jsBoard) {
         $(`#${htmlBoard}`).append($("<div>").text(jsBoard[i]));
     }
 }
-
+//printBoard("comp", computersBoard);
 
 
 ///////////////////////////////////////////////////
 
-////////////////Make Player Board//////////////////
+////////////////Mark Player Board//////////////////
 var playerUnits = 0;
 
 function moreGoats() {
@@ -113,7 +117,6 @@ function markP() {
         $(this).removeClass('goat');
         this.setAttribute("data-clicked", "notClicked");
         playersBoard[row][col] = "_";
-        console.log("fjdk" + playersBoard[row][col]);
         playerUnits -= 1;
     } else {
         $(this).addClass('goat');
@@ -121,7 +124,6 @@ function markP() {
         babySound.play();
         this.setAttribute('data-clicked', "clicked");
         playersBoard[row][col] = "P";
-        console.log("fjdk", playersBoard[row][col]);
         playerUnits += 1;
     }
     moreGoats();
@@ -141,13 +143,11 @@ var compHits = 0;
 
 function checkWin() {
     if (playerHits === 9) {
-        console.log("PLAYER WINS");
         $('td').off();
         $("#restart").toggle();
         $("#board-change").toggle();
         gameOver("YOU WON!", './img/good_job.gif');
     } else if (compHits === 8) {
-        console.log("COMP WINS");
         $('td').off();
         $("#restart").toggle();
         $("#board-change").toggle();
@@ -170,7 +170,6 @@ var nearHitOptions = [
 
 
 function markNearHits(row, col) {
-    console.log("near hits around", row, col);
     var loops = 4;
     var i = 0;
     if (row === 0) {
@@ -212,7 +211,6 @@ function computerGuess() {
     for (var i = 0; i < boardSize; i++) {
         for (var j = 0; j < boardSize; j++) {
             if (computersMap[i][j] === nearHit) {
-                console.log("nearHit found");
                 if (playersBoard[i][j] === "_") {
                     markMiss(i, j);
                     return;
@@ -226,17 +224,15 @@ function computerGuess() {
     }
     var ranRow = Math.floor(boardSize * Math.random());
     var ranCol = Math.floor(boardSize * Math.random());
-    console.log(`computer random guess: row ${ranRow}, col ${ranCol}`);
     if (computersMap[ranRow][ranCol] === "_" && playersBoard[ranRow][ranCol] === "_") {
         markMiss(ranRow, ranCol);
     } else if (computersMap[ranRow][ranCol] === "_" && playersBoard[ranRow][ranCol] === "P") {
         markHit(ranRow, ranCol);
         markNearHits(ranRow, ranCol);
     } else {
-        console.log("bad guess");
         computerGuess();
     }
-    //printComputerMap();
+
 }
 
 ///////////////////////////Players Guess/////////////////////////////
@@ -279,8 +275,7 @@ function startGame() {
 
 ////////////////restart game//////////////////////
 function restartGame() {
-    console.log('restart');
-    initBoards();
+    initBoards(boardSize);
     makeShip('A');
     makeShip('B');
     makeShip('C');
