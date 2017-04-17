@@ -142,7 +142,7 @@ poop field
 
 .poop-field {
     position: absolute;
-    height: 10%;
+    height: 14%;
     width: 100%;
     left: 3%;
     bottom: 30%;
@@ -404,8 +404,8 @@ toggle-able classes
 
 @media (max-width: 770px) {
     .poop-field {
-        height: 5%;
-        bottom: 35%;
+        bottom: 30%;
+        height: 10%;
     }
     .hunger {
         margin-top: 1em;
@@ -423,6 +423,9 @@ toggle-able classes
 }
 
 @media (max-width: 560px) {
+    .game-field {
+        height: 60%;
+    }
     body {
         font-size: 12px;
     }

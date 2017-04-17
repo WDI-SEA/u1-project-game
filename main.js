@@ -23,9 +23,10 @@ var hungerDecreaseFreq = 10000; // (10000) 10 seconds for hunger decrease
 var hungerTimer = hungerDecreaseFreq;
 var poopFreq = hungerDecreaseFreq * 10;
 var poopTimer = poopFreq;
-var maxPoop = 77; // most poops that still fit in game field
+var maxPoop = 50; // most poops that still fit in game field
 var sadPoop = 5; //
-var angryPoop = 15; // around 1 row of poop depending on screen size
+var angryPoop = 10; // around 1 row of poop depending on screen size
+
 // allows us to clear the interval of the game loop, for example on death
 var intervalID;
 
@@ -159,7 +160,7 @@ function removePoop() {
     pet.poop -= 1;
     pet.experience += 20;
     displayPoop();
-    if (pet.poop < sadPoop) {
+    if (pet.poop < sadPoop && pet.hunger > sadHunger) {
         changeCondition("happy");
     }
 }
