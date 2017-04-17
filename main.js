@@ -1,4 +1,6 @@
 // ideas
+// add sleep function so you can put the pet to sleep and not worry about
+//taking care of it over night. pause gameLoop interval
 // eventually can choose animal (unlock with user experience?)
 // diff animals have diff fav foods with ultra happy status
 // choose background
@@ -111,7 +113,6 @@ function retrievePetFromStorage() {
 
 // this function will be called on a set interval after
 // the submit button has been clicked
-// a defined time to decrease hunger is passed to the set interval function
 function gameLoop() {
     gameUpdate(gameLoopFreq);
     displayPoop();
@@ -167,14 +168,14 @@ function feedPet() {
             pet.poop += clickedFood.poopChange;
         }
     }
-    displayUnlocked(foods);
+    displayUnlocked(foods, ".food-menu");
     displayHunger();
     displayPoop();
 }
 
 // clean up poop when clicked on
 function removePoop() {
-    $("this").remove();
+    $(this).remove();
     pet.poop -= 1;
     pet.experience += 20;
     displayPoop();
