@@ -8,7 +8,6 @@
 
 .flex {
     display: flex;
-    /*flex-wrap: wrap;*/
 }
 
 .wrap {
@@ -35,6 +34,54 @@
 
 .italic {
     font-style: italic;
+}
+
+.lightblue {
+    background-color: lightblue;
+}
+
+.lightslategrey {
+    background-color: #99a6b2;
+}
+
+.mintgreen {
+    background-color: #F5FFFA;
+}
+
+.red {
+    border: 5px solid red !important;
+    animation-name: pulse_animation;
+    animation-duration: 3000ms;
+    transform-origin: 70% 70%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes pulse_animation {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.08);
+    }
+    50% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(1.05);
+    }
+    80% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 
@@ -97,6 +144,11 @@ button {
     letter-spacing: .15em;
 }
 
+
+/*==========
+PICK SCREEN
+==========*/
+
 #pick-screen {
     text-align: center;
 }
@@ -115,14 +167,16 @@ button {
     object-fit: contain;
     height: 125px;
     width: 125px;
-    border: 5px solid black;
+    border: 5px solid goldenrod;
     margin: .5em 0;
+    background-color: white;
 }
 
 .cat-info {
     height: 300px;
     width: 625px;
     margin: 0 auto;
+    margin-bottom: .5em;
 }
 
 .cat-info > .flex > .uppercase-bold {
@@ -158,63 +212,17 @@ button {
     width: 100px;
     border: 5px solid black;
     margin: 1em;
+    background-color: white;
 }
 
-.moves {
-    height: 100px;
-    width: 400px;
-    border: 3px solid black;
-    margin-top: .5em;
-}
 
-.move {
-    width: 50%;
-    height: 34%;
-    margin: 0 auto;
-    text-align: center;
-    padding-top: 1em;
-}
+/*==========
+FIGHT SCREEN
+==========*/
 
-#player1 {
-    align-items: flex-start;
-}
-
-#player1 span {
-    /*text-transform: uppercase;*/
-    margin-bottom: 1em;
-}
-
-#player2 {
-    align-items: flex-end;
-}
-
-.big-cat {
-    object-fit: contain;
-    height: 400px;
-    width: 400px;
-    margin-bottom: 2em;
-    transition: all .25s ease-out;
-}
-
-.p1attack {
-    margin-left: 150px;
-}
-
-.p2attack {
-    margin-right: 150px;
-}
-
-.damage {
-    background: radial-gradient(red, pink, white, white);
-}
-
-.heal {
-    background: radial-gradient(green, lightgreen, white, white);
-}
-
-#player2 span {
-    /*text-transform: uppercase;*/
-    margin-bottom: 1em;
+#fight-screen {
+    position: relative;
+    width: 100%
 }
 
 progress[value] {
@@ -229,9 +237,61 @@ progress[value]::-webkit-progress-bar {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }
 
+#fight-screen span {
+    margin-bottom: 1em;
+}
+
+#player1 {
+    align-items: flex-start;
+}
+
+#player2 {
+    align-items: flex-end;
+}
+
+.big-cat {
+    object-fit: contain;
+    height: 400px;
+    width: 400px;
+    margin-bottom: 2em;
+    transition: all .25s ease-out;
+}
+
+.moves {
+    height: 100px;
+    width: 400px;
+    border: 3px solid black;
+    margin-top: .5em;
+    background-color: white;
+}
+
+.move {
+    width: 50%;
+    height: 34%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 1em;
+}
+
+.p1attack {
+    margin-left: 150px;
+}
+
+.p2attack {
+    margin-right: 150px;
+}
+
+.damage {
+    background: radial-gradient(red, pink, #F5FFFA, #F5FFFA);
+}
+
+.heal {
+    background: radial-gradient(green, lightgreen, #F5FFFA, #F5FFFA);
+}
+
 .special {
     animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
-    background: radial-gradient(blue, lightblue, lightblue, white, white);
+    background: radial-gradient(blue, lightblue, lightblue, #F5FFFA, #F5FFFA);
 }
 
 @keyframes shake {
@@ -265,11 +325,7 @@ progress[value]::-webkit-progress-bar {
     text-align: center;
     width: 500px;
     padding-top: 1.5em;
-}
-
-#fight-screen {
-    position: relative;
-    width: 100%
+    background-color: white;
 }
 
 #winners-screen {
@@ -283,42 +339,6 @@ progress[value]::-webkit-progress-bar {
     border-radius: 75px;
     background-color: white;
     text-align: center;
-}
-
-.red {
-    border: 5px solid red;
-    animation-name: pulse_animation;
-    animation-duration: 3000ms;
-    transform-origin: 70% 70%;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
-
-@keyframes pulse_animation {
-    0% {
-        transform: scale(1);
-    }
-    30% {
-        transform: scale(1);
-    }
-    40% {
-        transform: scale(1.08);
-    }
-    50% {
-        transform: scale(1);
-    }
-    60% {
-        transform: scale(1);
-    }
-    70% {
-        transform: scale(1.05);
-    }
-    80% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(1);
-    }
 }
 
 .dead {

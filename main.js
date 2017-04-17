@@ -392,6 +392,8 @@ function onPageLoad() {
     $('#pick-last').on('click', function() {
         $('#title-screen').addClass('hide');
         $('#pick-screen').removeClass('hide');
+        $('body').removeClass('lightblue');
+        $('body').addClass('lightslategrey');
         play1.Name = $('#play1-name').val();
         play2.Name = $('#play2-name').val();
         currentPlayer = play1;
@@ -401,6 +403,8 @@ function onPageLoad() {
     $('#go-first').on('click', function() {
         $('#title-screen').addClass('hide');
         $('#pick-screen').removeClass('hide');
+        $('body').removeClass('lightblue');
+        $('body').addClass('lightslategrey');
         play1.Name = $('#play1-name').val();
         play2.Name = $('#play2-name').val();
         currentPlayer = play2;
@@ -464,6 +468,8 @@ function pickScreen() {
         } else {
             $('#pick-screen').addClass('hide');
             $('#fight-screen').removeClass('hide');
+            $('body').removeClass('lightslategrey');
+            $('body').addClass('mintgreen');
             fightScreen();
         }
     });
