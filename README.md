@@ -1,5 +1,9 @@
 # ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) Unit 1 Project (Option #1): Create a Game
 
+
+https://docs.google.com/presentation/d/1OaFUpEdAYn63JVSvb0r_YF4rnvS3JT9MZNQ4mVBpByE/edit?usp=sharing
+
+
 ## Overview
 
 For the Unit 1 Project, let's start out with something fun — a game!
@@ -86,11 +90,11 @@ Test your knowledge and wits. Guess the answers to trivia questions, and have th
 |      | Incomplete | Does not Meet Expectations |  Meets Expecatations | Exceeds Expectations |
 |--- |---| --- | ---| --- |
 | Valid, semantic code, adhering to best practices |     |    |     |     |
-| Creative game with complexity |     |    |     |     |  
+| Creative game with complexity |     |    |     |     |
 | Is completely responsive |     |    |     |     |
-| Includes separate HTML/CSS/JavaScript files |     |    |     |     |  
+| Includes separate HTML/CSS/JavaScript files |     |    |     |     |
 | Sticks with the KISS (Keep It Simple Stupid) and DRY (Don't Repeat Yourself) principles |     |    |     |     |
-| Uses JavaScript or jQuery for DOM manipulation |     |    |     |     |  
+| Uses JavaScript or jQuery for DOM manipulation |     |    |     |     |
 | Includes the interactions listed under "Necessary Deliverables" |     |    |     |     |
 | Is deployed online |     |    |     |     |
 
