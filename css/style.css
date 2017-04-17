@@ -40,6 +40,24 @@ h1 {
     margin: 0;
 }
 
+@-webkit-keyframes colorchange {
+    0% {
+        color: red;
+    }
+    25% {
+        color: yellow;
+    }
+    50% {
+        color: blue;
+    }
+    75% {
+        color: green;
+    }
+    100% {
+        color: red;
+    }
+}
+
 @keyframes colorchange {
     0% {
         color: red;
@@ -68,28 +86,57 @@ h1 {
     -webkit-animation: spin 1s linear;
 }
 
-@keyframes flyin {
+@-webkit-keyframes flyin {
     0% {
+        -webkit-transform: translateY(800px);
         transform: translateY(800px);
         scale: 5;
     }
     100% {
+        -webkit-transform: translateY(0px);
         transform: translateY(0px);
         scale: 1;
     }
 }
 
-@keyframes spin {
+@keyframes flyin {
     0% {
+        -webkit-transform: translateY(800px);
+        transform: translateY(800px);
+        scale: 5;
+    }
+    100% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+        scale: 1;
+    }
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
         transform: rotate(0deg);
     }
     100% {
+        -webkit-transform: rotate(1440deg);
+        transform: rotate(1440deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(1440deg);
         transform: rotate(1440deg);
     }
 }
 
 .flex-box {
     display: none;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
 }
 
@@ -141,6 +188,7 @@ td {
     width: 65px;
     height: 65px;
     font-size: 6em;
+    -webkit-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
 
@@ -182,6 +230,7 @@ button:hover {
 
 button:active {
     background-color: rgba(0, 139, 139, .75);
+    -webkit-transform: translateY(3px);
     transform: translateY(3px);
     box-shadow: 0 5px #666;
 }

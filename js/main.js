@@ -96,7 +96,7 @@ function printBoard(htmlBoard, jsBoard) {
 var playerUnits = 0;
 
 function moreGoats() {
-    if (playerUnits == 0 || playerUnits === 9) {
+    if (playerUnits === 0 || playerUnits === 9) {
         $('.right h3').css("display", "none");
     } else {
         $('.right h3').css("display", "block");
