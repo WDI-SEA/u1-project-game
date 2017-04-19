@@ -21,7 +21,7 @@ var gameLoopFreq = 1000;
 // change  freq to longer for real game
 var hungerDecreaseFreq = 10000; // (10000) 10 seconds for hunger decrease
 var hungerTimer = hungerDecreaseFreq;
-var poopFreq = hungerDecreaseFreq * 10;
+var poopFreq = hungerDecreaseFreq * 20;
 var poopTimer = 0; //testing
 var maxPoop = 50; // most poops that still fit in game field
 var sadPoop = 5; //
@@ -58,11 +58,11 @@ class Food {
 }
 
 var apple = new Food("apple", 2, 0, 100, 0);
-var fish = new Food("fish", 25, 0, 150, 5000);
-var hotdog = new Food("hotdog", 50, 1, 300, 10000);
-var burger = new Food("burger", 100, 2, 500, 25000);
-var pizza = new Food("pizza", 150, 2, 600, 50000);
-var iceCream = new Food("icecream", 200, 3, 750, 100000);
+var fish = new Food("fish", 25, 0, 250, 5000);
+var hotdog = new Food("hotdog", 50, 1, 500, 10000);
+var burger = new Food("burger", 100, 2, 1000, 2000);
+var pizza = new Food("pizza", 150, 2, 2000, 25000);
+var iceCream = new Food("icecream", 200, 3, 3500, 35000);
 
 var foods = [apple, fish, hotdog, burger, pizza, iceCream];
 
@@ -77,9 +77,9 @@ class Wearable {
 
 var glasses = new Wearable("glasses", 7500);
 var hairbow = new Wearable("hairbow", 15000);
-var hat = new Wearable("hat", 30000);
-var tie = new Wearable("tie", 75000);
-var mustache = new Wearable("mustache", 150000);
+var hat = new Wearable("hat", 25000);
+var tie = new Wearable("tie", 35000);
+var mustache = new Wearable("mustache", 50000);
 
 var wearables = [glasses, hairbow, hat, tie, mustache];
 
