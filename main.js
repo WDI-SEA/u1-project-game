@@ -60,7 +60,7 @@ class Food {
 var apple = new Food("apple", 2, 0, 100, 0);
 var fish = new Food("fish", 25, 0, 250, 5000);
 var hotdog = new Food("hotdog", 50, 1, 500, 10000);
-var burger = new Food("burger", 100, 2, 1000, 2000);
+var burger = new Food("burger", 100, 2, 1000, 20000);
 var pizza = new Food("pizza", 150, 2, 2000, 25000);
 var iceCream = new Food("icecream", 200, 3, 3500, 35000);
 
