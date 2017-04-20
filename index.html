@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HIGHROLLER</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="author" href="humans.txt">
+    <script src="https://use.fontawesome.com/66fcd2c0b8.js"></script>
+    <script src="https://use.fontawesome.com/4316c6ad1e.js"></script>
+    <link rel="stylesheet" href="font-awesome-4.7.0 2/css/font-awesome.css">
+    <link rel="stylesheet" href="font-awesome-4.7.0 2/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dice.css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="slick/slick.css" />
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+</head>
+
+<body>
+    <div id="audio">
+        <audio id="gnawaAudio" class="audio" src="sounds/GnawaMorrocco.m4a">
+        </audio>
+        <audio id="persianAudio1" class="audio" src="sounds/PersianDivinityAudio.m4a"></audio>
+        <audio id="ululationAudio" class="audio" src="sounds/UlulationFiveDiceOpen.m4a"></audio>
+        <audio id="persianAudio2" class="audio" src="sounds/New Recording 4.m4a"></audio>
+        <audio id="diceRoll" class="audio" src="sounds/DiceRollAudio.m4a"></audio>
+    </div>
+    <header id=mobile-nav>
+        <a id="menu" href=""><i class="fa fa-bars fa-3x"></i></a>
+        <a id="menuClose" class="hidden" href=""><i class="fa fa-window-close fa-3x"></i></a>
+        <a id="soundOn" class="hidden" href=""><i class="fa fa-volume-up fa-3x"></i></a>
+        <a id="soundOff" href=""><i class="fa fa-volume-off fa-3x"></i></a>
+    </header>
+    <div id="menuList" class="hidden">
+        <ul>
+            <li id="diceGame">HIGHROLLER</li>
+            <li id="about">ABOUT</li>
+        </ul>
+    </div>
+    <section id="highroller" class="hidden">
+        <form>
+            <h1 id="kiplingQuote">"...IF YOU CAN MEET WITH TRIUMPH AND DISASTER<br>AND TREAT BOTH IMPOSTORS JUST THE SAME..."<br><a href="https://en.wikipedia.org/wiki/If%E2%80%94">-- Rudyard Kipling (1895)</a></h1>
+            <input id="p1name" class="col-3-3" type="name" placeholder="PLAYER ONE'S NAME">
+            <input id="p2name" class="col-3-3" type="name" placeholder="PLAYER TWO'S NAME">
+            <textarea name="textarea" rows="10" class="col-3-3" placeholder="TAILOR YOUR STAKES HERE... OR ..."></textarea>
+            <select name="dropDownMenu" class="col-3-3">
+                <option value="value1">LOW BUYS MEAL - HIGH SELECTS NEXT RESTAURANT</option>
+                <option value="value2">LOW BUYS DRINKS - HIGH SELECTS NEXT ROUND</option>
+                <option value="value3">LOW DIVIDES TASKS IN HALF - HIGH CHOOSES WHICH HALF TO PERFORM</option>
+                <option value="value1" selected>LOW TAKES CLOTHES OFF AND JUMPS IN THE POOL - HIGH TAKES PICTURE WITH LOW'S PHONE</option>
+                <option value="value1" selected>CHOOSE YOUR HIGH - LOW STAKES</option>
+            </select>
+        </form>
+        <div id=diceFlexContainer>
+            <div id="player1" class="col-1-3">
+                <div id="die1" class="dice d1"></div>
+                <div id="die2" class="dice d1"></div>
+                <div id="die3" class="dice d1"></div>
+                <div id="die4" class="dice d1"></div>
+                <div id="die5" class="dice d1"></div>
+            </div>
+            <div id="playerMessagesDiv" class="col-1-3">
+                <h2 id="player1Sum" style="clear:left;"></h2>
+                <h2 id="player2Sum" style="clear:left;"></h2>
+                <h1 id=winnerMessage></h1>
+                <button id="playerOneRollButton">FIRST PLAYER'S ROLL</button>
+                <button id="playerTwoRollButton">SECOND PLAYER'S ROLL</button>
+                <button id="resetButton" type='button' onclick='location.reload();' value='Refresh Page'>RESET</button>
+            </div>
+            <div id="player2" class="col-1-3">
+                <div id="die6" class="dice d1"></div>
+                <div id="die7" class="dice d1"></div>
+                <div id="die8" class="dice d1"></div>
+                <div id="die9" class="dice d1"></div>
+                <div id="die10" class="dice d1"></div>
+            </div>
+        </div>
+    </section>
+    <section id="carousel" class="hidden ">
+        <div class="container">
+            <div class="single-item">
+                <div><img id="geomancer " src="images/GeomancersIndia.png " alt="Geomancers looking at designs in the sand."></div>
+                <div><img src="images/DivinityDice.png" alt=""></div>
+                <div><img src="images/DivinityDiceText5BC.png" alt=""></div>
+                <div><img src="images/PersianCarpetGarden.png" alt=""></div>
+                <div><img src="images/PetraTurkey.png" alt=""></div>
+                <div><img src="images/sixThousandYearOldWomanSahara.png" alt=""></div>
+                <div><img src="images/TentScene.png" alt=""></div>
+            </div>
+        </div>
+    </section>
+    <footer id="socialMedia">
+        <a class="mediaicons " href=" "><i class="fa fa-pinterest-square fa-3x "></i></a>
+        <a class="mediaicons " href=" "><i class="fa fa-twitter-square fa-3x "></i></a>
+        <a class="mediaicons " href=" "><i class="fa fa-snapchat-square fa-3x "></i></a>
+        <a class="mediaicons " href=" "><i class="fa fa-facebook-official fa-3x "></i></a>
+    </footer>
+    <script src="js/main.js "></script>
+</body>
+
+</html>

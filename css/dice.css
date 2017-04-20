@@ -1,0 +1,29 @@
+.d1 {
+    background: url("../images/dice-one.svg");
+    background-size: 100px 100px;
+}
+
+.d2 {
+    background: url("../images/dice-two.svg");
+    background-size: 100px 100px;
+}
+
+.d3 {
+    background: url("../images/dice-three.svg");
+    background-size: 100px 100px;
+}
+
+.d4 {
+    background: url("../images/dice-four.svg");
+    background-size: 100px 100px;
+}
+
+.d5 {
+    background: url("../images/dice-five.svg");
+    background-size: 100px 100px;
+}
+
+.d6 {
+    background: url("../images/dice-six.svg");
+    background-size: 100px 100px;
+}

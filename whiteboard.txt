@@ -1,0 +1,261 @@
+
+TO DO:
+
+1.   background image/video
+
+2. 	 open page:  (racer game - css class hidden)
+
+
+
+3.  fontAwesome & nav:
+		icon, white/black - white turns blue on mouseenter/back on leave.
+		navicon/windowclose: eventListener on click
+			hide navicon/unhide wc:  unhide UL/LIS
+			hide wd/ unhide navicon: hide UL/LIS
+		soundicon on/off: mediacall
+			on touch mobile
+			on click large screen
+
+3.9  menu - addeventlistener: 
+	LI heighten opacity on RGBA on mouseenter and mouseleave
+
+4.  menu - on click event
+	- open game - ululation clip;
+		- text box for terms
+		- form for initials
+			-- valication before roll.
+		- drop down options:
+			-- low score buys lunch
+			-- high score cuts, low score picks
+		-- use JS to write winning statemeent strings.
+
+	- open divination/geomancy - persian clip
+		- image of geomancers, text, and divinity dice;
+		- click on central button for answer.
+
+
+5.  text transition: JS fadein fadeout.
+		"if you can meet with triumph and disaster and treat both impostors just the same ..."
+
+		"if you can make one heap of all your winnings and risk it all on one turn of pitch and toss, and loose and start all over at your beginings and never breathe one word about your loss..."
+				-Rudyard Kipling
+
+6.		Chaotic system determinism through dice. 
+
+6.1		carousel on html background images.
+
+7. 	Weather API - scrolling weather carousel: or remy weatherman.
+
+8.  camera icon = take pic of wagerers, outcome, and store to account/social media.
+
+
+
+on("click") background dark, circle shakes, sound of die, background transition clear to reveal p1 roll.  repeat p2.
+
+persian divinity dice: 
+ on mouseover .show text box with description.
+
+
+
+
+
+
+Functions:
+create an array of roll Num.  
+
+$$$$ eg. longest common prefix:
+
+for()
+
+for 
+group any === die Num of-a-kind ("OAK").
+return OAK Quant and Num.(
+	(e.g. p1 3 4's & 2 6's.)
+
+var compareOAKQuant = function() {
+        if (p1OAKQuant > p2OAKQuant) {
+            $("#winnerMessage").text("Player one wins!");
+        } else if (p1OAKQuant === p2OAKQuant) { //method...?
+            var compareOAKNum = function() {
+                    if (p1OAKNum > p2OAKNum) {
+                        $("#winnerMessage").text("Player one wins!");
+                    } else if (p1OAKNum === p2OAKNum) {
+                        $("#winnerMessage").text("Tie! Re-roll please.");
+                    } else {
+                        $("#winnerMessage").text("Player two wins!");
+                        //   }
+
+                        //   };
+
+	
+-- coorolate die# with image.
+
+
+
+* * * * * *
+FULL VERSION:
+may be played with unlimited number of players
+each player has 5 dice;
+6's are high, 1's are wild;
+only "of-a-kind" are scored; (greater number of a kind beats higher value cards(e.g. 3,3,3 beats 4,4));
+if a tie, all players re-roll;
+three rounds per elimination;
+roller with highest "of-a-kind" is eliminated (a win);
+last remaining player pays for lunch;
+* * * * * *
+
+
+SIMPLIFIED VERSION:
+two players
+each player has five dice;
+players roll dice simultaneously;
+a function sums each player's dice and compares the player's sums
+the player whose dice have the highest sum exits the round;
+the remaining player has to pay for lunch.
+
+if more than one player - use math.random to divide the group of players into two groups.
+* * * * * *
+
+PSEUDOCODE:
+
+dice:
+randomInt(upto) {    }
+createRolls(numDice){[...]}
+
+
+
+Sum:
+function whichIsHigher(rolls1, rolls2) {
+	return true (if roll1 > roll2)
+	else 
+	return false
+}
+
+
+
+var longestCommonPrefixOfTwoWords(word1, word2) {
+	var longestPrefix = "";
+
+	longesPrefix = longestCommonPrefixOfTwoWords(longestPrefix, word2);
+	longesPrefix = longestCommonPrefixOfTwoWords(longestPrefix, word3);
+	longesPrefix = longestCommonPrefixOfTwoWords(longestPrefix, word4);
+	longesPrefix = longestCommonPrefixOfTwoWords(longestPrefix, word5);} 
+
+var smallerLength = Math.min(word1.length, word2.length);
+
+for (var i = 0; i < smallerLength; i++) {
+	if (word2[i] == word2[i]) {
+	longestPrefix += word1[i];
+	} else {
+	break;
+	}
+}
+
+
+
+
+
+
+Math.random magic 8 ball button.
+
+function 8ball (max) {
+	return Math.floor(Math.random() * 20) + 1;
+}
+var 1 = Don't count on it 
+var 2 = My reply is no
+var 3 = My sources say no
+var 4 = Outlook not so good
+var 5 = Very doubtful
+var 6 = It is certain
+var 7 = It is decidedly so
+var 8 = Without a doubt
+var 9 = Yes definitely
+var 10 = You may rely on it
+var 11 = As I see it, yes
+var 12 = Most likely
+var 13 = Outlook good
+var 14 = Yes
+var 15 = Signs point to yes
+var 16 = Reply hazy try again
+var 17 = Ask again later
+var 18 = Better not tell you now
+var 19 = Cannot predict now
+var 20 = Concentrate and ask again
+
+
+
+jourrnal:
+4-14-17
+Reno helped me create svg files for the dice.
+connor had me watch video on JS rather than do leet code exercises
+reno discussed haveing "game modes" for the game- putting all your code for one of several games into a function.  But someone erased it before I was able to take it down.
+after troubleshooting I asked Connor to look at my font awesome - he said google it.  it is easier to restart than figure out what you did wrong.
+
+
+4-15-17
+working on FA icon placement 20/20/20/20//(getbeebox)
+working on FA icon hide/unhide and audio 20/20/20/
+
+
+
+/////////////////////////////////////////////////////////
+
+<section id="if ">
+        <p>
+            <br> If you can keep your head when all about you
+            <br> Are losing theirs and blaming it on you,
+            <br> If you can trust yourself when all men doubt you,
+            <br> But make allowance for their doubting too;
+            <br> If you can wait and not be tired by waiting,
+            <br> Or being lied about, don’t deal in lies,
+            <br> Or being hated, don’t give way to hating,
+            <br> And yet don’t look too good, nor talk too wise:
+            <br>
+            <br> If you can dream—and not make dreams your master;
+            <br> If you can think—and not make thoughts your aim;
+            <br> <strong>If you can meet with Triumph and Disaster
+            <br> And treat those two impostors just the same;</strong>
+            <br> If you can bear to hear the truth you’ve spoken
+            <br> Twisted by knaves to make a trap for fools,
+            <br> Or watch the things you gave your life to, broken,
+            <br> And stoop and build ’em up with worn-out tools:
+            <br>
+            <br> <strong>If you can make one heap of all your winnings
+            <br> And risk it on one turn of pitch-and-toss,
+            <br> And lose, and start again at your beginnings
+            <br> And never breathe a word about your loss;</strong>
+            <br> If you can force your heart and nerve and sinew
+            <br> To serve your turn long after they are gone,
+            <br> And so hold on when there is nothing in you
+            <br> Except the Will which says to them: ‘Hold on!’
+            <br>
+            <br> If you can talk with crowds and keep your virtue,
+            <br> Or walk with Kings—nor lose the common touch,
+            <br> If neither foes nor loving friends can hurt you,
+            <br> If all men count with you, but none too much;
+            <br> If you can fill the unforgiving minute
+            <br> With sixty seconds’ worth of distance run,
+            <br> Yours is the Earth and everything that’s in it,
+            <br> And—which is more—you’ll be a Man, my son!
+            <br>
+            <a href="https://en.wikipedia.org/wiki/If%E2%80%94 ">Rudyard Kipling (1895)</a>
+        </p>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
