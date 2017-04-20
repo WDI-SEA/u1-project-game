@@ -1,0 +1,146 @@
+/*start screen*/
+
+#start-menu {
+    background-image: url("images/Background_Calm_River.jpg");
+    background-size: cover;
+    height: 1080px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.logo {
+    color: green;
+    text-shadow: -4px 0 white, 0 4px white, 4px 0 white, 0 -4px white;
+    font-size: 100px;
+    align-self: center;
+    font-family: 'Concert One', cursive;
+    padding-bottom: .5em;
+}
+
+.start-button {
+    border: 2px solid white;
+    border-radius: 8%;
+    padding: .5em 3em;
+    height: 50px;
+    font-size: 20px;
+    font-family: 'Press Start 2P', cursive;
+    align-self: center;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/*game frame*/
+
+.row-wrapper {
+    display: flex;
+}
+
+.grid-box {
+    width: 100%;
+    height: 100px;
+}
+
+.road {
+    background-image: url("images/road.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.water {
+    background-color: #34d7d2;
+}
+
+.end-zone .grid-box {
+    background-image: url("images/lilypad.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.start-zone,
+.grass {
+    background-image: url("images/road.jpg");
+}
+
+
+/*objects*/
+
+.frog {
+    background-image: url("images/frog02.gif");
+    background-size: cover;
+    background-position: center;
+    z-index: 99;
+    width: 100%;
+    height: 100px;
+}
+
+.car,
+.car-dbl,
+.car-tpl {
+    background-image: url("images/car.png");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100px;
+}
+
+.stacked-car,
+.car-stack-d {
+    background-image: url("images/truck.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.car-left,
+.car-left-d {
+    background-image: url("images/convertible.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.car-left,
+.stacked-car,
+.car-left-d,
+.car-stack-d {
+    width: 100%;
+    height: 100px;
+}
+
+.log,
+.log-dbl,
+.log-tpl,
+.log-left-d,
+.log-stack-d {
+    background-image: url("images/log.png");
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100px;
+}
+
+
+/*end screen -- game over*/
+
+#end-screen {
+    background-color: black;
+    background-size: cover;
+    color: white;
+    font-family: 'Press Start 2P', cursive;
+    height: 1080px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+.game-over {
+    color: black;
+    text-shadow: -4px 0 white, 0 4px white, 4px 0 white, 0 -4px white;
+    font-size: 100px;
+    align-self: center;
+    padding-bottom: .2em;
+}
