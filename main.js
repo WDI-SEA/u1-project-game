@@ -117,7 +117,9 @@ function specialReady(counter, player) {
 
 
 function weakOrStrong(attkCat, oppCat) {
-
+    var special = attkCat.special;
+    var damage = special.getDamageModifierAgainstType(oppCat);
+    return damage;
 }
 
 function catDied(array, index) {
@@ -423,7 +425,7 @@ function pickScreen() {
             $('.type').text(catName.type);
             $('.bio').html(`<i>"${catName.bio}"</i>`);
             $('.attack').text(catName.range);
-            $('.specialName').text(catName.special);
+            $('.specialName').text(catName.special.specialName);
             $('.description').html(`<i>"${catName.description}"</i>`);
             $('.damageAmt').text(catName.damage);
             $('.strong').text(catName.strong);
