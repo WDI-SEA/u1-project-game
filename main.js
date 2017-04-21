@@ -5,9 +5,6 @@
 // diff animals have diff fav foods with ultra happy status
 // choose background
 
-// EVERYTHING GOT FUCKED UP ON INTRODUCTION OF STATE.
-// IT IS BREAKING WHEN I RETRIEVE DATA (SAVING MYPET AS NULL)
-
 
 /*
 
@@ -22,7 +19,7 @@ var sadHunger = maxHunger * 0.25;
 // passed along with hunger decreasefunction on a set interval
 var gameLoopFreq = 1000;
 // change  freq to longer for real game
-var hungerDecreaseFreq = 1000; // (10000) 10 seconds for hunger decrease
+var hungerDecreaseFreq = 10000; // (10000) 10 seconds for hunger decrease
 var poopFreq = hungerDecreaseFreq * 20;
 
 var maxPoop = 50; // most poops that still fit in game field
