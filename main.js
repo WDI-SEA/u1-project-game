@@ -11,7 +11,7 @@ $(function() {
     var score = $('#score');
     var speed_span = $('#speed');
     var restartbtn = $('#restartbtn');
-
+    var body = $('body');
 
     var container_width = parseInt(container.width()); //90% = 90
     var container_height = parseInt(container.height()); //400px = 400
@@ -92,7 +92,7 @@ $(function() {
         }
     });
 
-    container.on('click', function() {
+    body.on('click', function() {
         bird.css('top', parseInt(bird.css('top')) - 50);
     })
 
