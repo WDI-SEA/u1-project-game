@@ -234,3 +234,22 @@ button:active {
     transform: translateY(3px);
     box-shadow: 0 5px #666;
 }
+
+@media screen and (max-width: 560px) {
+    .flex-box {
+        flex-direction: column;
+    }
+    .left,
+    .right {
+        width: 100%;
+    }
+    .game-over img {
+        width: 100%;
+    }
+    .game-over p {
+        font-style: 1em;
+    }
+    .game-over {
+        top: 489px;
+    }
+}
