@@ -92,6 +92,11 @@ $(function() {
         }
     });
 
+    container.on('click', function() {
+        bird.css('top', parseInt(bird.css('top')) - 50);
+    })
+
+
     //move bird down by increase top
     function go_down() {
         bird.css('top', parseInt(bird.css('top')) + 5);
@@ -100,6 +105,7 @@ $(function() {
     function up() {
         bird.css('top', parseInt(bird.css('top')) - 10);
     }
+
 
     //reveals restart btn when game over conditions are met
     function stop_the_game() {
@@ -111,6 +117,10 @@ $(function() {
     restartbtn.click(function() {
         location.reload();
     });
+
+
+
+
 
 
     // condition for bird collisions. 
