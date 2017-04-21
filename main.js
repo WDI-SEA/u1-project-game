@@ -24,6 +24,22 @@ class Cat {
     }
 }
 
+class Special {
+    constructor(specialName, damageModifierMap) {
+        this.specialName = specialName;
+        this.damageModifierMap = damageModifierMap;
+    }
+
+    getDamageModifierAgainstType(type) {
+        var damageModifier = 1;
+
+        if (this.damageModifierMap[type]) {
+            damageModifier = this.damageModifierMap[type];
+        }
+        return damageModifier;
+    }
+}
+
 class Player {
     constructor(name, array, index, heal, id, playerClass, pickBox1, pickBox2, fightBox1, fightBox2) {
         this.name = name;
@@ -99,60 +115,9 @@ function specialReady(counter, player) {
     }
 }
 
-function weakOrStrong(attkCat, oppCat) {
-    var special = attkCat.special;
-    var type = oppCat.type;
-    var damageModifier = 1;
 
-    switch (special) {
-        case 'Hex':
-            if (type === 'Adorable') {
-                damageModifier = 2;
-            } else if (type === 'Sleepy') {
-                damageModifier = 0.5;
-            } else if (type === 'Siamese') {
-                damageModifier = 0.5;
-            }
-            return damageModifier;
-        case 'Ooze Cuteness':
-            if (type === 'Sleepy') {
-                damageModifier = 2;
-            } else if (type === 'Tabby') {
-                damageModifier = 0.5;
-            } else if (type === 'Siamese') {
-                damageModifier = 0.5;
-            }
-            return damageModifier;
-        case 'Fury Swipes':
-            if (type === 'Goth') {
-                damageModifier = 2;
-            } else if (type === 'Adorable') {
-                damageModifier = 0.5;
-            } else if (type === 'Tabby') {
-                damageModifier = 0.5;
-            }
-            return damageModifier;
-        case 'Maul Face':
-            if (type === 'Siamese') {
-                damageModifier = 2;
-            } else if (type === 'Sleepy') {
-                damageModifier = 0.5;
-            } else if (type === 'Goth') {
-                damageModifier = 0.5;
-            }
-            return damageModifier;
-        case 'Death Stare':
-            if (type === 'Tabby') {
-                damageModifier = 2;
-            } else if (type === 'Adorable') {
-                damageModifier = 0.5;
-            } else if (type === 'Goth') {
-                damageModifier = 0.5;
-            }
-            return damageModifier;
-        case 'Loathe Everything':
-            return damageModifier;
-    }
+function weakOrStrong(attkCat, oppCat) {
+
 }
 
 function catDied(array, index) {
@@ -288,102 +253,135 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
     }
 }
 
-var blackCat = new Cat(
-    "A favorite of witches and warlocks.  Goth cats often inherit some of their master's magical abilities.",
-    'Binx',
-    'Goth',
-    800,
-    800,
-    70,
-    '70 - 80',
-    'Hex',
-    'Blasts an opponent in the face with black magic.',
-    200,
-    0,
-    'images/black-cat.png',
-    false,
-    'Adorable',
-    'Sleepy & Siamese');
-var blueCat = new Cat(
-    'Genetically engineered by scientists to be as cute as possible.',
-    'Baby Blue',
-    'Adorable',
-    1200,
-    1200,
-    89,
-    '89 - 99',
-    'Ooze Cuteness',
-    "Literally melts the hearts of it's opponents with cuteness.",
-    150,
-    0,
-    'images/blue-cat.png',
-    false,
-    'Sleepy',
-    'Tabby & Siamese');
-var greyCat = new Cat(
-    'Most of their life is spent sleeping.  Wake them up, however, and you experience their wrath',
-    'Patches',
-    'Sleepy',
-    900,
-    900,
-    100,
-    '100 - 110',
-    'Fury Swipes',
-    'Unleashes a fury of attacks and hisses until left alone.',
-    130,
-    0,
-    'images/grey-cat.png',
-    false,
-    'Goth',
-    'Adorable & Tabby');
-var orangeCat = new Cat(
-    'Small, orange, and cute.  Only their lifeless eyes hint at the ire that festers inside.',
-    'Oliver',
-    'Tabby',
-    1000,
-    1000,
-    105,
-    '105 - 115',
-    'Maul Face',
-    "Latches onto their enemy's face and doesn't relent until they're dead.",
-    125,
-    0,
-    'images/orange-cat.png',
-    false,
-    'Siamese',
-    'Goth & Sleepy');
-var whiteCat = new Cat(
-    "Prefers the title Se&ntilde;or, despite not actually being of Latino decent.  It is unknown why.",
-    'Se&ntilde;or Chang',
-    'Siamese',
-    750,
-    750,
-    80,
-    '80 - 90',
-    'Death Stare',
-    "Lasers shoot out of it's eyes causing severe burn damage to it's victims.",
-    175,
-    0,
-    'images/white-cat.png',
-    false,
-    'Tabby',
-    'Goth & Adorable');
-var grumpyCat = new Cat(
-    'Hates everything and everyone.',
-    'Grumpy Cat',
-    'Disgruntled',
-    925,
-    925,
-    50,
-    '87 - 97',
-    'Loathe Everything',
-    "Hate flows out of it's body in waves of intense energy.",
-    100,
-    0,
-    'images/grumpy-cat.png',
-    false,
-    'Despises everything equally.',
-    'Is indifferent to all types of attacks.');
+var hex = new Special('Hex', {
+    adorable: 2,
+    sleepy: 0.5,
+    siamese: 0.5
+});
+var oozeCuteness = new Special('Ooze cuteness', {
+    sleepy: 2,
+    tabby: 0.5,
+    siamese: 0.5
+});
+var furySwipes = new Special('Fury Swipes', {
+    goth: 2,
+    adorable: 0.5,
+    tabby: 0.5
+});
+var maulFace = new Special('Maul Face', {
+    siamese: 2,
+    sleepy: 0.5,
+    goth: 0.5
+});
+var deathStare = new Special('Death Stare', {
+    tabby: 2,
+    adorable: 0.5,
+    goth: 0.5
+});
+var loatheEverything = new Special('Loathe Everything', {});
+
+var blackCat = new Cat({
+    bio: "A favorite of witches and warlocks.  Goth cats often inherit some of their master's magical abilities.",
+    name: 'Binx',
+    type: 'Goth',
+    hp: 800,
+    currentHp: 800,
+    attack: 70,
+    range: '70 - 80',
+    special: hex,
+    description: 'Blasts an opponent in the face with black magic.',
+    damage: 200,
+    counter: 0,
+    image: 'images/black-cat.png',
+    dead: false,
+    strong: 'Adorable',
+    weak: 'Sleepy & Siamese'
+});
+var blueCat = new Cat({
+    bio: 'Genetically engineered by scientists to be as cute as possible.',
+    name: 'Baby Blue',
+    type: 'Adorable',
+    hp: 1200,
+    currentHp: 1200,
+    attack: 89,
+    range: '89 - 99',
+    special: oozeCuteness,
+    description: "Literally melts the hearts of it's opponents with cuteness.",
+    damage: 150,
+    counter: 0,
+    image: 'images/blue-cat.png',
+    dead: false,
+    strong: 'Sleepy',
+    weak: 'Tabby & Siamese'
+});
+var greyCat = new Cat({
+    bio: 'Most of their life is spent sleeping.  Wake them up, however, and you experience their wrath',
+    name: 'Patches',
+    type: 'Sleepy',
+    hp: 900,
+    currentHp: 900,
+    attack: 100,
+    range: '100 - 110',
+    special: furySwipes,
+    description: 'Unleashes a fury of attacks and hisses until left alone.',
+    damage: 130,
+    counter: 0,
+    image: 'images/grey-cat.png',
+    dead: false,
+    strong: 'Goth',
+    weak: 'Adorable & Tabby'
+});
+var orangeCat = new Cat({
+    bio: 'Small, orange, and cute.  Only their lifeless eyes hint at the ire that festers inside.',
+    name: 'Oliver',
+    type: 'Tabby',
+    hp: 1000,
+    currentHp: 1000,
+    attack: 105,
+    range: '105 - 115',
+    special: maulFace,
+    description: "Latches onto their enemy's face and doesn't relent until they're dead.",
+    damage: 125,
+    counter: 0,
+    image: 'images/orange-cat.png',
+    dead: false,
+    strong: 'Siamese',
+    weak: 'Goth & Sleepy'
+});
+var whiteCat = new Cat({
+    bio: "Prefers the title Se&ntilde;or, despite not actually being of Latino decent.  It is unknown why.",
+    name: 'Se&ntilde;or Chang',
+    type: 'Siamese',
+    hp: 750,
+    currentHp: 750,
+    attack: 80,
+    range: '80 - 90',
+    special: deathStare,
+    description: "Lasers shoot out of it's eyes causing severe burn damage to it's victims.",
+    damage: 175,
+    counter: 0,
+    image: 'images/white-cat.png',
+    dead: false,
+    strong: 'Tabby',
+    weak: 'Goth & Adorable'
+});
+var grumpyCat = new Cat({
+    bio: 'Hates everything and everyone.',
+    name: 'Grumpy Cat',
+    type: 'Disgruntled',
+    hp: 925,
+    currentHp: 925,
+    attack: 50,
+    range: '87 - 97',
+    special: loatheEverything,
+    description: "Hate flows out of it's body in waves of intense energy.",
+    damage: 100,
+    counter: 0,
+    image: 'images/grumpy-cat.png',
+    dead: false,
+    strong: 'Despises everything equally.',
+    weak: 'Is indifferent to all types of attacks.'
+});
 
 var play1 = new Player('', [], 0, 1, '#player1', 'p1attack', '#p1-c1', '#p1-c2', '#p1-fight1', '#p1-fight2');
 var play2 = new Player('', [], 0, 1, '#player2', 'p2attack', '#p2-c1', '#p2-c2', '#p2-fight1', '#p2-fight2');
