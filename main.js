@@ -92,8 +92,8 @@ $(function() {
         }
     });
 
-    body.on('click', function() {
-        bird.css('top', parseInt(bird.css('top')) - 50);
+    body.on('tap', function() {
+        bird.css('top', parseInt(bird.css('top')) - 75);
     })
 
 
