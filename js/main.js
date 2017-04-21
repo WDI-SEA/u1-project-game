@@ -32,6 +32,15 @@ $('#startgame').on("click", function() {
     window.setInterval(function() {
         seconds = seconds + 1;
         $('#timer span').html(seconds);
+        if (seconds >= 20) {
+            $('#endScreen').show();
+            $('#endCount').html(counter);
+            $('#endSeconds').html(seconds);
+            $('#bunny').hide();
+            $('#start').hide();
+            $('#tweety-bird').hide();
+            $("#restart-game").show();
+        }
     }, 1000);
 });
 
@@ -68,7 +77,7 @@ $('#start').on("click", function() {
 $('#bunny').on("click", function() {
     counter = counter + 1;
     $('#counter span').html(counter);
-    if (seconds >= 20) {
+    /*if (seconds >= 20) {
     $('#endScreen').show();
     $('#endCount').html(counter);
     $('#endSeconds').html(seconds);
@@ -82,13 +91,13 @@ $('#bunny').on("click", function() {
         player2Score = counter;
     }
 
-    } else {
-        $(this).hide();
-        $('#tweety-bird').hide();
-        $('#start').show();
-        $('#gun-sound')[0].currentTime = 0;
-        $('#gun-sound')[0].play();
-    }
+    } else {*/
+    $(this).hide();
+    $('#tweety-bird').hide();
+    $('#start').show();
+    $('#gun-sound')[0].currentTime = 0;
+    $('#gun-sound')[0].play();
+    /* }*/
 });
 
 $('#ready-button').on('click', function() {
