@@ -29,10 +29,10 @@ $('#startgame').on("click", function() {
     $('#bunny').css('top', randHeight);
     $('#bunny').css('left', randWidth);
 
-    window.setInterval(function() {
+    var interval = window.setInterval(function() {
         seconds = seconds + 1;
         $('#timer span').html(seconds);
-        if (seconds >= 20) {
+        if (seconds >= 10) {
             $('#endScreen').show();
             $('#endCount').html(counter);
             $('#endSeconds').html(seconds);
@@ -40,6 +40,8 @@ $('#startgame').on("click", function() {
             $('#start').hide();
             $('#tweety-bird').hide();
             $("#restart-game").show();
+            clearInterval(interval);
+
         }
     }, 1000);
 });
@@ -111,7 +113,7 @@ $('#restart-game').on('click', function() {
     counter = 0;
     seconds = 0;
     $(this).hide();
-    $('#bunny').show();
+    $('#startgame').show();
     $('#endScreen').hide();
 });
 $(onPageLoad);
