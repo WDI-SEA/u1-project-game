@@ -10,9 +10,7 @@ function onPageLoad() {
     $('#timer span').html(seconds);
 
     $('.first-hide').hide();
-    $('.first-hide').hide();
-    $('.first-hide').hide();
-    $('.first-hide').hide();
+
 }
 
 $('#startgame').on("click", function() {
@@ -71,18 +69,18 @@ $('#bunny').on("click", function() {
     counter = counter + 1;
     $('#counter span').html(counter);
     if (seconds >= 20) {
-        $('#endScreen').show();
-        $('#endCount').html(counter);
-        $('#endSeconds').html(seconds);
-        $('#bunny').hide();
-        $('#start').hide();
-        $('#tweety-bird').hide();
-        $("#restart-game").show();
-        if (isPlayerOneTurn) {
-            player1Score = counter;
-        } else {
-            player2Score = counter;
-        }
+    $('#endScreen').show();
+    $('#endCount').html(counter);
+    $('#endSeconds').html(seconds);
+    $('#bunny').hide();
+    $('#start').hide();
+    $('#tweety-bird').hide();
+    $("#restart-game").show();
+    if (isPlayerOneTurn) {
+        player1Score = counter;
+    } else {
+        player2Score = counter;
+    }
 
     } else {
         $(this).hide();
