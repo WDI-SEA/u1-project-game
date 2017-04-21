@@ -6,50 +6,50 @@ var win = false;
 
 class cat {
     constructor(bio, name, type, hp, currentHp, attack, range, special, description, damage, counter, image, dead, strong, weak) {
-        this.Bio = bio;
-        this.Name = name;
-        this.Type = type;
-        this.Hp = hp;
-        this.CurrentHp = currentHp;
-        this.Attack = attack;
-        this.Range = range;
-        this.Special = special;
-        this.Description = description;
-        this.Damage = damage;
-        this.Counter = counter;
-        this.Image = image;
-        this.Dead = dead;
-        this.Strong = strong;
-        this.Weak = weak;
+        this.bio = bio;
+        this.name = name;
+        this.type = type;
+        this.hp = hp;
+        this.currentHp = currentHp;
+        this.attack = attack;
+        this.range = range;
+        this.special = special;
+        this.description = description;
+        this.damage = damage;
+        this.counter = counter;
+        this.image = image;
+        this.dead = dead;
+        this.strong = strong;
+        this.weak = weak;
     }
 }
 
 class player {
     constructor(name, array, index, heal, id, playerClass, pickBox1, pickBox2, fightBox1, fightBox2) {
-        this.Name = name;
-        this.Array = array;
-        this.Index = index;
-        this.Heal = heal;
-        this.Id = id;
-        this.Class = playerClass;
-        this.PickBox1 = pickBox1;
-        this.PickBox2 = pickBox2;
-        this.FightBox1 = fightBox1;
-        this.FightBox2 = fightBox2;
+        this.name = name;
+        this.array = array;
+        this.index = index;
+        this.heal = heal;
+        this.id = id;
+        this.class = playerClass;
+        this.pickBox1 = pickBox1;
+        this.pickBox2 = pickBox2;
+        this.fightBox1 = fightBox1;
+        this.fightBox2 = fightBox2;
     }
 }
 
 function switchPlayers() {
-    $(currentPlayer.Id).find('.moves').removeClass('red');
+    $(currentPlayer.id).find('.moves').removeClass('red');
     temp = currentPlayer;
     currentPlayer = nextPlayer;
     nextPlayer = temp;
-    $(currentPlayer.Id).find('.moves').addClass('red');
+    $(currentPlayer.id).find('.moves').addClass('red');
 }
 
 function updatePickScreen(catName, player, box) {
-    var array = player.Array;
-    var image = catName.Image;
+    var array = player.array;
+    var image = catName.image;
 
     array.push(catName);
     $(box).attr('src', image);
@@ -57,16 +57,16 @@ function updatePickScreen(catName, player, box) {
 }
 
 function updateFightScreen(id, array, index) {
-    $(id).find('.big-cat').attr('src', array[index].Image);
-    $(id).find('.hp').attr('value', array[index].CurrentHp).attr('max', array[index].Hp);
-    $(id).find('.fight-type').text(array[index].Type);
-    $(id).find('.atk').text(`1. Scratch: ${array[index].Range}`);
-    $(id).find('.spec').text(`2. Special: ${array[index].Damage}`);
+    $(id).find('.big-cat').attr('src', array[index].image);
+    $(id).find('.hp').attr('value', array[index].currentHp).attr('max', array[index].hp);
+    $(id).find('.fight-type').text(array[index].type);
+    $(id).find('.atk').text(`1. Scratch: ${array[index].range}`);
+    $(id).find('.spec').text(`2. Special: ${array[index].damage}`);
     if (id === '#player1') {
-        play1.Index = index;
+        play1.index = index;
     }
     if (id === '#player2') {
-        play2.Index = index;
+        play2.index = index;
     }
 }
 
@@ -91,17 +91,17 @@ function critChance() {
 }
 
 function specialReady(counter, player) {
-    var array = player.Array;
-    var index = player.Index;
+    var array = player.array;
+    var index = player.index;
 
     if (counter > 0) {
-        array[index].Counter = array[index].Counter - 1;
+        array[index].counter = array[index].counter - 1;
     }
 }
 
 function weakOrStrong(attkCat, oppCat) {
-    var special = attkCat.Special;
-    var type = oppCat.Type;
+    var special = attkCat.special;
+    var type = oppCat.type;
     var damageModifier = 1;
 
     switch (special) {
@@ -156,19 +156,19 @@ function weakOrStrong(attkCat, oppCat) {
 }
 
 function catDied(array, index) {
-    if (array[index].CurrentHp <= 0) {
-        array[index].Dead = true;
+    if (array[index].currentHp <= 0) {
+        array[index].dead = true;
         checkWin(array);
 
         if (!win) {
             if (index === 0) {
-                $(nextPlayer.FightBox1).addClass('dead');
-                nextPlayer.Index = 1;
-                updateFightScreen(nextPlayer.Id, array, nextPlayer.Index);
+                $(nextPlayer.fightBox1).addClass('dead');
+                nextPlayer.index = 1;
+                updateFightScreen(nextPlayer.id, array, nextPlayer.index);
             } else if (index === 1) {
-                $(nextPlayer.FightBox2).addClass('dead');
-                nextPlayer.Index = 0;
-                updateFightScreen(nextPlayer.Id, array, nextPlayer.Index);
+                $(nextPlayer.fightBox2).addClass('dead');
+                nextPlayer.index = 0;
+                updateFightScreen(nextPlayer.id, array, nextPlayer.index);
             }
         }
     }
@@ -179,17 +179,17 @@ function catDied(array, index) {
 
 function checkDead(array, index) {
     if (index === 0) {
-        return array[1].Dead;
+        return array[1].dead;
     } else {
-        return array[0].Dead;
+        return array[0].dead;
     }
 }
 
 function checkWin(array) {
-    if (array[0].Dead && array[1].Dead) {
+    if (array[0].dead && array[1].dead) {
         win = true;
-        $(currentPlayer.Id).find('.moves').removeClass('red');
-        $('#winners-screen > h1').html(`${currentPlayer.Name} is victorious!`);
+        $(currentPlayer.id).find('.moves').removeClass('red');
+        $('#winners-screen > h1').html(`${currentPlayer.name} is victorious!`);
         $('#winners-screen').removeClass('hide');
     }
 }
@@ -200,9 +200,9 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
     var playerCat = attackerArray[attackerIndex];
     var enemyCat = opponentArray[opponentIndex];
     var modifier = weakOrStrong(playerCat, enemyCat);
-    var atkValue = Math.floor((playerCat.Attack + plusDamage) * multiplyer);
-    var specValue = Math.floor(playerCat.Damage * multiplyer * modifier);
-    var healValue = playerCat.Hp - playerCat.CurrentHp;
+    var atkValue = Math.floor((playerCat.attack + plusDamage) * multiplyer);
+    var specValue = Math.floor(playerCat.damage * multiplyer * modifier);
+    var healValue = playerCat.hp - playerCat.currentHp;
     var strong = false;
     var weak = false;
 
@@ -214,11 +214,11 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
 
     switch (move) {
         case 1:
-            enemyCat.CurrentHp = enemyCat.CurrentHp - atkValue;
+            enemyCat.currentHp = enemyCat.currentHp - atkValue;
             $(attacker).find('.big-cat').addClass(atkClass);
             setTimeout(function() {
                 $(opponent).find('.big-cat').addClass('damage');
-                $(opponent).find('.hp').attr('value', enemyCat.CurrentHp);
+                $(opponent).find('.hp').attr('value', enemyCat.currentHp);
                 catDied(opponentArray, opponentIndex);
             }, 250);
             setTimeout(function() {
@@ -228,29 +228,29 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
                 $(opponent).find('.big-cat').removeClass('damage');
             }, 750);
             if (!critical) {
-                $('.message').html(`${playerCat.Name} hit ${enemyCat.Name} for ${atkValue} damage!`);
+                $('.message').html(`${playerCat.name} hit ${enemyCat.name} for ${atkValue} damage!`);
             } else if (critical) {
-                $('.message').html(`${playerCat.Name} crit ${enemyCat.Name} for ${atkValue} damage!`);
+                $('.message').html(`${playerCat.name} crit ${enemyCat.name} for ${atkValue} damage!`);
             }
             break;
         case 2:
-            enemyCat.CurrentHp = enemyCat.CurrentHp - specValue;
+            enemyCat.currentHp = enemyCat.currentHp - specValue;
             $(attacker).find('.big-cat').addClass('special');
             setTimeout(function() {
                 $(attacker).find('.big-cat').removeClass('special');
             }, 500);
             setTimeout(function() {
                 $(opponent).find('.big-cat').addClass('damage');
-                $(opponent).find('.hp').attr('value', enemyCat.CurrentHp);
+                $(opponent).find('.hp').attr('value', enemyCat.currentHp);
                 catDied(opponentArray, opponentIndex);
             }, 500);
             setTimeout(function() {
                 $(opponent).find('.big-cat').removeClass('damage');
             }, 1000);
             if (!critical) {
-                $('.message').html(`${playerCat.Special} hit ${enemyCat.Name} for ${specValue} damage!`);
+                $('.message').html(`${playerCat.special} hit ${enemyCat.name} for ${specValue} damage!`);
             } else if (critical) {
-                $('.message').html(`${playerCat.Special} crit ${enemyCat.Name} for ${specValue} damage!`);
+                $('.message').html(`${playerCat.special} crit ${enemyCat.name} for ${specValue} damage!`);
             }
             if (strong) {
                 $('.message').append($('<p>').text("It's very effective!"));
@@ -260,16 +260,16 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
             break;
         case 3:
             if (healValue > 300) {
-                playerCat.CurrentHp = playerCat.CurrentHp + 300;
-                $('.message').html(`${playerCat.Name} healed for 300 HP!`);
+                playerCat.currentHp = playerCat.currentHp + 300;
+                $('.message').html(`${playerCat.name} healed for 300 HP!`);
             } else {
-                playerCat.CurrentHp = playerCat.CurrentHp + healValue;
-                $('.message').html(`${playerCat.Name} healed for ${healValue}`);
+                playerCat.currentHp = playerCat.currentHp + healValue;
+                $('.message').html(`${playerCat.name} healed for ${healValue}`);
             }
             $(attacker).find('.big-cat').addClass('heal');
             setTimeout(function() {
                 $(attacker).find('.big-cat').removeClass('heal');
-                $(attacker).find('.hp').attr('value', playerCat.CurrentHp);
+                $(attacker).find('.hp').attr('value', playerCat.currentHp);
             }, 500);
             switchPlayers();
             break;
@@ -394,8 +394,8 @@ function onPageLoad() {
         $('#pick-screen').removeClass('hide');
         $('body').removeClass('lightblue');
         $('body').addClass('lightslategrey');
-        play1.Name = $('#play1-name').val();
-        play2.Name = $('#play2-name').val();
+        play1.name = $('#play1-name').val();
+        play2.name = $('#play2-name').val();
         currentPlayer = play1;
         nextPlayer = play2;
         pickScreen();
@@ -405,8 +405,8 @@ function onPageLoad() {
         $('#pick-screen').removeClass('hide');
         $('body').removeClass('lightblue');
         $('body').addClass('lightslategrey');
-        play1.Name = $('#play1-name').val();
-        play2.Name = $('#play2-name').val();
+        play1.name = $('#play1-name').val();
+        play2.name = $('#play2-name').val();
         currentPlayer = play2;
         nextPlayer = play1;
         pickScreen();
@@ -416,54 +416,54 @@ function onPageLoad() {
 
 function pickScreen() {
     var catPicsArray = $('.cat-pics > div > img');
-    $(currentPlayer.PickBox1).addClass('red');
+    $(currentPlayer.pickBox1).addClass('red');
 
     $.each(catPicsArray, function() {
         $(this).on('mouseover', function() {
             var catName = eval(this.name);
-            $('.name').html(catName.Name);
-            $('.type').text(catName.Type);
-            $('.bio').html(`<i>"${catName.Bio}"</i>`);
-            $('.attack').text(catName.Range);
-            $('.specialName').text(catName.Special);
-            $('.description').html(`<i>"${catName.Description}"</i>`);
-            $('.damageAmt').text(catName.Damage);
-            $('.strong').text(catName.Strong);
-            $('.weak').text(catName.Weak);
+            $('.name').html(catName.name);
+            $('.type').text(catName.type);
+            $('.bio').html(`<i>"${catName.bio}"</i>`);
+            $('.attack').text(catName.range);
+            $('.specialName').text(catName.special);
+            $('.description').html(`<i>"${catName.description}"</i>`);
+            $('.damageAmt').text(catName.damage);
+            $('.strong').text(catName.strong);
+            $('.weak').text(catName.weak);
         });
     });
 
     $.each(catPicsArray, function() {
         $(this).on('click', function() {
             var catName = eval(this.name);
-            var array1 = currentPlayer.Array;
-            var array2 = nextPlayer.Array;
-            var box1 = currentPlayer.PickBox1;
-            var box2 = currentPlayer.PickBox2;
+            var array1 = currentPlayer.array;
+            var array2 = nextPlayer.array;
+            var box1 = currentPlayer.pickBox1;
+            var box2 = currentPlayer.pickBox2;
 
             if (array1.length < 1 && array2.length === 0) {
-                $(currentPlayer.PickBox1).removeClass('red');
+                $(currentPlayer.pickBox1).removeClass('red');
                 updatePickScreen(catName, currentPlayer, box1);
-                $(currentPlayer.PickBox1).addClass('red');
+                $(currentPlayer.pickBox1).addClass('red');
             } else if (array1.length < 1 && array2.length === 1) {
-                $(currentPlayer.PickBox1).removeClass('red');
-                $(currentPlayer.PickBox2).addClass('red');
+                $(currentPlayer.pickBox1).removeClass('red');
+                $(currentPlayer.pickBox2).addClass('red');
                 updatePickScreen(catName, currentPlayer, box1);
             } else if (array1.length < 2 && array2.length < 2) {
                 switchPlayers();
-                box2 = currentPlayer.PickBox2;
-                $(currentPlayer.PickBox2).removeClass('red');
+                box2 = currentPlayer.pickBox2;
+                $(currentPlayer.pickBox2).removeClass('red');
                 updatePickScreen(catName, currentPlayer, box2);
-                $(currentPlayer.PickBox2).addClass('red');
+                $(currentPlayer.pickBox2).addClass('red');
             } else if (array1.length < 2 || array2.length < 2) {
-                $(currentPlayer.PickBox2).removeClass('red');
+                $(currentPlayer.pickBox2).removeClass('red');
                 updatePickScreen(catName, currentPlayer, box2);
             }
         });
     });
 
     $('#fight').on('click', function(event) {
-        if (play1.Array.length < 2 || play2.Array.length < 2) {
+        if (play1.array.length < 2 || play2.array.length < 2) {
             event.preventDefault();
         } else {
             $('#pick-screen').addClass('hide');
@@ -476,27 +476,27 @@ function pickScreen() {
 }
 
 function fightScreen() {
-    var p1Array = play1.Array;
-    var p2Array = play2.Array;
+    var p1Array = play1.array;
+    var p2Array = play2.array;
 
-    $('#p1-fight1').attr('src', p1Array[0].Image);
-    $('#p2-fight1').attr('src', p2Array[0].Image);
-    $('#p1-fight2').attr('src', p1Array[1].Image);
-    $('#p2-fight2').attr('src', p2Array[1].Image);
+    $('#p1-fight1').attr('src', p1Array[0].image);
+    $('#p2-fight1').attr('src', p2Array[0].image);
+    $('#p1-fight2').attr('src', p1Array[1].image);
+    $('#p2-fight2').attr('src', p2Array[1].image);
 
-    updateFightScreen(play1.Id, p1Array, play1.Index);
-    updateFightScreen(play2.Id, p2Array, play2.Index);
-    $(currentPlayer.Id).find('.moves').addClass('red');
+    updateFightScreen(play1.id, p1Array, play1.index);
+    updateFightScreen(play2.id, p2Array, play2.index);
+    $(currentPlayer.id).find('.moves').addClass('red');
 
     $(document).on('keyup', function() {
-        var attkId = currentPlayer.Id;
-        var oppId = nextPlayer.Id;
-        var attkArray = currentPlayer.Array;
-        var oppArray = nextPlayer.Array;
-        var attkIndex = currentPlayer.Index;
-        var oppIndex = nextPlayer.Index;
-        var attkClass = currentPlayer.Class;
-        var currentCounter = attkArray[attkIndex].Counter;
+        var attkId = currentPlayer.id;
+        var oppId = nextPlayer.id;
+        var attkArray = currentPlayer.array;
+        var oppArray = nextPlayer.array;
+        var attkIndex = currentPlayer.index;
+        var oppIndex = nextPlayer.index;
+        var attkClass = currentPlayer.class;
+        var currentCounter = attkArray[attkIndex].counter;
 
 
         if (event.key === '1' && !win) {
@@ -504,17 +504,17 @@ function fightScreen() {
             moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 1, attkClass);
         } else if (event.key === '2' && !win) {
             if (currentCounter === 0) {
-                attkArray[attkIndex].Counter = 2;
+                attkArray[attkIndex].counter = 2;
                 moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 2);
             } else {
                 $('.message').text(`Your special isn't ready yet!  ${currentCounter} more turns!`);
             }
         } else if (event.key === '3' && !win) {
-            if (currentPlayer.Heal === 1 && (attkArray[attkIndex].Hp - attkArray[attkIndex].CurrentHp) !== 0) {
+            if (currentPlayer.heal === 1 && (attkArray[attkIndex].hp - attkArray[attkIndex].currentHp) !== 0) {
                 specialReady(currentCounter, currentPlayer);
-                currentPlayer.Heal = 0;
+                currentPlayer.heal = 0;
                 moveChoice(attkId, oppId, attkArray, attkIndex, oppArray, oppIndex, 3);
-            } else if ((attkArray[attkIndex].Hp - attkArray[attkIndex].CurrentHp) === 0) {
+            } else if ((attkArray[attkIndex].hp - attkArray[attkIndex].currentHp) === 0) {
                 $('.message').text(`You're at max health!`);
             } else {
                 $('.message').text(`You've already use your heal!`);

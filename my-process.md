@@ -7,7 +7,7 @@ CAT FIGHT is a Pokémon-style battle game.  Each player will pick 2 cats and bat
 ## My Process
 
   - Create a wire frame for how I want the game to look.  Think about how many different screens I want to have and what content will be on each respective screen
-  - Code the bulk of the HTML.  Create a different <section> for each screen of the game and give each <section> a symantic ID
+  - Code the bulk of the HTML.  Create a different <section> for each screen of the game and give each <section> a semantic ID
   - Start coding some of the CSS.  Mostly just flexing different elements to arrange them on the page the way I want, trying to match my wire frame as much as possible
   - Start coding the JavaScript.  Start with the simplest functions first, like event listeners on buttons and the basic logic of the game
   - Slowly add game functionality, incorporating one function at a time and making sure it works as intended
@@ -16,7 +16,7 @@ CAT FIGHT is a Pokémon-style battle game.  Each player will pick 2 cats and bat
   - Play though the game several times, making changes where necessary
 
 ### Unsolved Problems
-The game pretty much functions as I intended.  Originally, instead of a heal, I wanted each Cat to have a buff or debuff ability.  I believe it would make the game more dynamic and interesting.  Certains buffs/debuffs would work well with other Cat's specials, allowing a player to incoporate more strategy/tactics by comboing abilities.
+The game pretty much functions as I intended.  Originally, instead of a heal, I wanted each Cat to have a buff or debuff ability.  I believe it would make the game more dynamic and interesting.  Certain buffs/debuffs would work well with other Cat's specials, allowing a player to incorporate more strategy/tactics by comboing abilities.
 
 This is an achievable goal, given more time.
 
@@ -30,7 +30,7 @@ I would also like to:
 ## Wins & Challenges
 
  - Getting the Pick Screen to display each Cat's info when you hover over their picture
- - Coding the game to draft in a snake draft, as oppossed to just alternating
+ - Coding the game to draft in a snake draft, as opposed to just alternating
  - Creating the Health Bars and having them be updated with each attack
  - Making sure the game knows when a Cat is dead and not allowing a Player to switch if it's other cat is dead
  - Getting the win condition to execute when a Player's Cats are dead
