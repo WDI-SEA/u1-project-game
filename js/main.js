@@ -40,6 +40,8 @@ $('#startgame').on("click", function() {
             $('#start').hide();
             $('#tweety-bird').hide();
             $("#restart-game").show();
+            $('first-hide').hide();
+            $('.hide-playground').hide();
             clearInterval(interval);
 
         }
@@ -104,7 +106,8 @@ $('#bunny').on("click", function() {
 
 $('#ready-button').on('click', function() {
     $('#start-screen').hide('fast');
-
+    $('#startgame').show();
+    $('#playground').show();
 });
 
 
