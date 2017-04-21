@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GOOOOOAAAATS</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="author" href="humans.txt">
+    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Raleway" rel="stylesheet">
+</head>
+
+<body>
+    <div class="flyin">
+        <div class="spin">
+            <h1 class="color-change">The Amazing Goat Search</h1>
+        </div>
+    </div>
+    <div class="flex-box">
+        <div class="left">
+            <h2>Player</h2>
+            <table id="player-board">
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="right">
+            <h2>Computer</h2>
+            <table id="comp-board">
+                <tbody>
+                </tbody>
+            </table>
+            <h3>Place <span id="player-count"></span>more goats</h3>
+            <p class="instructions">Baby goats like to be in vertical or horizontal herds of three. Please place three herds on your board then click "Start Game".</p>
+            <button id="start">Start Game</button>
+        </div>
+    </div>
+    <div class="centerChild">
+        <button id="restart">Restart Game</button>
+        <button id="board-change">Change Board Size</button>
+    </div>
+    <div class="game-over">
+        <p class="color-change"></p>
+        <img class="winImg" src="#" alt="game-over alert">
+    </div>
+    <div id="player"></div>
+    <br>
+    <div id="comp"></div>
+    <br>
+    <div id="map"></div>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
