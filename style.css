@@ -87,5 +87,7 @@ body {
     #score_div {
         color: red;
         font-size: 20px;
+        -webkit-color: red;
+        -webkit-font-size: 20px;
     }
 }
