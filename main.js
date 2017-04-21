@@ -4,7 +4,7 @@ var temp;
 var critical;
 var win = false;
 
-class cat {
+class Cat {
     constructor(bio, name, type, hp, currentHp, attack, range, special, description, damage, counter, image, dead, strong, weak) {
         this.bio = bio;
         this.name = name;
@@ -24,7 +24,7 @@ class cat {
     }
 }
 
-class player {
+class Player {
     constructor(name, array, index, heal, id, playerClass, pickBox1, pickBox2, fightBox1, fightBox2) {
         this.name = name;
         this.array = array;
@@ -288,7 +288,7 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
     }
 }
 
-var blackCat = new cat(
+var blackCat = new Cat(
     "A favorite of witches and warlocks.  Goth cats often inherit some of their master's magical abilities.",
     'Binx',
     'Goth',
@@ -304,7 +304,7 @@ var blackCat = new cat(
     false,
     'Adorable',
     'Sleepy & Siamese');
-var blueCat = new cat(
+var blueCat = new Cat(
     'Genetically engineered by scientists to be as cute as possible.',
     'Baby Blue',
     'Adorable',
@@ -320,7 +320,7 @@ var blueCat = new cat(
     false,
     'Sleepy',
     'Tabby & Siamese');
-var greyCat = new cat(
+var greyCat = new Cat(
     'Most of their life is spent sleeping.  Wake them up, however, and you experience their wrath',
     'Patches',
     'Sleepy',
@@ -336,7 +336,7 @@ var greyCat = new cat(
     false,
     'Goth',
     'Adorable & Tabby');
-var orangeCat = new cat(
+var orangeCat = new Cat(
     'Small, orange, and cute.  Only their lifeless eyes hint at the ire that festers inside.',
     'Oliver',
     'Tabby',
@@ -352,7 +352,7 @@ var orangeCat = new cat(
     false,
     'Siamese',
     'Goth & Sleepy');
-var whiteCat = new cat(
+var whiteCat = new Cat(
     "Prefers the title Se&ntilde;or, despite not actually being of Latino decent.  It is unknown why.",
     'Se&ntilde;or Chang',
     'Siamese',
@@ -368,7 +368,7 @@ var whiteCat = new cat(
     false,
     'Tabby',
     'Goth & Adorable');
-var grumpyCat = new cat(
+var grumpyCat = new Cat(
     'Hates everything and everyone.',
     'Grumpy Cat',
     'Disgruntled',
@@ -385,8 +385,8 @@ var grumpyCat = new cat(
     'Despises everything equally.',
     'Is indifferent to all types of attacks.');
 
-var play1 = new player('', [], 0, 1, '#player1', 'p1attack', '#p1-c1', '#p1-c2', '#p1-fight1', '#p1-fight2');
-var play2 = new player('', [], 0, 1, '#player2', 'p2attack', '#p2-c1', '#p2-c2', '#p2-fight1', '#p2-fight2');
+var play1 = new Player('', [], 0, 1, '#player1', 'p1attack', '#p1-c1', '#p1-c2', '#p1-fight1', '#p1-fight2');
+var play2 = new Player('', [], 0, 1, '#player2', 'p2attack', '#p2-c1', '#p2-c2', '#p2-fight1', '#p2-fight2');
 
 function onPageLoad() {
     $('#pick-last').on('click', function() {
