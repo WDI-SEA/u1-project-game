@@ -157,9 +157,9 @@ function checkWin() {
 ////////////////////////////////////////////////////
 
 ////////////////Near Hits////////////////////////////
-var nearHit = "1";
-var hit = "X";
-var miss = "0";
+var MARK_NEAR_HIT = "1";
+var MARK_HIT = "X";
+var MARK_MISS = "0";
 
 var nearHitOptions = [
     [1, 0],
@@ -183,7 +183,7 @@ function markNearHits(row, col) {
     for (i; i < loops; i++) {
         var cellVal = computersMap[row + nearHitOptions[i][0]][col + nearHitOptions[i][1]];
         if (cellVal === "_") {
-            computersMap[row + nearHitOptions[i][0]][col + nearHitOptions[i][1]] = nearHit;
+            computersMap[row + nearHitOptions[i][0]][col + nearHitOptions[i][1]] = MARK_NEAR_HIT;
             //$(`#comp-board tr:eq(${row + nearHitOptions[i][0]}) td:eq(${col + nearHitOptions[i][1]})`).css('background-color', 'green');
         }
     }
@@ -194,14 +194,14 @@ function markNearHits(row, col) {
 ////////////// Mark computer map hit or miss////////////////////
 function markMiss(row, col) {
     $(`#comp-board tr:eq(${row}) td:eq(${col})`).addClass('nope');
-    computersMap[row][col] = miss;
+    computersMap[row][col] = MARK_MISS;
 }
 
 function markHit(row, col) {
     $(`#comp-board tr:eq(${row}) td:eq(${col})`).css('background-color', 'rgba(255, 33, 33, .8)');
     var hitSound = new Audio("./img/hit.mp3");
     hitSound.play();
-    computersMap[row][col] = hit;
+    computersMap[row][col] = MARK_HIT;
     compHits += 1;
 }
 ///////////////////////////////////////////////////////////////
@@ -210,7 +210,7 @@ function markHit(row, col) {
 function computerGuess() {
     for (var i = 0; i < boardSize; i++) {
         for (var j = 0; j < boardSize; j++) {
-            if (computersMap[i][j] === nearHit) {
+            if (computersMap[i][j] === MARK_NEAR_HIT) {
                 if (playersBoard[i][j] === "_") {
                     markMiss(i, j);
                     return;
@@ -236,6 +236,8 @@ function computerGuess() {
 }
 
 ///////////////////////////Players Guess/////////////////////////////
+var timeBeforeCompGuess = 800;
+
 function revealSquare() {
     if (!$(this).hasClass('comp-goat') && !$(this).hasClass('nope')) {
         if ($(this).data('ship') === "A" || $(this).data('ship') === "B" || $(this).data('ship') === "C") {
@@ -248,7 +250,7 @@ function revealSquare() {
 
         }
         checkWin();
-        setTimeout(computerGuess, 800);
+        setTimeout(computerGuess, timeBeforeCompGuess);
     }
 }
 /////////////////////////////////////////////////////
@@ -301,9 +303,9 @@ function pageLoadStuff() {
     $('.flex-box').css('display', 'flex');
 }
 
-
+var timeBeforePageLoad = 1000;
 $(function() {
-    setTimeout(pageLoadStuff, 1000);
+    setTimeout(pageLoadStuff, timeBeforePageLoad);
     $('#player-board td').on('click', revealSquare);
     $('#comp-board td').on('click', markP);
     $('#start').on('click', startGame);

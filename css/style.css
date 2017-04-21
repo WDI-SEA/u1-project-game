@@ -247,9 +247,20 @@ button:active {
         width: 100%;
     }
     .game-over p {
-        font-style: 1em;
+        font-size: 1em;
     }
     .game-over {
-        top: 489px;
+        top: 490px;
+    }
+    .right {
+        height: 0px;
+        position: relative;
+        top: 100px;
+    }
+    button {
+        padding: 4px;
+    }
+    h1 {
+        font-size: 6em;
     }
 }
