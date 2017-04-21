@@ -5,6 +5,9 @@
 // diff animals have diff fav foods with ultra happy status
 // choose background
 
+// EVERYTHING GOT FUCKED UP ON INTRODUCTION OF STATE.
+// IT IS BREAKING WHEN I RETRIEVE DATA (SAVING MYPET AS NULL)
+
 
 /*
 
@@ -19,10 +22,9 @@ var sadHunger = maxHunger * 0.25;
 // passed along with hunger decreasefunction on a set interval
 var gameLoopFreq = 1000;
 // change  freq to longer for real game
-var hungerDecreaseFreq = 10000; // (10000) 10 seconds for hunger decrease
-var hungerTimer = hungerDecreaseFreq;
+var hungerDecreaseFreq = 1000; // (10000) 10 seconds for hunger decrease
 var poopFreq = hungerDecreaseFreq * 20;
-var poopTimer = 0; //testing
+
 var maxPoop = 50; // most poops that still fit in game field
 var sadPoop = 5; //
 var angryPoop = 10; // around 1 row of poop depending on screen size
@@ -43,8 +45,7 @@ class Pet {
     }
 }
 
-// initialize pet that is used in game
-var pet = new Pet();
+
 
 //class for the 6 foods that can be fed
 class Food {
@@ -83,6 +84,9 @@ var mustache = new Wearable("mustache", 50000);
 
 var wearables = [glasses, hairbow, hat, tie, mustache];
 
+// initialize pet that is used in game
+var state;
+
 /*
 
       GAME STORAGE
@@ -91,18 +95,29 @@ var wearables = [glasses, hairbow, hat, tie, mustache];
 
 // function to be called in Game loop that continually saves pet status
 // and time stamp for hunger calculations
-function saveToLocalStorage() {
-    localStorage.pet = JSON.stringify(pet);
-    // for calculating time lapse between browser loads
-    localStorage.timeStamp = Date.now();
+function newGameState() {
+    return {
+        myPet: new Pet(),
+        hungerTimer: hungerDecreaseFreq,
+        poopTimer: 0,
+        timeStamp: Date.now()
+    };
 }
 
-function retrievePetFromStorage() {
-    pet = JSON.parse(localStorage.pet);
+function saveToLocalStorage() {
+    localStorage.state = JSON.stringify(state);
+    // localStorage.pet = JSON.stringify(pet);
+    // for calculating time lapse between browser loads
+    // localStorage.timeStamp = Date.now();
+}
+
+function retrieveStateFromStorage() {
+    state = JSON.parse(localStorage.state);
     // PROBLEM!!!! when retrives wornItems all the items are of type object instead of class Wearable! then the toggleing doesnt work, so I just reset all the clothes choices
-    pet.wornItems = [];
-    var timeElapsed = Date.now() - localStorage.timeStamp;
+    state.myPet.wornItems = [];
+    var timeElapsed = Date.now() - state.timeStamp;
     gameUpdate(timeElapsed);
+    return state;
 }
 
 /*
@@ -123,49 +138,56 @@ function gameLoop() {
 
 // all pet properties update here
 function gameUpdate(timeElapsed) {
-    hungerTimer += timeElapsed;
-    var hungerLoss = Math.floor(hungerTimer / hungerDecreaseFreq);
-    pet.hunger -= hungerLoss;
-    hungerTimer -= hungerLoss * hungerDecreaseFreq;
-    if (pet.hunger <= 0) {
+    state.hungerTimer += timeElapsed;
+    var hungerLoss = Math.floor(state.hungerTimer / hungerDecreaseFreq);
+    state.myPet.hunger -= hungerLoss;
+    state.hungerTimer -= hungerLoss * hungerDecreaseFreq;
+    if (state.myPet.hunger <= 0) {
         death();
-    } else if (pet.hunger < sadHunger) {
+    } else if (state.myPet.hunger < sadHunger) {
         changeCondition("sad");
     }
 
     /// add in some conditions for sad pet (1 row of poop) and angry pet (multiple rows of poop)
-    poopTimer += timeElapsed;
-    var poopGain = Math.floor(poopTimer / poopFreq);
-    if (pet.poop < maxPoop) {
-        pet.poop += poopGain;
-        if (pet.poop > angryPoop) {
+    state.poopTimer += timeElapsed;
+    var poopGain = Math.floor(state.poopTimer / poopFreq);
+    if (state.myPet.poop < maxPoop) {
+        state.myPet.poop += poopGain;
+        if (state.myPet.poop > angryPoop) {
             changeCondition("angry");
-        } else if (pet.poop > sadPoop) {
+        } else if (state.myPet.poop > sadPoop) {
             changeCondition("sad");
         }
     } else {
-        pet.poop = maxPoop;
+        state.myPet.poop = maxPoop;
     }
-    poopTimer -= poopGain * poopFreq;
+    state.poopTimer -= poopGain * poopFreq;
+
+    state = {
+        myPet: state.myPet,
+        hungerTimer: state.hungerTimer,
+        poopTimer: state.poopTimer,
+        timeStamp: Date.now()
+    };
 }
 
 // feed pet when food item clicked on
 function feedPet() {
     var posOfFoodClicked = $(this).data("array-pos");
     var clickedFood = foods[posOfFoodClicked];
-    if (pet.hunger < maxHunger) {
-        pet.hunger += clickedFood.hungerIncrease;
-        pet.experience += clickedFood.expGained;
+    if (state.myPet.hunger < maxHunger) {
+        state.myPet.hunger += clickedFood.hungerIncrease;
+        state.myPet.experience += clickedFood.expGained;
         shortPurr();
-        if (pet.hunger > sadHunger && pet.poop < sadPoop) {
+        if (state.myPet.hunger > sadHunger && state.myPet.poop < sadPoop) {
             changeCondition("happy");
         }
-        if (pet.hunger > maxHunger) {
-            pet.hunger = maxHunger;
+        if (state.myPet.hunger > maxHunger) {
+            state.myPet.hunger = maxHunger;
         }
-        if (pet.poop < maxPoop) {
+        if (state.myPet.poop < maxPoop) {
             // the foods that increase the hunger meter the most cause the most poop
-            pet.poop += clickedFood.poopChange;
+            state.myPet.poop += clickedFood.poopChange;
         }
     }
     displayUnlocked(foods, ".food-menu");
@@ -176,10 +198,10 @@ function feedPet() {
 // clean up poop when clicked on
 function removePoop() {
     $(this).remove();
-    pet.poop -= 1;
-    pet.experience += 20;
+    state.myPet.poop -= 1;
+    state.myPet.experience += 20;
     displayPoop();
-    if (pet.poop < sadPoop && pet.hunger > sadHunger) {
+    if (state.myPet.poop < sadPoop && state.myPet.hunger > sadHunger) {
         changeCondition("happy");
     }
 }
@@ -187,19 +209,19 @@ function removePoop() {
 
 // update image on pet condition change
 function changeCondition(condition) {
-    pet.condition = condition;
-    $("#pet").attr("src", `images/pets/lion${pet.condition}.png`);
+    state.myPet.condition = condition;
+    $("#pet").attr("src", `images/pets/lion${state.myPet.condition}.png`);
 }
 
 function addAndRemoveWearables() {
     var posOfWearableClicked = $(this).data("array-pos");
     var wearableClicked = wearables[posOfWearableClicked];
-    // pet.wornItems.push(wearableClicked);
-    var indexOfWearableOnPet = pet.wornItems.indexOf(wearableClicked);
+    // state.myPet.wornItems.push(wearableClicked);
+    var indexOfWearableOnPet = state.myPet.wornItems.indexOf(wearableClicked);
     if (indexOfWearableOnPet < 0) {
-        pet.wornItems.push(wearableClicked);
+        state.myPet.wornItems.push(wearableClicked);
     } else {
-        pet.wornItems.splice(indexOfWearableOnPet, 1);
+        state.myPet.wornItems.splice(indexOfWearableOnPet, 1);
     }
     wearAccessories();
 }
@@ -211,13 +233,13 @@ function addAndRemoveWearables() {
 */
 
 function petStatusText() {
-    var fullness = Math.round(pet.hunger / 100);
-    $("#bottom-message").text(`Fullness: ${fullness}/10, Exp: ${pet.experience}, Condition: ${pet.condition}`);
+    var fullness = Math.round(state.myPet.hunger / 100);
+    $("#bottom-message").text(`Fullness: ${fullness}/10, Exp: ${state.myPet.experience}, Condition: ${state.myPet.condition}`);
 }
 
 // changes the hunger meter
 function displayHunger() {
-    $("#hunger-meter").attr("value", pet.hunger);
+    $("#hunger-meter").attr("value", state.myPet.hunger);
     petStatusText();
 }
 
@@ -243,7 +265,7 @@ function displayUnlocked(array, menu) {
 
     var anyUnlocked = false;
     for (var i = 0; i < array.length; i++) {
-        if (pet.experience >= array[i].expToUnlock) {
+        if (state.myPet.experience >= array[i].expToUnlock) {
             $(`${menu} [data-array-pos="${i}"`).removeClass("hidden");
             anyUnlocked = true;
         }
@@ -257,7 +279,7 @@ function displayUnlocked(array, menu) {
 // generates the poop
 function displayPoop() {
     $(".poop-field").empty();
-    for (var i = 1; i <= pet.poop; i++) {
+    for (var i = 1; i <= state.myPet.poop; i++) {
         var poop = $("<img>").attr("src", "images/poop/poop.png");
         $(".poop-field").append(poop);
         poop.on("click", removePoop);
@@ -273,8 +295,8 @@ function shortPurr() {
 
 function wearAccessories() {
     $(".wearable").addClass("hidden");
-    for (var i = 0; i < pet.wornItems.length; i++) {
-        $(`.${pet.wornItems[i].type}`).removeClass("hidden");
+    for (var i = 0; i < state.myPet.wornItems.length; i++) {
+        $(`.${state.myPet.wornItems[i].type}`).removeClass("hidden");
     }
 }
 
@@ -326,8 +348,9 @@ function wearablesMenuGenerate() {
 // function for start game button (IF NEW USER OR ON RESET)
 function initializeGame(e) {
     e.preventDefault();
-    pet.name = $("#name-pet").val();
-    if (pet.name === "") {
+    state = newGameState();
+    state.myPet.name = $("#name-pet").val();
+    if (state.myPet.name === "") {
         $("#top-message").text("Please name your pet");
     } else {
         startGame();
@@ -337,7 +360,7 @@ function initializeGame(e) {
 // this start game function loads after new pet has been named
 // or user returning to established pet
 function startGame() {
-    displayGameStart(pet.name);
+    displayGameStart(state.myPet.name);
     intervalID = setInterval(gameLoop, gameLoopFreq);
     $("#hunger-meter").attr("max", `${maxHunger}`);
 }
@@ -362,7 +385,7 @@ function changePetSize(percent) {
 
 // restart after pet dies => brings back to new page screen
 function resetGame() {
-    pet = new Pet();
+    // state.pet = new Pet();
     changeCondition("happy");
     $("#pet").removeClass("death");
     $("h1").text("Your Little Pet");
@@ -377,15 +400,17 @@ function resetGame() {
 
 $(function() {
     // check if viewer has seen page before
-    var numViews = 0;
+    // var numViews = 0;
+    // numViews = parseInt(localStorage.viewCount);
+    // numViews += 1;
+    // localStorage.viewCount = numViews;
     // also checks if a pet has been saved, other wise it will try to retrive undefined and cause a crash!!!
-    if (localStorage.viewCount && localStorage.pet) {
-        retrievePetFromStorage();
-        numViews = parseInt(localStorage.viewCount);
+    if (localStorage.state) {
+        state = retrieveStateFromStorage(); //return state here
         startGame();
+    } else {
+        state = newGameState();
     }
-    numViews += 1;
-    localStorage.viewCount = numViews;
 
     foodMenuGenerate();
     wearablesMenuGenerate();
