@@ -92,7 +92,7 @@ $(function() {
         }
     });
 
-    body.on('vclick', function() {
+    body.on('click', function() {
         bird.css('top', parseInt(bird.css('top')) - 75);
     })
 

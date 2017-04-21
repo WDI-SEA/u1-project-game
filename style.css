@@ -1,5 +1,6 @@
 body {
     background: url('bgimage.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
     width: 100%;
@@ -71,6 +72,10 @@ body {
         height: 600px;
         background-size: initial;
         background-repeat: no-repeat;
+        -webkit-background-repeat: no-repeat;
+        -webkit-background-size: initial;
+        -webkit- height: 600px;
+        -webkit-max-width: 100%;
     }
     .pole {
         height: 170px;
@@ -80,30 +85,6 @@ body {
         width: 100%;
     }
     #score_div {
-        color: red;
-        font-size: 20px;
-    }
-}
-
-@media screen and (max-width: 375px) {
-    body {
-        background-size: contain;
-    }
-    #container {
-        max-width: 100%;
-        height: 600px;
-        background-size: initial;
-        background-repeat: no-repeat;
-    }
-    .pole {
-        height: 170px;
-        width: 50px;
-    }
-    #restartbtn {
-        width: 100%;
-    }
-    #score_div {
-        font-style: bolder;
         color: red;
         font-size: 20px;
     }
