@@ -18,6 +18,7 @@ $('#startgame').on("click", function() {
     $(this).hide();
     $('#endScreen').hide();
     $('#start').show();
+    $('#playground').show();
     var randWidth = Math.ceil(Math.random() * 500);
     var randHeight = Math.ceil(Math.random() * 500);
     var randWidth1 = Math.ceil(Math.random() * 500);
@@ -41,7 +42,7 @@ $('#startgame').on("click", function() {
             $('#tweety-bird').hide();
             $("#restart-game").show();
             $('first-hide').hide();
-            $('.hide-playground').hide();
+            $('#playground').hide();
             clearInterval(interval);
 
         }
@@ -118,5 +119,6 @@ $('#restart-game').on('click', function() {
     $(this).hide();
     $('#startgame').show();
     $('#endScreen').hide();
+    $('#playground').show();
 });
 $(onPageLoad);

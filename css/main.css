@@ -85,7 +85,7 @@ body {
 }
 
 .white-bold {
-    font-size: 80px;
+    font-size: 40px;
     color: red;
 }
 
@@ -98,7 +98,7 @@ p {
 .start-screen {}
 
 .opening-text {
-    font-size: 52px;
+    font-size: 40px;
 }
 
 #ready-button {
@@ -116,11 +116,17 @@ p {
 @media (max-width: 600px) {
     body {
         max-width: 375px;
-        max-height: 650px;
+        max-height: 500px;
     }
     #wrapper {
-        font-size: 2vw;
+        font-size: 1vw;
         max-width: 375px;
-        max-height: 750px;
+        max-height: 600px;
+    }
+    .small-img {
+        height: 60px;
+        width: 40px;
     }
 }
+
+;
