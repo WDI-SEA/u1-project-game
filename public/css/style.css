@@ -177,7 +177,7 @@ table {
 
 .nope {
     background-color: rgba(32, 32, 194, .8);
-    background-image: url('../img/nope.gif');
+    /*background-image: url('../img/nope.gif');*/
     background-size: 127px;
     background-position: center;
 }
