@@ -22,26 +22,39 @@ Goat Search is a web game based on Battleship. It was created as a requiremnt fo
 
 ***
 
-####Technologies Used
--Html5
--Css3
--keyframe animations
--JavaScript
--jQuery
--Node.js
----
+## Technologies Used
+
+
+- Html5
+- Css3
+- keyframe animations
+- JavaScript
+- jQuery
+- Node.js
+
+***
 
 
 
-###Installation instructions.
--Run npm install in the terminal
--Open in browser
----
+## Installation instructions
 
- ###Unsolved problems.
- -Restricting the user's goat placement to actual horizontal or vertical groupings of three would have been beyond the scope of this project so currently there is no restriction.
----
- ###Your biggest wins and challenges.
+
+
+- Run npm install in the terminal
+- Open in browser
+
+***
+
+ ## Unsolved problems.
+ 
+ 
+ - Restricting the user's goat placement to actual horizontal or vertical groupings of three would have been beyond the scope of this project so currently there is no restriction.
+
+***
+
+ ## Your biggest wins and challenges.
+ 
+ 
  Creating an algorithm for the computer to make a guess based on its previous guess was both a big win and a big challenge.
 snippets of code you used to solve
 
