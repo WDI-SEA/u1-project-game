@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Browsergotchi</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/poop/poop.ico">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+    <script>
+    (function(i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function() {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-101162647-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1 id="top-message">Your Little Pet</h1>
+    </header>
+    <main>
+        <section class="game-field">
+            <img id="pet" src="images/pets/lionhappy.png" alt="your little pet">
+            <div class="gameplay">
+                <img class="wearable glasses hidden" src="images/wearables/glasses.png" alt="hipster glasses">
+                <img class="wearable hairbow hidden" src="images/wearables/hairbow.png" alt="hairbow">
+                <img class="wearable hat hidden" src="images/wearables/hat.png" alt="hat">
+                <img class="wearable mustache hidden" src="images/wearables/mustache.png" alt="mustache">
+                <img class="wearable tie hidden" src="images/wearables/tie.png" alt="business tie">
+            </div>
+            <div class="poop-field hidden">
+            </div>
+            <div class="hunger hidden gameplay">
+                <meter id="hunger-meter" value="100" max="100"></meter>
+                <button id="feed-pet" class="feed">Feed</button>
+            </div>
+            <button id="wear-things" class="wear gameplay hidden">Accessorize</button>
+            <div class="menus">
+                <ul class="food-menu hidden">
+                </ul>
+                <ul class="wearables-menu hidden">
+                </ul>
+                <p id="nothing-unlocked" class="hidden">You haven't unlocked any of these items! Try to get your experience up!</p>
+            </div>
+        </section>
+        <section class="sub-game-field">
+            <p id="instructions" class="newgame">Keep your pet alive by feeding it various foods. More fun is unlocked as your pet's experience goes up. Don't forget to pick up the poop! Return to the page to check in with your pet.</p>
+            <p id="bottom-message" class="gameplay"></p>
+            <form class="newgame">
+                <input id="name-pet" type="text" placeholder="What is your pet 's name?">
+                <input class="submit-name" type="submit">
+            </form>
+            <button class="endgame reset hidden">RESET GAME</button>
+        </section>
+    </main>
+    <footer>
+        <!-- replace link with portfolio once i make one -->
+        <p>designed and coded by <a href="http://www.sarakevorkian.com/" target="_blank">sara kevorkian</a> 2017</p>
+        <p><a href="http://www.freepik.com/free-photos-vectors/icon">wearables icon vector created by Winkimages - Freepik.com</a></p>
+        <p class="instant-kill">instant kill 😞</p>
+    </footer>
+</body>
+
+</html>
