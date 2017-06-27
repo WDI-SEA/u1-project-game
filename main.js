@@ -5,22 +5,22 @@ var critical;
 var win = false;
 
 class Cat {
-    constructor(bio, name, type, hp, currentHp, attack, range, special, description, damage, counter, image, dead, strong, weak) {
-        this.bio = bio;
-        this.name = name;
-        this.type = type;
-        this.hp = hp;
-        this.currentHp = currentHp;
-        this.attack = attack;
-        this.range = range;
-        this.special = special;
-        this.description = description;
-        this.damage = damage;
-        this.counter = counter;
-        this.image = image;
-        this.dead = dead;
-        this.strong = strong;
-        this.weak = weak;
+    constructor(cat) {
+        this.bio = cat.bio;
+        this.name = cat.name;
+        this.type = cat.type;
+        this.hp = cat.hp;
+        this.currentHp = cat.currentHp;
+        this.attack = cat.attack;
+        this.range = cat.range;
+        this.special = cat.special;
+        this.description = cat.description;
+        this.damage = cat.damage;
+        this.counter = cat.counter;
+        this.image = cat.image;
+        this.dead = cat.dead;
+        this.strong = cat.strong;
+        this.weak = cat.weak;
     }
 }
 
