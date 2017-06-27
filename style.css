@@ -1,0 +1,347 @@
+/*==========
+  GENERIC
+==========*/
+
+* {
+    font-family: 'PT Serif', serif;
+}
+
+.flex {
+    display: flex;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.column {
+    flex-direction: column;
+    align-items: center;
+}
+
+.half {
+    width: 50%;
+}
+
+.hide {
+    display: none;
+}
+
+.uppercase-bold {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.lightblue {
+    background-color: lightblue;
+}
+
+.lightslategrey {
+    background-color: #99a6b2;
+}
+
+.mintgreen {
+    background-color: #F5FFFA;
+}
+
+.red {
+    border: 5px solid red !important;
+    animation-name: pulse_animation;
+    animation-duration: 3000ms;
+    transform-origin: 70% 70%;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes pulse_animation {
+    0% {
+        transform: scale(1);
+    }
+    30% {
+        transform: scale(1);
+    }
+    40% {
+        transform: scale(1.08);
+    }
+    50% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(1.05);
+    }
+    80% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/*==========
+TITLE SCREEN
+==========*/
+
+#title-screen {
+    text-align: center;
+}
+
+#title-screen > img {
+    max-height: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
+#title-screen > p {
+    font-size: 1.15em;
+    width: 785px;
+    margin: 0 auto;
+}
+
+.player-names {
+    width: 645px;
+    margin: 3em auto 0 auto;
+    justify-content: space-between;
+}
+
+#title-screen h2 {
+    margin-top: 3em;
+    margin-bottom: .2em;
+}
+
+.buttons {
+    width: 456px;
+    margin: 1.5em auto 0 auto;
+    justify-content: space-between;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.25em;
+}
+
+input {
+    border: 2px solid black;
+    font-size: 1em;
+    padding: .25em;
+}
+
+button {
+    height: 57px;
+    text-transform: uppercase;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 1em 2em;
+    background-color: white;
+    font-family: 'Playfair Display SC', serif;
+    letter-spacing: .15em;
+}
+
+
+/*==========
+PICK SCREEN
+==========*/
+
+#pick-screen {
+    text-align: center;
+}
+
+#pick-screen h1 {
+    margin-top: .3em;
+}
+
+.cat-pics {
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto 1em auto;
+}
+
+.cat-pics > div > img {
+    object-fit: contain;
+    height: 125px;
+    width: 125px;
+    border: 5px solid goldenrod;
+    margin: .5em 0;
+    background-color: white;
+}
+
+.cat-info {
+    height: 300px;
+    width: 625px;
+    margin: 0 auto;
+    margin-bottom: .5em;
+}
+
+.cat-info > .flex > .uppercase-bold {
+    width: 140px;
+    text-align: right;
+}
+
+.info {
+    padding-left: 1em;
+    width: 460px;
+}
+
+.cat-info p {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: .5em;
+}
+
+.picked-cats {
+    justify-content: space-between;
+    width: 70%;
+    margin: 0 auto;
+    align-items: flex-end;
+}
+
+.picked-cats > div > h2 {
+    margin: 0;
+}
+
+.pick-box {
+    object-fit: contain;
+    height: 100px;
+    width: 100px;
+    border: 5px solid black;
+    margin: 1em;
+    background-color: white;
+}
+
+
+/*==========
+FIGHT SCREEN
+==========*/
+
+#fight-screen {
+    position: relative;
+    width: 100%
+}
+
+progress[value] {
+    height: 20px;
+    width: 500px;
+    appearance: none;
+    background-color: green
+}
+
+progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+#fight-screen span {
+    margin-bottom: 1em;
+}
+
+#player1 {
+    align-items: flex-start;
+}
+
+#player2 {
+    align-items: flex-end;
+}
+
+.big-cat {
+    object-fit: contain;
+    height: 400px;
+    width: 400px;
+    margin-bottom: 2em;
+    transition: all .25s ease-out;
+}
+
+.moves {
+    height: 100px;
+    width: 400px;
+    border: 3px solid black;
+    margin-top: .5em;
+    background-color: white;
+}
+
+.move {
+    width: 50%;
+    height: 34%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 1em;
+}
+
+.p1attack {
+    margin-left: 150px;
+}
+
+.p2attack {
+    margin-right: 150px;
+}
+
+.damage {
+    background: radial-gradient(red, pink, #F5FFFA, #F5FFFA);
+}
+
+.heal {
+    background: radial-gradient(green, lightgreen, #F5FFFA, #F5FFFA);
+}
+
+.special {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    background: radial-gradient(blue, lightblue, lightblue, #F5FFFA, #F5FFFA);
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.fight-cats {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.message {
+    border: 3px solid black;
+    border-radius: 25px;
+    text-align: center;
+    width: 500px;
+    padding-top: 1.5em;
+    background-color: white;
+}
+
+#winners-screen {
+    height: 500px;
+    width: 900px;
+    border: 5px solid black;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    margin-left: -455px;
+    border-radius: 75px;
+    background-color: white;
+    text-align: center;
+}
+
+.dead {
+    background-color: rgba(250, 50, 50, 0.55);
+    z-index: 1000;
+}
