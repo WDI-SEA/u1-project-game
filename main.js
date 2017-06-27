@@ -215,9 +215,9 @@ function moveChoice(attacker, opponent, attackerArray, attackerIndex, opponentAr
         $(opponent).find('.big-cat').removeClass('damage');
       }, 1000);
       if (!critical) {
-        $('.message').html(`${playerCat.special} hit ${enemyCat.name} for ${specValue} damage!`);
+        $('.message').html(`${playerCat.special.specialName} hit ${enemyCat.name} for ${specValue} damage!`);
       } else if (critical) {
-        $('.message').html(`${playerCat.special} crit ${enemyCat.name} for ${specValue} damage!`);
+        $('.message').html(`${playerCat.special.specialName} crit ${enemyCat.name} for ${specValue} damage!`);
       }
       if (strong) {
         $('.message').append($('<p>').text("It's very effective!"));
