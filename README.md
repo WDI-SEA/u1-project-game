@@ -42,8 +42,6 @@ Cat Fight utilizes only a couple of things to work:
 * CSS
 * JavaScript
 * jQuery
-* Sublime Text Editor
-* Git & GitHub
 
 ### Installation
 
