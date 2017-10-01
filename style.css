@@ -1,0 +1,110 @@
+body {
+    background: url('images/bgimage.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+#container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    background: url('images/bgimage.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    border-bottom: 2px solid red;
+}
+/*#startmenu {
+    transition-duration: 2s;
+    background-image: url("images/bgimage.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 800px;
+}*/
+
+#bird {
+    position: absolute;
+    background: url('images/bird.png');
+    height: 42px;
+    width: 65px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 20%;
+    left: 15%;
+}
+#bird2 {
+    position: absolute;
+    background: url('images/bird2.png');
+    height: 42px;
+    width: 65px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    top: 20%;
+    left: 15%;
+}
+
+.pole {
+    position: absolute;
+    height: 130px;
+    width: 75px;
+    background-color: red;
+    right: -50px;
+}
+
+#column1 {
+    top: 0;
+}
+
+#column2 {
+    bottom: 0;
+}
+
+#score_div {
+    text-align: center;
+    font-size: 40px;
+}
+
+#restartbtn {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: black;
+    color: white;
+    font-size: 35px;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+
+@media screen and (max-width: 500px) {
+    body {
+        background-size: contain;
+    }
+    #container {
+        max-width: 100%;
+        height: 600px;
+        background-size: initial;
+        background-repeat: no-repeat;
+        -webkit-background-repeat: no-repeat;
+        -webkit-background-size: initial;
+        -webkit- height: 600px;
+        -webkit-max-width: 100%;
+    }
+    .pole {
+        height: 170px;
+        width: 50px;
+    }
+    #restartbtn {
+        width: 100%;
+    }
+    #score_div {
+        color: red;
+        font-size: 20px;
+        -webkit-color: red;
+        -webkit-font-size: 20px;
+    }
+}

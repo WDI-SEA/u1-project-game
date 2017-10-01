@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Flappy Bird</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div id="start-menu">
+        <button id="start-button"> Start </button>
+    </div>
+    <div id="container" class="hidden">
+        <div id="bird"></div>
+        <div id="column1" class="pole"></div>
+        <div id="column2" class="pole"></div>
+    </div>
+    <div id="score_div">
+        <p><b>Score: </b><span id="score">0</span></p>
+        <p><b>Speed: </b><span id="speed">10</span></p>
+        <p><b>Instructions: Press and hold the spacebar to flap up, avoid the red columns.</b></p>
+    </div>
+    <button id="restartbtn">Restart</button>
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
