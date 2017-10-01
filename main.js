@@ -1,9 +1,8 @@
 $(function() {
-
-
-
     //Declared variables 
     var container = $('#container');
+    var gameStart = false;
+    var startMenu = $('#start-menu');
     var bird = $('#bird');
     var pole = $('.pole');
     var column1 = $('#column1');
@@ -25,7 +24,6 @@ $(function() {
     var go_up = false;
     var score_updated = false;
     var game_over = false;
-
 
     var the_game = setInterval(function() {
         //stop the game if birds position touches 'top div, bottom div, column 1, and column 2'
@@ -117,10 +115,6 @@ $(function() {
     restartbtn.click(function() {
         location.reload();
     });
-
-
-
-
 
 
     // condition for bird collisions. 
