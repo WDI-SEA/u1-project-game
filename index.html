@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shooter</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="author" href="humans.txt">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="win-screen" class="first-hide">
+            <h1>The winner is!</h1>
+            <h2 id='player-1-score'></h2>
+            <h2 id='player-2-score'></h2>
+        </div>
+        <div id='start-screen'>
+            <h1>Welcome to Yosemite Sam's WildWest Shoot-out!</h1>
+            <p class="opening-text">The rules are quite simple....click Sam then Click the rabbit and earn a point!</p>
+            <p class="opening-text">If you click the bird you will lose a point!</p>
+            <p class="opening-text">Most Points in 20 seconds wins!</p>
+            <button id="ready-button">ARE YOU READY?</button>
+        </div>
+        <div id="endScreen" class="first-hide">
+            <h2 class="white-bold">Yosemite Sam Wins!!</h2>
+            <p id="endCount">0</p> in
+            <p id="endSeconds">0</p> Seconds
+            <br />
+            <button id="restart-game">PLAY AGAIN</button>
+        </div>
+        <div id="playground" class="first-hide" class="hide-playground">
+            <div id="start" class="first-hide">
+                <img src="http://yosemitesamquotes.com/wp-content/uploads/Yosemite-Sam-Quotes-300x281.png" alt="" class="small-img">
+            </div>
+            <div id="startgame" class="first-hide">
+                <img src="http://yosemitesamquotes.com/wp-content/uploads/Yosemite-Sam-Quotes-300x281.png" alt="" class="small-img">
+            </div>
+            <div>
+                <img id="bunny" class="first-hide" src="images/bugs.png" alt="bugs bunny" class="small-img">
+                <img id="tweety-bird" class="first-hide" src="images/Tweety-Bird.png" alt="tweety-bird" class="small-img">
+            </div>
+        </div>
+        <audio id="gun-sound" class="first-hide" controls>
+            <source src="sound/gun_sound.mp3" type="audio/mp3">
+        </audio>
+        <audio id="bird-sound">
+            <source src="sound/bird_noise.mp3" type="audio/mp3">
+        </audio>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
